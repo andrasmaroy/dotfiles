@@ -1,5 +1,5 @@
-export PATH="/Users/amaroy/Git/cms/depot_tools:/usr/local/sbin:$PATH"
-if [ -d "$HOME/.bin" ]; then
+export PATH="$HOME/Git/cms/depot_tools:/usr/local/sbin:$PATH"
+if [ -d ~/.bin ]; then
     export PATH="$HOME/.bin:$PATH"
 fi
 
