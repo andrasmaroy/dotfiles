@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Change commit author depending on origin url
 # Originally from @mmorearty
 # http://stackoverflow.com/a/13752961
 
