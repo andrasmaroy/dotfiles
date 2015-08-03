@@ -324,9 +324,21 @@ nnoremap <silent> p p`]
 noremap n nzz
 noremap N Nzz
 
-" Search using normal regexes
-nnoremap / /\v
-vnoremap / /\v
+" Search using normal regexes hacked with searchindex mappings
+nnoremap / :ShowSearchIndex<CR>/\v
+vnoremap / :ShowSearchIndex<CR>/\v
+
+nnoremap <silent> * *:ShowSearchIndex<CR>
+vnoremap <silent> * *:ShowSearchIndex<CR>
+
+nnoremap <silent> # #:ShowSearchIndex<CR>
+vnoremap <silent> # #:ShowSearchIndex<CR>
+
+nnoremap <silent> n n:ShowSearchIndex<CR>
+vnoremap <silent> n n:ShowSearchIndex<CR>
+
+nnoremap <silent> N N:ShowSearchIndex<CR>
+vnoremap <silent> N N:ShowSearchIndex<CR>
 
 " Visually select the text that was last edited/pasted (Vimcast#26).
 noremap gV `[v`]
@@ -386,6 +398,7 @@ map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
 " TODO: ,ig - toggle visual indentation guides
 " TODO: Use Cmd-1 thru Cmd-9 to switch to a specific tab number (like iTerm and Chrome) - and tabs have been set up to show numbers (Alt in Linux)
 " TODO: ,# ," ,' ,] ,) ,} to surround a word in these common wrappers. the # does #{ruby interpolation}. works in visual mode
+let g:indexed_search_mappings = 0
 
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#syntastic#enabled = 1
