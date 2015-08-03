@@ -403,22 +403,6 @@ let g:indexed_search_mappings = 0
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#syntastic#enabled = 1
 
-" variable names                default contents
-" ----------------------------------------------------------------------------
-" let g:airline_section_a       (mode, crypt, paste, iminsert)
-" let g:airline_section_b       (hunks, branch)
-" let g:airline_section_c       (bufferline or filename)
-" let g:airline_section_gutter  (readonly, csv)
-" let g:airline_section_x       (tagbar, filetype, virtualenv)
-" let g:airline_section_y       (fileencoding, fileformat)
-" let g:airline_section_z       (percentage, line number, column number)
-" let g:airline_section_warning (syntastic, whitespace)
-"
-" here is an example of how you could replace the branch indicator with
-" the current working directory, followed by the filename.
-" let g:airline_section_b = '%{getcwd()}'
-" let g:airline_section_c = '%t'
-
 let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_python_checkers = ['flake8']
 
