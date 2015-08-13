@@ -33,6 +33,7 @@ set showtabline=2               " Always show tab bar
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set virtualedit=onemore         " Allow the cursor to go one character after the end of the line
 set formatoptions-=o            " Don't start new lines w/ comment leader on pressing 'o'
+set switchbuf=useopen           " Don't open a new split if the buffer is already open
 
 " Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -150,6 +151,28 @@ set sidescroll=1
 set splitbelow "New split goes below
 set splitright "New split goes right
 
+" Set size of windows, always showing 79 columns vertical
+" and show the most possible horizontally while keeping 5 lines of each split
+set winwidth=79
+set winminwidth=20
+set winheight=5
+set winminheight=5
+set winheight=999
+
+" Split horizontally with both windows having the same size, reset without
+" argument
+function! SplitEqual(...)
+    if a:0
+        let &winheight=winheight(winnr()) / 2
+        execute 'split ' a:1
+    else
+        let &winheight=999
+    endif
+endfunction
+
+command -nargs=? -complete=file Spe call SplitEqual(<f-args>)
+nnoremap <leader>spe :Spe<space>
+
 " ================ Search ===========================
 
 set incsearch       " Find the next match as we type the search
@@ -176,7 +199,7 @@ if has("autocmd")
     \ endif
 
   " Show absolute numbers in insert mode, otherwise relative line numbers.
-  autocmd vimrc InsertEnter * :set number
+  autocmd vimrc InsertEnter * :set number norelativenumber
   autocmd vimrc InsertLeave * :set relativenumber
 
   " Treat .json files as .js
@@ -394,6 +417,7 @@ map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
 
 " TODO: inputrc to match macvim
 " TODO: debug comment insert mode with o
+
 " ======== skwp ==========
 " TODO: ,ig - toggle visual indentation guides
 " TODO: Use Cmd-1 thru Cmd-9 to switch to a specific tab number (like iTerm and Chrome) - and tabs have been set up to show numbers (Alt in Linux)
