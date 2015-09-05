@@ -3,6 +3,11 @@ if [ -d ~/.bin ]; then
     export PATH="$HOME/.bin:$PATH"
 fi
 
+# docker-machine
+if /Applications/VMware\ Fusion.app/Contents/Library/vmrun list | grep "/Users/amaroy/.docker/machine/machines/dev/dev.vmx" &> /dev/null; then
+    eval "$(docker-machine env dev)"
+fi
+
 export PUMPKIN_HOME="$HOME/.pumpkin"
 
 # Wrapper for python virtualenvs
