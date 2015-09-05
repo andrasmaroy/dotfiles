@@ -161,6 +161,7 @@ alias f='open -a Finder ./'
 alias numFiles='echo $(ls -1 | wc -l)'
 alias flushDNS='sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+alias ds='docker-machine start dev; eval $(docker-machine env dev)'
 
 # Get escape code for a character
 function escape() {
