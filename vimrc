@@ -32,7 +32,6 @@ set report=0                    " Show all changes
 set showtabline=2               " Always show tab bar
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set virtualedit=onemore         " Allow the cursor to go one character after the end of the line
-set formatoptions-=o            " Don't start new lines w/ comment leader on pressing 'o'
 set switchbuf=useopen           " Don't open a new split if the buffer is already open
 
 " Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
@@ -203,15 +202,17 @@ if has("autocmd")
   autocmd vimrc InsertLeave * :set relativenumber
 
   " Treat .json files as .js
-  autocmd vimrc BufNewFile,BufRead *.json setlocal ft=json syn=javascript
+  autocmd vimrc BufNewFile,BufRead *.json setl ft=json syn=javascript
   " Treat .md files as Markdown
-  autocmd vimrc BufNewFile,BufRead *.md setlocal ft=markdown
+  autocmd vimrc BufNewFile,BufRead *.md setl ft=markdown
+  " Vagrantfile
+  autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby ts=2 sts=2 sw=2
   " Proper indentation for puppet files
   autocmd vimrc FileType puppet setl ts=2 sts=2 sw=2
   " Proper indentation for ruby files
   autocmd vimrc FileType ruby setl ts=2 sts=2 sw=2
-  " Vagrantfile
-  autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby ts=2 sts=2 sw=2
+  " Don't start new lines w/ comment leader on pressing 'o'
+  autocmd vimrc Filetype * setl fo-=o
  " https://github.com/nvie/vimrc/blob/master/vimrc :489
  "  augroup python_files "{{{
  "        au!
@@ -415,8 +416,6 @@ map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
 
 
 
-" TODO: inputrc to match macvim
-" TODO: debug comment insert mode with o
 
 " ======== skwp ==========
 " TODO: ,ig - toggle visual indentation guides
