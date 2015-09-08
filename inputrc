@@ -1,7 +1,7 @@
 "\e[A": history-search-backward     # up arrow
 "\e[B": history-search-forward      # down arrow
-"\e[5": previous-history            # fn-up / page up
-"\e[6": next-history                # fn-down / page down
+"\e[5~": previous-history           # page up
+"\e[6~": next-history               # page down
 
 set show-all-if-ambiguous on
 set completion-ignore-case on
