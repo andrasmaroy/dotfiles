@@ -153,7 +153,7 @@ set splitright "New split goes right
 " Set size of windows, always showing 79 columns vertical
 " and show the most possible horizontally while keeping 5 lines of each split
 set winwidth=79
-set winminwidth=20
+silent! set winminwidth=20
 set winheight=5
 set winminheight=5
 set winheight=999
@@ -169,7 +169,7 @@ function! SplitEqual(...)
     endif
 endfunction
 
-command -nargs=? -complete=file Spe call SplitEqual(<f-args>)
+command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
 nnoremap <leader>spe :Spe<space>
 
 " ================ Search ===========================
@@ -290,7 +290,7 @@ map <leader>t<leader> :tabnext
 " nnoremap <leader>d :GdiffInTab<cr>
 
 " Save a file as root (,W)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " Sane movement with wrap turned on
 nnoremap j gj
