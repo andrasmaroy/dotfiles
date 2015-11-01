@@ -95,7 +95,7 @@ GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_SHOWUPSTREAM="auto"
 
 # Prompt setup
-PROMPT_COMMAND='__git_ps1 '                             # Git promp
+PROMPT_COMMAND='__git_ps1 '                             # Git prompt
 PROMPT_COMMAND+='"\[\033]0;\w\007\]'                    # Window title to CWD
 PROMPT_COMMAND+='\t '                                   # Current time
 PROMPT_COMMAND+='`if [ \$? = 0 ]; then echo \\\[\\\e[32m\\\][\$?]; else echo \\\[\\\e[31m\\\][\$?]; fi`'    # Exit code color coded
@@ -103,7 +103,7 @@ PROMPT_COMMAND+='\[${reset}\] '
 PROMPT_COMMAND+='\[${userStyle}\]\u'                    # Username
 PROMPT_COMMAND+='\[${reset}\]@'
 PROMPT_COMMAND+='\[${hostStyle}\]\h:'                   # Hostname
-PROMPT_COMMAND+='\[${reset}${bold}\]\w'                 # Working dir
+PROMPT_COMMAND+='\[${reset}${bold}\]$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
 PROMPT_COMMAND+='\[${reset}\]" '
 PROMPT_COMMAND+='"\[${white}\]\n\\\$\[${reset}\] ";'    # $ in newline
 export PROMPT_COMMAND
