@@ -103,7 +103,8 @@ PROMPT_COMMAND+='\[${reset}\] '
 PROMPT_COMMAND+='\[${userStyle}\]\u'                    # Username
 PROMPT_COMMAND+='\[${reset}\]@'
 PROMPT_COMMAND+='\[${hostStyle}\]\h:'                   # Hostname
-PROMPT_COMMAND+='\[${reset}${bold}\]$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
+PROMPT_COMMAND+='\[${reset}${bold}\]$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")\[${reset}\]'
+PROMPT_COMMAND+='$([[ -n "$VIRTUAL_ENV" ]] && echo " (\[${blue}\]${VIRTUAL_ENV##*/}\[${reset}\])")' # Virtualenv
 PROMPT_COMMAND+='\[${reset}\]" '
 PROMPT_COMMAND+='"\[${white}\]\n\\\$\[${reset}\] ";'    # $ in newline
 export PROMPT_COMMAND
