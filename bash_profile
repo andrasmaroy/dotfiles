@@ -90,35 +90,68 @@ if [ -f "${HOME}/.git-prompt.sh" ]; then
   export GIT_PS1_SHOWUPSTREAM='auto'
 fi
 
+# Color the given return code
+__return_code() {
+  if [ "$1" -eq 0 ]; then
+    echo -n "${GREEN}"
+  else
+    echo -n "${RED}"
+  fi
+  echo "${1}${RESET}"
+}
+
+# Get CWD abbreviated VIm style
+__abbrev_cwd() {
+  p="${PWD#$HOME}"
+  if [[ "${PWD}" != "${p}" ]]; then
+    echo -n '~'
+  fi
+  sed 's:\([^/]\)[^/]*/:\1/:g' <<< "${p}"
+}
+
 # Highlight the user name when logged in as root
-if [[ "${USER}" == 'root' ]]; then
-    userStyle="${RED}"
-else
-    userStyle="${RESET}"
-fi;
+__user_style() {
+  if [[ "${USER}" == 'root' ]]; then
+    echo "${RED}"
+  fi
+}
 
 # Highlight the hostname when connected via SSH
-if [[ "${SSH_TTY}" ]]; then
-    hostStyle="${BOLD}${RED}"
-else
-    hostStyle="${RESEST}"
-fi;
+__host_style() {
+  if [[ -n "${SSH_TTY}" ]]; then
+    echo "${BOLD}${RED}"
+  fi
+}
 
-# Prompt setup
-PROMPT_COMMAND='__git_ps1 '                             # Git prompt
-PROMPT_COMMAND+='"\[\033]0;\w\007\]'                    # Window title to CWD
-PROMPT_COMMAND+='\t '                                   # Current time
-PROMPT_COMMAND+='`if [ \$? = 0 ]; then echo \\\[\\\e[32m\\\][\$?]; else echo \\\[\\\e[31m\\\][\$?]; fi`'    # Exit code color coded
-PROMPT_COMMAND+='\[${RESET}\] '
-PROMPT_COMMAND+='\[${userStyle}\]\u'                    # Username
-PROMPT_COMMAND+='\[${RESET}\]@'
-PROMPT_COMMAND+='\[${hostStyle}\]\h:'                   # Hostname
-PROMPT_COMMAND+='\[${RESET}${BOLD}\]$(sed "s:\([^/]\)[^/]*/:\1/:g" <<<$PWD)\[${RESET}\]'    # Working dir, abbreviated vim style
-PROMPT_COMMAND+='$([[ -n "$VIRTUAL_ENV" ]] && echo " (\[${BLUE}\]${VIRTUAL_ENV##*/}\[${RESET}\])")' # Virtualenv
-PROMPT_COMMAND+='\[${RESET}\]" '
-PROMPT_COMMAND+='"\[${WHITE}\]\n\\\$\[${RESET}\] ";'    # $ in newline
-export PROMPT_COMMAND
-#export PS1='\t [$?] \u@\h:\w$(__git_ps1)\$ '
+# Get current python virtualenv name
+__virtualenv_name() {
+  if [[ -n "${VIRTUAL_ENV}" ]]; then
+    echo "(${BLUE}${VIRTUAL_ENV##*/}${RESET}) "
+  fi
+}
+
+# Put together to prompt
+__prompt_command() {
+  local EXIT_CODE="$(__return_code $?)"       # this line has to be the first
+  local TITLEBAR="\033]0;$(__abbrev_cwd)\007"
+  local TIME='\t'
+  local USER="$(__user_style)\u${RESET}"
+  local HOST="$(__host_style)\h${RESET}"
+  local CWD="${BOLD}$(__abbrev_cwd)${RESET}"
+  local VENV="$(__virtualenv_name)"
+  local PROMPT="\n\[${WHITE}\]\$\[${RESET}\]"
+
+  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${USER}@${HOST}:${CWD} ${VENV}"
+  local POST="${PROMPT} "
+
+  if type -t __git_ps1 &> /dev/null; then
+    __git_ps1 "${PRE}" "${POST}" '(%s)'
+  else
+    export PS1="${PRE}${POST}"
+  fi
+}
+
+export PROMPT_COMMAND=__prompt_command
 
 # Extract most know archives with one command
 extract () {
