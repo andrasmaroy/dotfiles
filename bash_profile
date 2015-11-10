@@ -52,6 +52,7 @@ ORANGE="$(tput setaf 166)"
 
 # Enable colors for tools
 export CLICOLOR='Yes'
+export GREP_OPTIONS='--color'
 export LS_OPTIONS='--color=auto'
 export LSCOLORS='ExGxFxdaCxDADAadhbheFx'
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
@@ -200,7 +201,6 @@ alias gg='git status -s'
 alias gl='git log --graph --pretty=format:"%C(auto)%h %d %C(cyan)%an%C(reset) %s" $(git merge-base HEAD @{u})~3.. @{u}'
 alias gla='git log --graph --decorate --oneline HEAD @{u}'
 alias gd='git difftool -t vimdiff'
-alias grep='grep --color=auto'
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
 alias numFiles='echo $(ls -1 | wc -l)'
