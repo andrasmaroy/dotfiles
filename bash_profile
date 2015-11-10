@@ -194,8 +194,23 @@ escape() {
   fi
 }
 
+# Change sudo behaviour to preserve user profile
+sudo() {
+  if [[ "$@" == '-s' ]]; then
+    # sudo -s invoked, replace it with login prompt
+    command sudo /bin/bash -l
+  elif [ -z "$1" ] || [[ "$1" == -* ]]; then
+    # Some arguments passed to sudo, don't touch them
+    command sudo "$@"
+  else
+    # No arguments passed to sudo, add -E
+    command sudo -E "$@"
+  fi
+}
+
 # ================================= ALIASES ====================================
 
+alias sudo='sudo '                    # With this aliases can be used with sudo
 alias ll='ls -lAhp'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 alias gg='git status -s'
