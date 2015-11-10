@@ -1,5 +1,8 @@
 export PATH="/usr/local/sbin:${PATH}"
-export PATH="${HOME}/Git/github/depot_tools:${PATH}"
+
+if [ -d "${HOME}/Git/github/depot_tools:${PATH}" ]; then
+  export PATH="${HOME}/Git/github/depot_tools:${PATH}"
+fi
 
 if [ -d "$HOME/.bin" ]; then
   export PATH="${HOME}/.bin:${PATH}"
@@ -12,15 +15,16 @@ if [ -f '/Applications/VMware Fusion.app/Contents/Library/vmrun' ] \
   eval "$(docker-machine env dev)"
 fi
 
-export PUMPKIN_HOME="${HOME}/.pumpkin"
+if [ -d "${HOME}/.pumpkin" ]; then
+  export PUMPKIN_HOME="${HOME}/.pumpkin"
+fi
 
 # Wrapper for python virtualenvs
-source "$(brew --prefix)/bin/virtualenvwrapper.sh"
-export WORKON_HOME="${HOME}/.virtualenvs"
-
-# Git completion
-source ~/.git-completion.bash
-source ~/.git-prompt.sh
+if which brew &> /dev/null \
+     && [ -f "$(brew --prefix)/bin/virtualenvwrapper.sh" ]; then
+  source "$(brew --prefix)/bin/virtualenvwrapper.sh"
+  export WORKON_HOME="${HOME}/.virtualenvs"
+fi
 
 # Make vim the default editor.
 export EDITOR='vim'
@@ -62,6 +66,19 @@ fi
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
+# Git completion
+if [ -f "${HOME}/.git-completion.bash" ]; then
+  source "${HOME}/.git-completion.bash"
+fi
+
+if [ -f "${HOME}/.git-prompt.sh" ]; then
+  source "${HOME}/.git-prompt.sh"
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  export GIT_PS1_SHOWUNTRACKEDFILES=1
+  export GIT_PS1_SHOWCOLORHINTS=1
+  export GIT_PS1_SHOWUPSTREAM='auto'
+fi
+
 # Highlight the user name when logged in as root
 if [[ "${USER}" == 'root' ]]; then
     userStyle="${RED}"
@@ -75,12 +92,6 @@ if [[ "${SSH_TTY}" ]]; then
 else
     hostStyle="${RESEST}"
 fi;
-
-# Git prompt setup
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWCOLORHINTS=1
-GIT_PS1_SHOWUPSTREAM='auto'
 
 # Prompt setup
 PROMPT_COMMAND='__git_ps1 '                             # Git prompt
