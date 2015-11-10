@@ -56,6 +56,20 @@ export LSCOLORS='ExGxFxdaCxDADAadhbheFx'
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${ORANGE}"
 
+# Put timestamps in bash history
+export HISTTIMEFORMAT='%F %T '
+# Don't put duplicate commands into the history
+export HISTCONTROL='ignoreboth'
+# Don't record these commands in the history; who cares about ls?
+export HISTIGNORE='pwd:ls:history:'
+# Store more history
+export HISTSIZE=10000
+# Append to history, don't overwrite it
+shopt -s histappend
+
+# A setting that does its best to keep ssh connections from freezing
+export AUTOSSH_POLL=30
+
 # Add tab completion for many Bash commands
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion"
@@ -106,19 +120,6 @@ PROMPT_COMMAND+='"\[${WHITE}\]\n\\\$\[${RESET}\] ";'    # $ in newline
 export PROMPT_COMMAND
 #export PS1='\t [$?] \u@\h:\w$(__git_ps1)\$ '
 
-# History
-# put timestamps in my bash history
-export HISTTIMEFORMAT='%F %T '
-# don't put duplicate commands into the history
-export HISTCONTROL='ignoredups'
-# record only the most recent duplicated command (see above)
-export HISTCONTROL='ignoreboth'
-# don't record these commands in the history; who cares about ls?
-export HISTIGNORE='pwd:ls:history:'
-
-# a setting that does its best to keep ssh connections from freezing
-export AUTOSSH_POLL=30
-
 # Extract most know archives with one command
 extract () {
   if [ -f "$1" ]; then
@@ -140,6 +141,15 @@ extract () {
   fi
 }
 
+# Get escape code for a character
+escape() {
+  printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
+  # print a newline unless we’re piping the output to another program
+  if [ -t 1 ]; then
+    echo ""
+  fi
+}
+
 # Aliases
 alias ll='ls -lAhp'
 alias gg='git status -s'
@@ -153,13 +163,4 @@ alias numFiles='echo $(ls -1 | wc -l)'
 alias flushDNS='sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 alias ds='docker-machine start dev; eval $(docker-machine env dev)'
-
-# Get escape code for a character
-function escape() {
-    printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-    # print a newline unless we’re piping the output to another program
-    if [ -t 1 ]; then
-        echo ""
-    fi
-}
 
