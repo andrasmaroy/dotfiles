@@ -197,14 +197,14 @@ escape() {
 # ================================= ALIASES ====================================
 
 alias ll='ls -lAhp'
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 alias gg='git status -s'
 alias gl='git log --graph --pretty=format:"%C(auto)%h %d %C(cyan)%an%C(reset) %s" $(git merge-base HEAD @{u})~3.. @{u}'
 alias gla='git log --graph --decorate --oneline HEAD @{u}'
 alias gd='git difftool -t vimdiff'
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
-alias numFiles='echo $(ls -1 | wc -l)'
-alias flushDNS='sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches'
-alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-alias ds='docker-machine start dev; eval $(docker-machine env dev)'
+alias numfiles='echo $(ls -1 | wc -l)'
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias ds='docker-machine start dev && eval $(docker-machine env dev)'
 
