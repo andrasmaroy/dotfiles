@@ -1,3 +1,4 @@
+# ============================== BASH PROFILE ==================================
 export PATH="/usr/local/sbin:${PATH}"
 
 if [ -d "${HOME}/Git/github/depot_tools:${PATH}" ]; then
@@ -25,6 +26,8 @@ if which brew &> /dev/null \
   source "$(brew --prefix)/bin/virtualenvwrapper.sh"
   export WORKON_HOME="${HOME}/.virtualenvs"
 fi
+
+# ============================ TERMINAL OPTIONS ================================
 
 # Make vim the default editor.
 export EDITOR='vim'
@@ -70,6 +73,8 @@ shopt -s histappend
 # A setting that does its best to keep ssh connections from freezing
 export AUTOSSH_POLL=30
 
+# =============================== COMPLETIONS ==================================
+
 # Add tab completion for many Bash commands
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion"
@@ -82,6 +87,9 @@ if [ -f "${HOME}/.git-completion.bash" ]; then
   source "${HOME}/.git-completion.bash"
 fi
 
+# ============================== PROMPT SETUP ==================================
+
+# Git prompt setup
 if [ -f "${HOME}/.git-prompt.sh" ]; then
   source "${HOME}/.git-prompt.sh"
   export GIT_PS1_SHOWDIRTYSTATE=1
@@ -153,6 +161,8 @@ __prompt_command() {
 
 export PROMPT_COMMAND=__prompt_command
 
+# ============================ HELPER FUNCTIONS ================================
+
 # Extract most know archives with one command
 extract () {
   if [ -f "$1" ]; then
@@ -183,7 +193,8 @@ escape() {
   fi
 }
 
-# Aliases
+# ================================= ALIASES ====================================
+
 alias ll='ls -lAhp'
 alias gg='git status -s'
 alias gl='git log --graph --pretty=format:"%C(auto)%h %d %C(cyan)%an%C(reset) %s" $(git merge-base HEAD @{u})~3.. @{u}'
