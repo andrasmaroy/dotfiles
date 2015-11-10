@@ -63,9 +63,6 @@ elif [ -f /etc/bash_completion ]; then
   source /etc/bash_completion
 fi
 
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
-
 # Git completion
 if [ -f "${HOME}/.git-completion.bash" ]; then
   source "${HOME}/.git-completion.bash"
@@ -108,11 +105,6 @@ PROMPT_COMMAND+='\[${RESET}\]" '
 PROMPT_COMMAND+='"\[${WHITE}\]\n\\\$\[${RESET}\] ";'    # $ in newline
 export PROMPT_COMMAND
 #export PS1='\t [$?] \u@\h:\w$(__git_ps1)\$ '
-
-# Bash completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
-fi
 
 # History
 # put timestamps in my bash history
