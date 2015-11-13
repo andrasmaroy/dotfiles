@@ -25,6 +25,9 @@ if which brew &> /dev/null \
      && [ -f "$(brew --prefix)/bin/virtualenvwrapper.sh" ]; then
   source "$(brew --prefix)/bin/virtualenvwrapper.sh"
   export WORKON_HOME="${HOME}/.virtualenvs"
+elif [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  source /usr/local/bin/virtualenvwrapper.sh
+  export WORKON_HOME="${HOME}/.virtualenvs"
 fi
 
 # ============================ TERMINAL OPTIONS ================================
@@ -51,11 +54,17 @@ PURPLE="$(tput setaf 141)"
 ORANGE="$(tput setaf 166)"
 
 # Enable colors for tools
-export CLICOLOR='Yes'
 export GREP_OPTIONS='--color'
-export LS_OPTIONS='--color=auto'
-export LSCOLORS='ExGxFxdaCxDADAadhbheFx'
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+# http://askubuntu.com/a/17300
+# https://github.com/apjanke/oh-my-zsh-custom/blob/master/lscolors.zsh
+if (ls --color &> /dev/null); then
+  alias ls='ls --color=auto'
+  export LS_COLORS='di=1;34:ln=1;36:so=1;35:pi=33;40:ex=1;32:bd=1;33;40:cd=1;33;40:su=30;43:sg=37;41:tw=37;44:ow=1;35'
+else
+  export CLICOLOR='Yes'
+  export LSCOLORS='ExGxFxdaCxDADAadhbheFx'
+fi
 
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${ORANGE}"
@@ -79,6 +88,8 @@ export AUTOSSH_POLL=30
 # Add tab completion for many Bash commands
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion"
+elif [ -f /usr/share/bash-completion/bash_completion ]; then
+  source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
   source /etc/bash_completion
 fi
@@ -93,6 +104,13 @@ fi
 # Git prompt setup
 if [ -f "${HOME}/.git-prompt.sh" ]; then
   source "${HOME}/.git-prompt.sh"
+elif [ -f /etc/bash_completion.d/git-prompt ]; then
+  source /etc/bash_completion.d/git-prompt
+elif [ -f /usr/lib/git-core/git-sh-prompt ]; then
+  source /usr/lib/git-core/git-sh-prompt
+fi
+
+if type -t __git_ps1 &> /dev/null; then
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWUNTRACKEDFILES=1
   export GIT_PS1_SHOWCOLORHINTS=1
@@ -220,6 +238,9 @@ alias gd='git difftool -t vimdiff'
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
 alias numfiles='echo $(ls -1 | wc -l)'
-alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-alias ds='docker-machine start dev && eval $(docker-machine env dev)'
+
+if [[ "$(uname -s)" == 'Darwin' ]]; then
+  alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+  alias ds='docker-machine start dev && eval $(docker-machine env dev)'
+fi
 
