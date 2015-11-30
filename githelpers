@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Log output:
+#
+# * cbb7e09  (13 days)  <amaroy>   Initial commit
+#
+# Original design by Gary Bernhardt
+# https://github.com/garybernhardt/dotfiles/blob/master/.githelpers
+# Added code to keep colors on the graph.
+#
+# The time massaging regexes start with ^[^<]* because that ensures that they
+# only operate before the first "<". That "<" will be the beginning of the
+# author name, ensuring that we don't destroy anything in the commit message
+# that looks like time.
+#
+# The log format uses ASCII separator characters between each field, and
+# `column` is later used to split on them.
+
+IFS=$'\n'
+
+# ASCII separator characters won't ever be in commit messages
+SEP="$(echo -e '\x1E')"     # Field separator
+SEP2="$(echo -e '\x1F')"    # Separate the graph from the rest
+
+HASH='%C(auto)%h%C(reset)'
+RELATIVE_TIME='%C(green)(%ar)%C(reset)'
+AUTHOR='%C(bold cyan)<%an>%C(reset)'
+REFS='%C(auto)%d%C(reset)'
+SUBJECT='%s'
+
+FORMAT="${SEP2}${HASH}${SEP}${RELATIVE_TIME}${SEP}${AUTHOR}${SEP}${REFS} ${SUBJECT}"
+
+ANSI_RED='\033[31m'
+ANSI_RESET='\033[0m'
+
+pretty_git_log() {
+  log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E 's/\\/\\\\/g')"
+  # Get only the graph from the beginning of the line and mark the end with a separator
+  graph_with_colors="$(echo "${log_output}" | cut -f 1 -d "${SEP2}" | sed -E "s/^(.*)$/\1${SEP}/")"
+  echo "${log_output}" |
+    # Replace (2 years ago) with (2 years)
+    sed -E 's/(^[^<]*) ago\)/\1)/' |
+    # Replace (2 years, 5 months) with (2 years)
+    sed -E 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
+    # Temprarily remove colors from the graph, as those don't play well with `column`
+    awk -F "${SEP2}" -v sep="${SEP}" -v plain="$(echo ${graph_with_colors} | sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g')" \
+    '{split(plain,plainarr,sep" ?")};{$1=plainarr[FNR]FS}; 1' |
+    # Line columns up based on the separator
+    column -s "${SEP}" -t |
+    # Color merge commits specially
+    sed -E "s/(Merge ((remote-tracking )?branch(es)?|pull request) .*$)/$(printf ${ANSI_RED})\1$(printf ${ANSI_RESET})/" |
+    # Add colors to the graph again
+    awk -F "${SEP2} " -v sep="${SEP}" -v colored="$(echo ${graph_with_colors})" '{split(colored,coloredarr," "sep" ?")};{$1=coloredarr[FNR]}; 1' |
+    # Page in a way that cuts off long lines
+    less --QUIT-AT-EOF --quit-if-one-screen --RAW-CONTROL-CHARS --chop-long-lines --no-init
+}
+
