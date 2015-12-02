@@ -231,10 +231,6 @@ sudo() {
 alias sudo='sudo '                    # With this aliases can be used with sudo
 alias ll='ls -lAhp'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-alias gg='git status -s'
-alias gl='(. ~/.githelpers && pretty_git_log HEAD @{u} --not $(git merge-base HEAD @{u})~3)'
-alias gla='(. ~/.githelpers && pretty_git_log --all)'
-alias gd='git difftool -t vimdiff'
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
 alias numfiles='echo $(ls -1 | wc -l)'
