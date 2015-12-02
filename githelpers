@@ -33,6 +33,11 @@ FORMAT="${SEP2}${HASH}${SEP}${RELATIVE_TIME}${SEP}${AUTHOR}${SEP}${REFS} ${SUBJE
 ANSI_RED='\033[31m'
 ANSI_RESET='\033[0m'
 
+show_git_head() {
+    pretty_git_log -1
+    git show -p --stat $*
+}
+
 pretty_git_log() {
   log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E 's/\\/\\\\/g')"
   # Get only the graph from the beginning of the line and mark the end with a separator

@@ -22,6 +22,8 @@
 	email = user@example.com
 [alias]
 	compactlog = log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short
+	# Show the HEAD commit and its contents
+	hp = "!bash -c '. ~/.githelpers && show_git_head $*' $*"
 [push]
 	default = simple
 [diff]
