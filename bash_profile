@@ -182,6 +182,11 @@ export PROMPT_COMMAND=__prompt_command
 
 # ============================ HELPER FUNCTIONS ================================
 
+# Get statistics of used commands
+commandstats() {
+  history | awk '{print $4}' | awk 'BEGIN {FS="|"} {print $1}' | sort | uniq -c | sort -rn | head -30
+}
+
 # Get escape code for a character
 escape() {
   printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
