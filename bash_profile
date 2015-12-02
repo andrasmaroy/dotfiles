@@ -12,7 +12,7 @@ fi
 # docker-machine
 if [ -f '/Applications/VMware Fusion.app/Contents/Library/vmrun' ] \
      && '/Applications/VMware Fusion.app/Contents/Library/vmrun' list \
-     | grep "${HOME}/.docker/machine/machines/dev/dev.vmx" &> /dev/null; then
+     | grep "${HOME}/.docker/machine/machines/Docker/Docker.vmx" &> /dev/null; then
   eval "$(docker-machine env dev)"
 fi
 
@@ -242,6 +242,6 @@ alias numfiles='echo $(ls -1 | wc -l)'
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-  alias ds='docker-machine start dev && eval $(docker-machine env dev)'
+  alias ds='docker-machine start Docker && eval $(docker-machine env Docker)'
 fi
 
