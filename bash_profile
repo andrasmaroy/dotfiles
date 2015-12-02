@@ -182,6 +182,15 @@ export PROMPT_COMMAND=__prompt_command
 
 # ============================ HELPER FUNCTIONS ================================
 
+# Get escape code for a character
+escape() {
+  printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
+  # print a newline unless we’re piping the output to another program
+  if [ -t 1 ]; then
+    echo ""
+  fi
+}
+
 # Extract most know archives with one command
 extract () {
   if [ -f "$1" ]; then
@@ -200,15 +209,6 @@ extract () {
     esac
   else
     echo "'$1' is not a valid file"
-  fi
-}
-
-# Get escape code for a character
-escape() {
-  printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
-  # print a newline unless we’re piping the output to another program
-  if [ -t 1 ]; then
-    echo ""
   fi
 }
 
