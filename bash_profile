@@ -1,7 +1,7 @@
 # ============================== BASH PROFILE ==================================
 export PATH="/usr/local/sbin:${PATH}"
 
-if [ -d "${HOME}/Git/github/depot_tools:${PATH}" ]; then
+if [ -d "${HOME}/Git/github/depot_tools" ]; then
   export PATH="${HOME}/Git/github/depot_tools:${PATH}"
 fi
 
@@ -13,7 +13,7 @@ fi
 if [ -f '/Applications/VMware Fusion.app/Contents/Library/vmrun' ] \
      && '/Applications/VMware Fusion.app/Contents/Library/vmrun' list \
      | grep "${HOME}/.docker/machine/machines/Docker/Docker.vmx" &> /dev/null; then
-  eval "$(docker-machine env dev)"
+  eval "$(docker-machine env Docker)"
 fi
 
 if [ -d "${HOME}/.pumpkin" ]; then
