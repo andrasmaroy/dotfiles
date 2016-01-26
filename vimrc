@@ -158,6 +158,16 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
+" Hack to change preview window sizes in the same fashion
+" http://stackoverflow.com/a/3787326
+set previewheight=999
+au BufEnter ?* call PreviewHeightWorkAround()
+func PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunc
+
 " Split horizontally with both windows having the same size, reset without
 " argument
 function! SplitEqual(...)
