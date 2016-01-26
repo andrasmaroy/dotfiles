@@ -239,6 +239,7 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
 alias numfiles='echo $(ls -1 | wc -l)'
+alias prettyjson='python -m json.tool'
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
