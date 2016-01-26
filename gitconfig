@@ -35,11 +35,13 @@
 	# Show all commits
 	la = "!bash -c '. ~/.githelpers && pretty_git_log --all $*' $*"
 	ss = status -s
-	d = difftool -t vimdiff
+	d = difftool
+	dg = difftool -g
 [push]
 	default = simple
 [diff]
-	tool = p4mergetool
+	tool = vimdiff
+	guitool = p4mergetool
 [difftool]
 	prompt = false
 [difftool "p4mergetool"]
