@@ -60,9 +60,6 @@ runtime macros/matchit.vim      " Make % key smarter
 
 syntax on                       " Turn syntax highlighting on
 
-" Highlight trailing whitespace
-highlight SpecialKey ctermfg=DarkGray ctermbg=Black
-
 set nomodeline          " Do not use modelines, because of security vulnerability
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
@@ -99,12 +96,16 @@ set shiftwidth=4    " The # of spaces for indenting
 set softtabstop=4   " The # of spaces tab key results in
 set tabstop=4       " The # of spaces tabs indent
 
-set showmatch    " Show matching brackets
-set matchtime=5  " Duration to show matching brace
+" ================================ HIGHLIGHTING ================================
 
+" Hightlight color
+highlight SpecialKey ctermfg=DarkGray ctermbg=Black
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_
+
+set showmatch       " Show matching brackets
+set matchtime=5     " Duration to show matching brace
 
 " ================================== WRAPPING ==================================
 
