@@ -200,8 +200,8 @@ if has("autocmd")
     \ endif
 
   " Show absolute numbers in insert mode, otherwise relative line numbers.
-  autocmd vimrc InsertEnter * :set number norelativenumber
-  autocmd vimrc InsertLeave * :set relativenumber
+  autocmd vimrc InsertEnter * :setl number norelativenumber
+  autocmd vimrc InsertLeave * :setl relativenumber
 
   " Treat .json files as .js
   autocmd vimrc BufNewFile,BufRead *.json setl ft=json syn=javascript
