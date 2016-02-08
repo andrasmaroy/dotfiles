@@ -7,13 +7,14 @@ set background=dark
 colorscheme Tomorrow-Night-Eighties
 let g:solarized_termtrans=1
 
-" ================ General Config ====================
+" ================================== PATHOGEN ==================================
 
 " Pathogen load
 filetype off
-
 call pathogen#infect()
 call pathogen#helptags()
+
+" =============================== GENERAL CONFIG ===============================
 
 set shell=bash
 set number                      " Line numbers are good
@@ -73,13 +74,13 @@ set nomodeline          " Do not use modelines, because of security vulnerabilit
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 
-" ================ Turn Off Swap Files ==============
+" ================================= SWAP FILES =================================
 
 set noswapfile
 set nobackup
 set nowritebackup
 
-" ================ Persistent Undo ==================
+" ============================== PERSISTENT UNDO ===============================
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -89,7 +90,7 @@ if has('persistent_undo')
   set undofile
 endif
 
-" ================ Indentation ======================
+" ================================ INDENTATION =================================
 
 set autoindent     "Copy indent from last line when starting a new line
 set smartindent    "Make indenting smarter
@@ -109,18 +110,18 @@ filetype indent on
 " Display tabs and trailing spaces visually
 set list listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_
 
-" ================ Wraping ==========================
-"
+" ================================== WRAPPING ==================================
+
 set wrap                    " Wrap lines
 set linebreak               " Wrap lines at convenient points
 
-" ================ Folds ============================
+" =================================== FOLDS ====================================
 
 " Turn folding off for real, hopefully
 set foldmethod=manual
 set nofoldenable
 
-" ================ Completion =======================
+" ================================= COMPLETION =================================
 
 set completeopt=longest,menu,preview
 
@@ -139,13 +140,13 @@ set wildignore+=*DS_Store*
 "set wildignore+=tmp/**
 "set wildignore+=*.png,*.jpg,*.gif
 
-" ================ Scrolling ========================
+" ================================= SCROLLING ==================================
 
 set scrolloff=5         "Start scrolling when we're 5 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
-" ================ Splits ===========================
+" =================================== SPLITS ===================================
 
 set splitbelow "New split goes below
 set splitright "New split goes right
@@ -182,7 +183,7 @@ endfunction
 command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
 nnoremap <leader>spe :Spe<space>
 
-" ================ Search ===========================
+" =================================== SEARCH ===================================
 
 set incsearch       " Find the next match as we type the search
 set hlsearch        " Highlight searches by default
@@ -190,7 +191,7 @@ set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 set gdefault        " Substitute all matches on a line
 
-" ================ Autocmd ==========================
+" ================================== AUTOCMD ===================================
 
 if has("autocmd")
   " Create vimrc autocmd group and remove any existing vimrc autocmds,
@@ -277,7 +278,7 @@ if has("autocmd")
  "    augroup end " }}}
 endif
 
-" ================ Mappings =========================
+" ================================== MAPPINGS ==================================
 
 let mapleader=","               "Change leader to a comma
 
@@ -412,7 +413,7 @@ map <leader>v :view %%
 " Leader leader switches between the two most recent buffers
 nnoremap <leader><leader> <c-^>
 
-" ================ Plugins ==========================
+" ================================== PLUGINS ===================================
 
 " Use v to expand selection and ctrl-v to shrink
 vmap v <Plug>(expand_region_expand)
