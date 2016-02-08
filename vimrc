@@ -208,11 +208,9 @@ if has("autocmd")
   " Treat .md files as Markdown
   autocmd vimrc BufNewFile,BufRead *.md setl ft=markdown
   " Vagrantfile
-  autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby ts=2 sts=2 sw=2
-  " Proper indentation for puppet files
-  autocmd vimrc FileType puppet setl ts=2 sts=2 sw=2
-  " Proper indentation for ruby files
-  autocmd vimrc FileType ruby setl ts=2 sts=2 sw=2
+  autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby
+  " Proper indentation for source files
+  autocmd vimrc FileType puppet,ruby,sh setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
  " https://github.com/nvie/vimrc/blob/master/vimrc :489
