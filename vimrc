@@ -117,19 +117,11 @@ set nofoldenable
 set completeopt=longest,menu,preview
 
 set wildmode=longest:full
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-"stuff to ignore when tab completing
+set wildmenu                       " enable ctrl-n and ctrl-p to scroll thru matches
+" stuff to ignore when tab completing
 set wildignore=*.o,*.obj,*.pyc,*~  " ignore compiled files
-set wildignore+=.git\*,.hg\*,.svn\*
-"set wildignore+=*vim/backups*
-"set wildignore+=*sass-cache*
+set wildignore+=.git/*
 set wildignore+=*DS_Store*
-"set wildignore+=vendor/rails/**
-"set wildignore+=vendor/cache/**
-"set wildignore+=*.gem
-"set wildignore+=log/**
-"set wildignore+=tmp/**
-"set wildignore+=*.png,*.jpg,*.gif
 
 " ================================= SCROLLING ==================================
 
