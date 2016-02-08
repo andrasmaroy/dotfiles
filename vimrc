@@ -289,7 +289,7 @@ map <leader>t<leader> :tabnext
 " command! GdiffInTab tabedit %|vsplit|Gdiff
 " nnoremap <leader>d :GdiffInTab<cr>
 
-" Save a file as root (,W)
+" Save a file as root
 command! W w !sudo tee % > /dev/null
 
 " Sane movement with wrap turned on
@@ -318,7 +318,7 @@ inoremap <Up> <C-o>gk
 "  vmap <D-k> <M-k>
 "endif
 
-" Strip trailing whitespace (,ss)
+" Strip trailing whitespace
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
