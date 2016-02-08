@@ -102,9 +102,6 @@ set tabstop=4       " The # of spaces tabs indent
 set showmatch    " Show matching brackets
 set matchtime=5  " Duration to show matching brace
 
-" Enable file type detection
-filetype plugin on
-filetype indent on
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_
@@ -189,6 +186,12 @@ set hlsearch        " Highlight searches by default
 set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 set gdefault        " Substitute all matches on a line
+
+" ================================= FILETYPES ==================================
+
+" Enable file type detection
+filetype plugin on
+filetype indent on
 
 " ================================== AUTOCMD ===================================
 
