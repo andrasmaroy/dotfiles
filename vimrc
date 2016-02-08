@@ -91,13 +91,13 @@ endif
 
 " ================================ INDENTATION =================================
 
-set autoindent     "Copy indent from last line when starting a new line
-set smartindent    "Make indenting smarter
-set smarttab       "At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
-set expandtab      "Expand tabs to spaces
-set shiftwidth=4   "The # of spaces for indenting
-set softtabstop=4  "The # of spaces tab key results in
-set tabstop=4      "The # of spaces tabs indent
+set autoindent      " Copy indent from last line when starting a new line
+set smartindent     " Make indenting smarter
+set smarttab        " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+set expandtab       " Expand tabs to spaces
+set shiftwidth=4    " The # of spaces for indenting
+set softtabstop=4   " The # of spaces tab key results in
+set tabstop=4       " The # of spaces tabs indent
 
 set showmatch    " Show matching brackets
 set matchtime=5  " Duration to show matching brace
@@ -147,8 +147,8 @@ set sidescroll=1
 
 " =================================== SPLITS ===================================
 
-set splitbelow "New split goes below
-set splitright "New split goes right
+set splitbelow  " New split goes below
+set splitright  " New split goes right
 
 " Set size of windows, always showing 79 columns vertical
 " and show the most possible horizontally while keeping 5 lines of each split
@@ -200,8 +200,8 @@ if has("autocmd")
   augroup END
 
   " When editing a file, always jump to the last known cursor position. Don't do
-  " it for commit messages, when the position is invalid, or when inside an event
-  " handler (happens when dropping a file on gvim).
+  " it for commit messages, when the position is invalid, or when inside an
+  " event handler (happens when dropping a file on gvim).
   autocmd vimrc BufReadPost *
     \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
