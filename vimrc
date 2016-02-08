@@ -125,7 +125,9 @@ set wildignore+=*DS_Store*
 
 " ================================= SCROLLING ==================================
 
-set scrolloff=5         "Start scrolling when we're 5 lines away from margins
+" Start scrolling when we're 5 lines away from margins vertically
+set scrolloff=5
+" And 15 from the sides
 set sidescrolloff=15
 set sidescroll=1
 
