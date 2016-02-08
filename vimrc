@@ -28,6 +28,12 @@ set showtabline=2               " Always show tab bar
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set virtualedit=onemore         " Allow the cursor to go one character after the end of the line
 set switchbuf=useopen           " Don't open a new split if the buffer is already open
+set ttyfast                     " Optimize for fast terminal connections
+set encoding=utf-8 nobomb       " Use UTF-8 without BOM
+set nomodeline                  " Do not use modelines, because of security vulnerability
+
+runtime macros/matchit.vim      " Make % key smarter
+syntax on                       " Turn syntax highlighting on
 
 " Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -37,30 +43,18 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 set noerrorbells
 set visualbell
 
-" Optimize for fast terminal connections
-set ttyfast
-
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
-
 " Enable mouse in all modes
 if has('mouse')
   set mouse=a
 endif
 
-runtime macros/matchit.vim      " Make % key smarter
-
 " http://www.shallowsky.com/linux/noaltscreen.html
-" set t_ti= t_te=        " Don't clear the screen when quitting
+" set t_ti= t_te=               " Don't clear the screen when quitting
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
- set hidden
-
-syntax on                       " Turn syntax highlighting on
-
-set nomodeline          " Do not use modelines, because of security vulnerability
+set hidden
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
