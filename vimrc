@@ -1,12 +1,6 @@
 " Make Vim more useful
 set nocompatible
 
-" TODO move to a section
-" Use the Solarized Dark theme
-set background=dark
-colorscheme Tomorrow-Night-Eighties
-let g:solarized_termtrans=1
-
 " ================================== PATHOGEN ==================================
 
 " Pathogen load
@@ -73,6 +67,11 @@ set nomodeline          " Do not use modelines, because of security vulnerabilit
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
+
+" =================================== THEME ====================================
+
+set background=dark
+colorscheme Tomorrow-Night-Eighties
 
 " ================================= SWAP FILES =================================
 
