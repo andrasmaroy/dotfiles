@@ -168,7 +168,7 @@ __prompt_command() {
   local VENV="$(__virtualenv_name)"
   local PROMPT="\n\[${WHITE}\]\$\[${RESET}\]"
 
-  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${USER}@${HOST}:${CWD} ${VENV}"
+  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${VENV}${USER}@${HOST}:${CWD} "
   local POST="${PROMPT} "
 
   if type -t __git_ps1 &> /dev/null; then
