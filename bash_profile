@@ -157,6 +157,12 @@ __virtualenv_name() {
   fi
 }
 
+__jobs_count() {
+  local stopped=$(jobs -sp | wc -l | grep -Eo "[0-9]+")
+  local running=$(jobs -rp | wc -l | grep -Eo "[0-9]+")
+  if [ $stopped -ne 0 ] || [ $running -ne 0 ]; then echo "[${running}r/${stopped}s] "; fi
+}
+
 # Put together to prompt
 __prompt_command() {
   local EXIT_CODE="$(__return_code $?)"       # this line has to be the first
@@ -165,10 +171,11 @@ __prompt_command() {
   local USER="$(__user_style)\u${RESET}"
   local HOST="$(__host_style)\h${RESET}"
   local CWD="${BOLD}$(__abbrev_cwd)${RESET}"
+  local JOBS="${BOLD}$(__jobs_count)${RESET}"
   local VENV="$(__virtualenv_name)"
   local PROMPT="\n\[${WHITE}\]\$\[${RESET}\]"
 
-  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${VENV}${USER}@${HOST}:${CWD} "
+  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${JOBS}${VENV}${USER}@${HOST}:${CWD} "
   local POST="${PROMPT} "
 
   if type -t __git_ps1 &> /dev/null; then
