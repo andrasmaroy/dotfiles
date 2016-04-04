@@ -207,6 +207,12 @@ if has("autocmd")
     \   exe "normal g`\"" |
     \ endif
 
+  " Regenerate tags on write
+  autocmd vimrc BufWritePost *
+    \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
+    \   call system('"'.b:git_dir.'/hooks/ctags" &') |
+    \ endif
+
   " Show absolute numbers in insert mode, otherwise relative line numbers.
   autocmd vimrc InsertEnter * :set number norelativenumber
   autocmd vimrc InsertLeave * :set relativenumber

@@ -37,6 +37,7 @@
 	ss = status -s
 	d = difftool
 	dg = difftool -g
+	ctags = !.git/hooks/ctags
 [push]
 	default = simple
 [diff]
@@ -53,3 +54,5 @@
 	trustExitCode = true
 [mergetool]
 	keepBackup = false
+[init]
+	templatedir = ~/.git_template
