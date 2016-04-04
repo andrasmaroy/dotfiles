@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Allocate a random port then use that as a tunnel to the host provided in the
+# parameters. Uses the 'datacenter' host for the tunnel, configure that in
+# ~/.ssh/config
+
+if [ "$#" -ne 1 ]; then
+  echo "ERROR: no host name provided" >&2
+  exit 1
+fi
+
+while [ -z ${LOCAL_PORT} ]; do
+  # Port range of 49152...65535
+  LOCAL_PORT=$(( ( RANDOM % 16384 ) + 49152 ))
+  if [[ "$(uname -s)" == 'Darwin' ]]; then
+    if netstat -anp tcp | grep 'tcp4\s.*LISTEN' | awk '{print $4}' | awk -F '.' '{print $NF}' | grep --quiet ${LOCAL_PORT}; then
+      unset LOCAL_PORT
+    fi
+  else
+    # TODO: same for linux
+    netstat -tln
+  fi
+done
+readonly LOCAL_PORT
+
+# TODO: custom command - ssh / sftp / scp
+
+if ! ssh -f -N -L "${LOCAL_PORT}":"$1":22 datacenter; then
+  echo "ERROR: couldn't start tunnel." >&2
+  exit 1
+else
+  trap 'ssh -O exit datacenter' EXIT
+  echo "Using local port: ${LOCAL_PORT}"
+  ssh localhost -p "${LOCAL_PORT}"
+fi
+
