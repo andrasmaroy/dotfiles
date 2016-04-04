@@ -6,7 +6,11 @@
 
 # "Real" git is the second one returned by 'which'
 # REAL_GIT=$(which -a git | sed -n 2p)
-REAL_GIT='/usr/bin/git'
+if [ -x /usr/local/bin/git ]; then
+  REAL_GIT='/usr/local/bin/git'
+else
+  REAL_GIT='/usr/bin/git'
+fi
 
 # Does the remote "origin" point to GitHub?
 if ("$REAL_GIT" remote -v 2>/dev/null |
