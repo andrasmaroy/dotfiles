@@ -30,6 +30,11 @@ elif [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
 fi
 
+# RBEnv
+if which rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+fi
+
 # ============================ TERMINAL OPTIONS ================================
 
 # Make vim the default editor.
