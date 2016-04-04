@@ -352,18 +352,6 @@ noremap N Nzz
 nnoremap / :ShowSearchIndex<CR>/\v
 vnoremap / :ShowSearchIndex<CR>/\v
 
-nnoremap <silent> * *:ShowSearchIndex<CR>
-vnoremap <silent> * *:ShowSearchIndex<CR>
-
-nnoremap <silent> # #:ShowSearchIndex<CR>
-vnoremap <silent> # #:ShowSearchIndex<CR>
-
-nnoremap <silent> n n:ShowSearchIndex<CR>
-vnoremap <silent> n n:ShowSearchIndex<CR>
-
-nnoremap <silent> N N:ShowSearchIndex<CR>
-vnoremap <silent> N N:ShowSearchIndex<CR>
-
 " Visually select the text that was last edited/pasted (Vimcast#26).
 noremap gV `[v`]
 
@@ -404,31 +392,33 @@ nnoremap <leader><leader> <c-^>
 
 " ================================== PLUGINS ===================================
 
-" Use v to expand selection and ctrl-v to shrink
+" Expand region - Use v to expand selection and ctrl-v to shrink
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+" Command-T
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
 
-
-
-
-
-
-
-" ======== skwp ==========
-" TODO: ,ig - toggle visual indentation guides
-" TODO: Use Cmd-1 thru Cmd-9 to switch to a specific tab number (like iTerm and Chrome) - and tabs have been set up to show numbers (Alt in Linux)
-" TODO: ,# ," ,' ,] ,) ,} to surround a word in these common wrappers. the # does #{ruby interpolation}. works in visual mode
+" Indexed search
 let g:indexed_search_mappings = 0
+nnoremap <silent> * *:ShowSearchIndex<CR>
+vnoremap <silent> * *:ShowSearchIndex<CR>
+nnoremap <silent> # #:ShowSearchIndex<CR>
+vnoremap <silent> # #:ShowSearchIndex<CR>
+nnoremap <silent> n n:ShowSearchIndex<CR>
+vnoremap <silent> n n:ShowSearchIndex<CR>
+nnoremap <silent> N N:ShowSearchIndex<CR>
+vnoremap <silent> N N:ShowSearchIndex<CR>
 
+" Airline
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#syntastic#enabled = 1
 
+" Syntastic
 let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_python_checkers = ['flake8']
-
+" TODO: add bash linter
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
