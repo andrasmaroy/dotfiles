@@ -144,30 +144,6 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-" Hack to change preview window sizes in the same fashion
-" http://stackoverflow.com/a/3787326
-set previewheight=999
-au BufEnter ?* call PreviewHeightWorkAround()
-func PreviewHeightWorkAround()
-    if &previewwindow
-        exec 'setlocal winheight='.&previewheight
-    endif
-endfunc
-
-" Split horizontally with both windows having the same size, reset without
-" argument
-function! SplitEqual(...)
-    if a:0
-        let &winheight=winheight(winnr()) / 2
-        execute 'split ' a:1
-    else
-        let &winheight=999
-    endif
-endfunction
-
-command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
-nnoremap <leader>spe :Spe<space>
-
 " =================================== SEARCH ===================================
 
 set incsearch       " Find the next match as we type the search
@@ -318,16 +294,6 @@ inoremap <Up> <C-o>gk
 "  vmap <D-k> <M-k>
 "endif
 
-" Strip trailing whitespace
-function! StripWhitespace()
-  let save_cursor = getpos(".")
-  let old_query = getreg('/')
-  :%s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-
 " Return clears search highlight
 :nnoremap <CR> :nohlsearch<cr>
 
@@ -365,10 +331,50 @@ map <Right> :echo "no!"<cr>
 map <Up> :echo "no!"<cr>
 map <Down> :echo "no!"<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open files in directory of the current file
+cnoremap <expr> %% expand('%:h').'/'
+map <leader>e :edit %%
+map <leader>v :view %%
+
+" Leader leader switches between the two most recent buffers
+nnoremap <leader><leader> <c-^>
+
+" ================================= FUNCTIONS ==================================
+
+" Hack to change preview window sizes in the same fashion
+" http://stackoverflow.com/a/3787326
+set previewheight=999
+au BufEnter ?* call PreviewHeightWorkAround()
+function! PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunction
+
+" Split horizontally with both windows having the same size, reset without
+" argument
+function! SplitEqual(...)
+    if a:0
+        let &winheight=winheight(winnr()) / 2
+        execute 'split ' a:1
+    else
+        let &winheight=999
+    endif
+endfunction
+command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
+nnoremap <leader>spe :Spe<space>
+
+" Strip trailing whitespace
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" Tab - Indent if we're at the beginning of a line. Else, do completion.
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -379,16 +385,6 @@ function! InsertTabWrapper()
 endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OPEN FILES IN DIRECTORY OF CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap <expr> %% expand('%:h').'/'
-map <leader>e :edit %%
-map <leader>v :view %%
-
-" Leader leader switches between the two most recent buffers
-nnoremap <leader><leader> <c-^>
 
 " ================================== PLUGINS ===================================
 
