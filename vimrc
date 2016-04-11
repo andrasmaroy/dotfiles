@@ -21,6 +21,7 @@ set relativenumber              " User relative line numbers
 set numberwidth=5               " Show line numbers of up to 4 characters
 set cursorline                  " Highlight current line
 set backspace=indent,eol,start  " Allow backspace in insert mode
+set iskeyword-=_                " Treat underscore as word separator
 set history=1000                " Store lots of :cmdline history
 set showcmd                     " Show incomplete cmds down the bottom
 set showmode                    " Show current mode down the bottom
