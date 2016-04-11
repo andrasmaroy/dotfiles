@@ -179,6 +179,8 @@ if has("autocmd")
   autocmd vimrc InsertEnter * :setl number norelativenumber
   autocmd vimrc InsertLeave * :setl relativenumber
 
+  " Don't expand tabs in hosts file, that's the syntax
+  autocmd vimrc BufNewFile,BufRead hosts setl noexpandtab
   " Treat .json files as .js
   autocmd vimrc BufNewFile,BufRead *.json setl ft=json syn=javascript
   " Treat .md files as Markdown
