@@ -245,7 +245,8 @@ endif
 
 " ================================== MAPPINGS ==================================
 
-let mapleader=","               "Change leader to a comma
+" Change leader to a comma
+let mapleader=","
 
 " Ctrl-H/J/K/L select split
 nnoremap <C-H> <C-W>h
@@ -254,16 +255,15 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+noremap <leader>tn :tabnew<cr>
+noremap <leader>to :tabonly<cr>
+noremap <leader>tc :tabclose<cr>
+noremap <leader>tm :tabmove
+noremap <leader>t<leader> :tabnext
 
-" TODO: not working
 " Diff tab management: open the current git diff in a tab
-" command! GdiffInTab tabedit %|vsplit|Gdiff
-" nnoremap <leader>d :GdiffInTab<cr>
+command! GdiffInTab tabedit %|Gdiff
+nnoremap <leader>d :GdiffInTab<cr>
 
 " Save a file as root
 command! W w !sudo tee % > /dev/null
@@ -273,10 +273,6 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
@@ -295,15 +291,15 @@ inoremap <Up> <C-o>gk
 "endif
 
 " Return clears search highlight
-:nnoremap <CR> :nohlsearch<cr>
+nnoremap <CR> :nohlsearch<CR>
 
 " Copy and paste using system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+vnoremap <Leader>y "+y
+vnoremap <Leader>d "+d
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
 
 " Automatically jump to end of text you pasted:
 vnoremap <silent> y y`]
@@ -326,15 +322,15 @@ nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 
 " Disable arrow keys
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+noremap <Left> :echo "no!"<cr>
+noremap <Right> :echo "no!"<cr>
+noremap <Up> :echo "no!"<cr>
+noremap <Down> :echo "no!"<cr>
 
 " Open files in directory of the current file
 cnoremap <expr> %% expand('%:h').'/'
-map <leader>e :edit %%
-map <leader>v :view %%
+nmap <leader>v :view %%
+nmap <leader>e :edit %%
 
 " Leader leader switches between the two most recent buffers
 nnoremap <leader><leader> <c-^>
@@ -393,7 +389,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Command-T
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
 
 " Indexed search
