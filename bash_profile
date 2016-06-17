@@ -165,7 +165,9 @@ __virtualenv_name() {
 __jobs_count() {
   local stopped=$(jobs -sp | wc -l | grep -Eo "[0-9]+")
   local running=$(jobs -rp | wc -l | grep -Eo "[0-9]+")
-  if [ $stopped -ne 0 ] || [ $running -ne 0 ]; then echo "[${running}r/${stopped}s] "; fi
+  if [ $stopped -ne 0 ] || [ $running -ne 0 ]; then
+    echo "[${running}r/${stopped}s] "
+  fi
 }
 
 # Put together to prompt
