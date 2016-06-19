@@ -10,38 +10,17 @@ call pathogen#helptags()
 
 " =============================== GENERAL CONFIG ===============================
 
-set shell=bash
-set number                      " Line numbers are good
-set relativenumber              " User relative line numbers
-set numberwidth=5               " Show line numbers of up to 4 characters
-set cursorline                  " Highlight current line
+set shell=bash                  " Use bash instead of sh
 set backspace=indent,eol,start  " Allow backspace in insert mode
 set history=1000                " Store lots of :cmdline history
-set showcmd                     " Show incomplete cmds down the bottom
-set showmode                    " Show current mode down the bottom
-set ruler                       " Show the cursor position
-set laststatus=2                " Always show status line
-set title                       " Show the filename in the window titlebar
-set nojoinspaces                " Only insert single space after a '.', '?' and '!' with a join command.
-set report=0                    " Show all changes
-set showtabline=2               " Always show tab bar
-set nostartofline               " Don’t reset cursor to start of line when moving around.
+set nojoinspaces                " Only insert single space after a '.', '?' and '!' with a join command
+set nostartofline               " Don’t reset cursor to start of line when moving around
 set virtualedit=onemore         " Allow the cursor to go one character after the end of the line
-set switchbuf=useopen           " Don't open a new split if the buffer is already open
 set ttyfast                     " Optimize for fast terminal connections
 set encoding=utf-8 nobomb       " Use UTF-8 without BOM
 set nomodeline                  " Do not use modelines, because of security vulnerability
 
 runtime macros/matchit.vim      " Make % key smarter
-syntax on                       " Turn syntax highlighting on
-
-" Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Disable beep on errors
-set noerrorbells
-set visualbell
 
 " Enable mouse in all modes
 if has('mouse')
@@ -59,10 +38,35 @@ set hidden
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 
-" =================================== THEME ====================================
+" ================================ LOOK & FEEL =================================
 
+" Theme
 set background=dark
 colorscheme Tomorrow-Night-Eighties
+
+" Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+set showcmd         " Show incomplete cmds down the bottom
+set showmode        " Show current mode down the bottom
+set report=0        " Show all changes
+set ruler           " Show the cursor position
+set title           " Show the filename in the window titlebar
+set laststatus=2    " Always show status line
+set showtabline=2   " Always show tab bar
+
+" ================================ ERROR BELLS ================================
+
+" Disable beep on errors
+set noerrorbells
+set visualbell
+
+" ================================ LINE NUMBERS ================================
+
+set number                      " Line numbers are good
+set relativenumber              " Relative line number are even better
+set numberwidth=5               " Show line numbers of up to 4 characters
 
 " ================================= SWAP FILES =================================
 
@@ -92,6 +96,8 @@ set tabstop=4       " The # of spaces tabs indent
 
 " ================================ HIGHLIGHTING ================================
 
+syntax on           " Turn syntax highlighting on
+
 " Hightlight color
 highlight SpecialKey ctermfg=DarkGray ctermbg=Black
 
@@ -100,6 +106,7 @@ set list listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_
 
 set showmatch       " Show matching brackets
 set matchtime=5     " Duration to show matching brace
+set cursorline      " Highlight current line
 
 " ================================== WRAPPING ==================================
 
@@ -133,8 +140,9 @@ set sidescroll=1
 
 " =================================== SPLITS ===================================
 
-set splitbelow  " New split goes below
-set splitright  " New split goes right
+set splitbelow          " New split goes below
+set splitright          " New split goes right
+set switchbuf=useopen   " Don't open a new split if the buffer is already open
 
 " Set size of windows, always showing 79 columns vertical
 " and show the most possible horizontally while keeping 5 lines of each split
