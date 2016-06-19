@@ -199,58 +199,12 @@ if has("autocmd")
   autocmd vimrc FileType puppet,ruby,sh setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
- " https://github.com/nvie/vimrc/blob/master/vimrc :489
- "  augroup python_files "{{{
- "        au!
-
- "        " This function detects, based on Python content, whether this is a
- "        " Django file, which may enabling snippet completion for it
- "        fun! s:DetectPythonVariant()
- "            let n = 1
- "            while n < 50 && n < line("$")
- "                " check for django
- "                if getline(n) =~ 'import\s\+\<django\>' || getline(n) =~ 'from\s\+\<django\>\s\+import'
- "                    set ft=python.django
- "                    "set syntax=python
- "                    return
- "                endif
- "                let n = n + 1
- "            endwhile
- "            " go with html
- "            set ft=python
- "        endfun
- "        autocmd BufNewFile,BufRead *.py call s:DetectPythonVariant()
-
- "        " PEP8 compliance (set 1 tab = 4 chars explicitly, even if set
- "        " earlier, as it is important)
- "        autocmd filetype python setlocal textwidth=78
- "        autocmd filetype python match ErrorMsg '\%>120v.\+'
-
- "        " But disable autowrapping as it is super annoying
- "        autocmd filetype python setlocal formatoptions-=t
-
- "        " Folding for Python (uses syntax/python.vim for fold definitions)
- "        "autocmd filetype python,rst setlocal nofoldenable
- "        "autocmd filetype python setlocal foldmethod=expr
-
- "        " Python runners
- "        autocmd filetype python noremap <buffer> <F5> :w<CR>:!python %<CR>
- "        autocmd filetype python inoremap <buffer> <F5> <Esc>:w<CR>:!python %<CR>
- "        autocmd filetype python noremap <buffer> <S-F5> :w<CR>:!ipython %<CR>
- "        autocmd filetype python inoremap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
-
- "        " Automatic insertion of breakpoints
- "        autocmd filetype python nnoremap <buffer> <leader>bp :normal oimport pdb; pdb.set_trace()  # TODO: BREAKPOINT  # noqa<Esc>
-
- "        " Toggling True/False
- "        autocmd filetype python nnoremap <silent> <C-t> mmviw:s/True\\|False/\={'True':'False','False':'True'}[submatch(0)]/<CR>`m:nohlsearch<CR>
-
- "        " Run a quick static syntax check every time we save a Python file
- "        autocmd BufWritePost *.py call Flake8()
-
- "        " Defer to isort for sorting Python imports (instead of using Unix sort)
- "        autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
- "    augroup end " }}}
+  " https://github.com/nvie/vimrc/blob/master/vimrc :489
+  "  augroup python_files "{{{
+  "        au!
+  "        " Automatic insertion of breakpoints
+  "        autocmd filetype python nnoremap <buffer> <leader>bp :normal oimport pdb; pdb.set_trace()  # TODO: BREAKPOINT  # noqa<Esc>
+  "    augroup end " }}}
 endif
 
 " ================================== MAPPINGS ==================================
