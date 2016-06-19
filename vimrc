@@ -240,19 +240,23 @@ vnoremap k gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-" TODO: DEBUG
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" TODO: test linux/ssh
+" Move a line of text using ALT+[jk]
+" nnoremap j :m .+1<CR>==
+" nnoremap k :m .-2<CR>==
+" inoremap j <Esc>:m .+1<CR>==gi
+" inoremap k <Esc>:m .-2<CR>==gi
+" vnoremap j :m '>+1<CR>gv=gv
+" vnoremap k :m '<-2<CR>gv=gv
 
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
+" ALT+[jk] on Mac
+" TODO: replace escape with something else, it messes up exiting insert mode
+" if has("mac") || has("macunix")
+"   map ∆ j
+"   map ˚ k
+"   map! ∆ j
+"   map! ˚ k
+" endif
 
 " Return clears search highlight
 nnoremap <CR> :nohlsearch<CR>
