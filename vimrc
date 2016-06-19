@@ -203,7 +203,7 @@ if has("autocmd")
   "  augroup python_files "{{{
   "        au!
   "        " Automatic insertion of breakpoints
-  "        autocmd filetype python nnoremap <buffer> <leader>bp :normal oimport pdb; pdb.set_trace()  # TODO: BREAKPOINT  # noqa<Esc>
+  "        autocmd filetype python nnoremap <Buffer> <Leader>bp :normal oimport pdb; pdb.set_trace()  # TODO: BREAKPOINT  # noqa<Esc>
   "    augroup end " }}}
 endif
 
@@ -219,15 +219,15 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
 " Useful mappings for managing tabs
-noremap <leader>tn :tabnew<cr>
-noremap <leader>to :tabonly<cr>
-noremap <leader>tc :tabclose<cr>
-noremap <leader>tm :tabmove
-noremap <leader>t<leader> :tabnext
+noremap <Leader>tn :tabnew<CR>
+noremap <Leader>to :tabonly<CR>
+noremap <Leader>tc :tabclose<CR>
+noremap <Leader>tm :tabmove
+noremap <Leader>t<Leader> :tabnext
 
 " Diff tab management: open the current git diff in a tab
 command! GdiffInTab tabedit %|Gdiff
-nnoremap <leader>d :GdiffInTab<cr>
+nnoremap <Leader>d :GdiffInTab<CR>
 
 " Save a file as root
 command! W w !sudo tee % > /dev/null
@@ -290,18 +290,18 @@ nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 
 " Disable arrow keys
-noremap <Left> :echo "no!"<cr>
-noremap <Right> :echo "no!"<cr>
-noremap <Up> :echo "no!"<cr>
-noremap <Down> :echo "no!"<cr>
+noremap <Left> :echo "no!"<CR>
+noremap <Right> :echo "no!"<CR>
+noremap <Up> :echo "no!"<CR>
+noremap <Down> :echo "no!"<CR>
 
 " Open files in directory of the current file
 cnoremap <expr> %% expand('%:h').'/'
-nmap <leader>v :view %%
-nmap <leader>e :edit %%
+nmap <Leader>v :view %%
+nmap <Leader>e :edit %%
 
 " Leader leader switches between the two most recent buffers
-nnoremap <leader><leader> <c-^>
+nnoremap <Leader><Leader> <C-^>
 
 " ================================= FUNCTIONS ==================================
 
@@ -326,7 +326,7 @@ function! SplitEqual(...)
     endif
 endfunction
 command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
-nnoremap <leader>spe :Spe<space>
+nnoremap <Leader>spe :Spe<Space>
 
 " Strip trailing whitespace
 function! StripWhitespace()
@@ -336,19 +336,19 @@ function! StripWhitespace()
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
+noremap <Leader>ss :call StripWhitespace()<CR>
 
 " Tab - Indent if we're at the beginning of a line. Else, do completion.
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
+        return "\<Tab>"
     else
-        return "\<c-p>"
+        return "\<C-p>"
     endif
 endfunction
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
+inoremap <expr> <Tab> InsertTabWrapper()
+inoremap <S-Tab> <C-n>
 
 " ================================== PLUGINS ===================================
 
@@ -357,8 +357,8 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " CtrlP
-noremap <leader>f :CtrlPMixed<CR>
-map <leader>gf :CtrlP %%<cr>
+noremap <Leader>f :CtrlPMixed<CR>
+map <Leader>gf :CtrlP %%<CR>
 
 " Indexed search
 let g:indexed_search_mappings = 0
