@@ -356,9 +356,9 @@ inoremap <s-tab> <c-n>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" Command-T
-noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>gf :CommandTFlush<cr>\|:CommandT %%<cr>
+" CtrlP
+noremap <leader>f :CtrlPMixed<CR>
+map <leader>gf :CtrlP %%<cr>
 
 " Indexed search
 let g:indexed_search_mappings = 0
@@ -382,3 +382,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
