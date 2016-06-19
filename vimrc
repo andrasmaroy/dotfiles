@@ -374,7 +374,6 @@ let g:airline#extensions#syntastic#enabled = 1
 " Syntastic
 let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_python_checkers = ['flake8']
-" TODO: add bash linter
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
