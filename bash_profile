@@ -23,6 +23,16 @@ elif [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
 fi
 
+# Android stuff
+if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-ndk-r10e/r10e" ]; then
+  export NDK_HOME="$(brew --prefix)/Cellar/android-ndk-r10e/r10e"
+fi
+if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-sdk/22.0.5_1" ]; then
+  export ANDROID_HOME="$(brew --prefix)/Cellar/android-sdk/22.0.5_1"
+  export PATH="$ANDROID_HOME/platform-tools:$PATH"
+  export PATH="$ANDROID_HOME/tools:$PATH"
+fi
+
 # RBEnv
 if which rbenv > /dev/null; then
   eval "$(rbenv init -)"
