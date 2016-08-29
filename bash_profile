@@ -260,5 +260,6 @@ alias prettyjson='python -m json.tool'
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+  alias cask-updates='for cask in $(brew cask list); do echo -n "$cask "; brew cask info $cask | grep "Not installed"; if [ $? -eq 1 ]; then echo ""; fi; done'
 fi
 
