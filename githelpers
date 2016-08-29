@@ -38,6 +38,18 @@ show_git_head() {
     git show -p --stat $*
 }
 
+show_branch_history() {
+  local branch_point
+  local base_branch="master"
+  # TODO: use something smarter than just comparing to "master"
+  if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
+    branch_point=$(git rev-list --boundary HEAD..."${base_branch}" | grep "^-" | cut -c2- | tail -n 1)
+    pretty_git_log --ancestry-path --first-parent "${branch_point}"...HEAD
+  else
+    pretty_git_log --first-parent HEAD
+  fi
+}
+
 pretty_git_log() {
   log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E 's/\\/\\\\/g')"
   # Get only the graph from the beginning of the line and mark the end with a separator

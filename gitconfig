@@ -34,6 +34,8 @@
 	l = "!bash -c '. ~/.githelpers && pretty_git_log HEAD @{u} --not $(git merge-base HEAD @{u})~3 $*' $*"
 	# Show all commits
 	la = "!bash -c '. ~/.githelpers && pretty_git_log --all $*' $*"
+	# Show current branch history
+	lb = "!bash -c '. ~/.githelpers && show_branch_history $*' $*"
 	ss = status -s
 	d = difftool
 	dg = difftool -g
