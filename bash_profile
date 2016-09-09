@@ -62,7 +62,6 @@ PURPLE="$(tput setaf 141)"
 ORANGE="$(tput setaf 166)"
 
 # Enable colors for tools
-export GREP_OPTIONS='--color'
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 # http://askubuntu.com/a/17300
 # https://github.com/apjanke/oh-my-zsh-custom/blob/master/lscolors.zsh
@@ -251,6 +250,7 @@ sudo() {
 # ================================= ALIASES ====================================
 
 alias sudo='sudo '                    # With this aliases can be used with sudo
+alias grep='grep --color'
 alias ll='ls -lAhp'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 alias mkdir='mkdir -pv'
