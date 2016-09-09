@@ -125,9 +125,10 @@ set nofoldenable
 set completeopt=longest,menu,preview
 
 set wildmode=longest:full
-set wildmenu                       " enable ctrl-n and ctrl-p to scroll thru matches
-" stuff to ignore when tab completing
-set wildignore=*.o,*.obj,*.pyc,*~  " ignore compiled files
+set wildmenu                       " Enable ctrl-n and ctrl-p to scroll thru matches
+set wildignorecase                 " Use case insensitive completion
+" Stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*.pyc,*~  " Ignore compiled files
 set wildignore+=.git/*
 set wildignore+=*DS_Store*
 
