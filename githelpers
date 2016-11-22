@@ -52,7 +52,7 @@ show_branch_history() {
 }
 
 pretty_git_log() {
-log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E "s/^(.*)$/\1$SEP2/")"
+  log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E "s/^(.*)$/\1$SEP2/")"
   # Get only the graph from the beginning of the line and mark the end with a separator
   graph_with_colors="$(echo "${log_output}" | cut -f 1 -d "${SEP2}")"
   graph_without_colors="$(echo "${graph_with_colors}" | sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g')"
