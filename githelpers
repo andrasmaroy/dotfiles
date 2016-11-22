@@ -41,8 +41,10 @@ show_git_head() {
 
 show_branch_history() {
   local branch_point
-  local base_branch="master"
-  # TODO: use something smarter than just comparing to "master"
+  local -r ls_remote="$(git ls-remote -q)"
+  local -r head_hash="$(echo "${ls_remote}" | grep 'HEAD$' | cut -f 1 -d '	')"
+  local -r base_branch="$(echo "${ls_remote}" | grep "${head_hash}"'\s*refs/heads/' | tail -n 1 | sed -e 's/.*\/\(.*\)$/\1/')"
+
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
     branch_point=$(git rev-list --boundary HEAD..."${base_branch}" | grep "^-" | cut -c2- | tail -n 1)
     pretty_git_log --ancestry-path --first-parent "${branch_point}"...HEAD
