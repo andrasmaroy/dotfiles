@@ -20,19 +20,19 @@ set -euo pipefail
 IFS=$'\n'
 
 # ASCII separator characters won't ever be in commit messages
-SEP="$(echo -e '\x1E')"     # Field separator
-SEP2="$(echo -e '\x1F')"    # Separate the graph from the rest
+readonly FIELD_SEP="$(echo -e '\x1E')"     # Field separator
+readonly GRAPH_SEP="$(echo -e '\x1F')"    # Separate the graph from the rest
 
-HASH='%C(auto)%h%C(reset)'
-RELATIVE_TIME='%C(green)(%ar)%C(reset)'
-AUTHOR='%C(bold cyan)<%an>%C(reset)'
-REFS='%C(auto)%d%C(reset)'
-SUBJECT='%s'
+readonly HASH='%C(auto)%h%C(reset)'
+readonly RELATIVE_TIME='%C(green)(%ar)%C(reset)'
+readonly AUTHOR='%C(bold cyan)<%an>%C(reset)'
+readonly REFS='%C(auto)%d%C(reset)'
+readonly SUBJECT='%s'
 
-FORMAT="${SEP2}${HASH}${SEP}${RELATIVE_TIME}${SEP}${AUTHOR}${SEP}${REFS} ${SUBJECT}"
+readonly FORMAT="${GRAPH_SEP}${HASH}${FIELD_SEP}${RELATIVE_TIME}${FIELD_SEP}${AUTHOR}${FIELD_SEP}${REFS} ${SUBJECT}"
 
-ANSI_RED='\033[31m'
-ANSI_RESET='\033[0m'
+readonly ANSI_RED='\033[31m'
+readonly ANSI_RESET='\033[0m'
 
 show_git_head() {
     pretty_git_log -1
@@ -40,13 +40,12 @@ show_git_head() {
 }
 
 show_branch_history() {
-  local branch_point
   local -r ls_remote="$(git ls-remote -q)"
   local -r head_hash="$(echo "${ls_remote}" | grep 'HEAD$' | cut -f 1 -d '	')"
   local -r base_branch="$(echo "${ls_remote}" | grep "${head_hash}"'\s*refs/heads/' | tail -n 1 | sed -e 's/.*\/\(.*\)$/\1/')"
 
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
-    branch_point=$(git rev-list --boundary HEAD..."${base_branch}" | grep "^-" | cut -c2- | tail -n 1)
+    local -r branch_point=$(git rev-list --boundary HEAD..."${base_branch}" | grep "^-" | cut -c2- | tail -n 1)
     pretty_git_log --ancestry-path --first-parent "${branch_point}"...HEAD
   else
     pretty_git_log --first-parent HEAD
@@ -54,9 +53,9 @@ show_branch_history() {
 }
 
 pretty_git_log() {
-  local -r log_output="$(git log --graph --color --pretty=tformat:${FORMAT} $* | sed -E "s/^(.*)$/\1$SEP2/")"
+  local -r log_output="$(git log --graph --color --pretty=tformat:"${FORMAT}" $* | sed -E "s/^(.*)$/\1$GRAPH_SEP/")"
   # Get only the graph from the beginning of the line and mark the end with a separator
-  local -r graph_with_colors="$(echo "${log_output}" | cut -f 1 -d "${SEP2}")"
+  local -r graph_with_colors="$(echo "${log_output}" | cut -f 1 -d "${GRAPH_SEP}")"
   local -r graph_without_colors="$(echo "${graph_with_colors}" | sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g')"
   echo "${log_output}" |
     # Replace (2 years ago) with (2 years)
@@ -66,12 +65,12 @@ pretty_git_log() {
     # Color merge commits specially
     sed -E "s/(Merge ((remote-tracking )?branch(es)?|pull request) .*$)/$(printf ${ANSI_RED})\1$(printf ${ANSI_RESET})/" |
     # Temprarily remove colors from the graph, as those don't play well with `column`
-    cut -f 2 -d "${SEP2}" |
-    paste -d"\0" <(echo "${graph_without_colors}" | sed -E "s/^(.*)$/\1${SEP2}/") - |
+    cut -f 2 -d "${GRAPH_SEP}" |
+    paste -d"\0" <(echo "${graph_without_colors}" | sed -E "s/^(.*)$/\1${GRAPH_SEP}/") - |
     # Line columns up based on the separator
-    column -s "${SEP}" -t |
+    column -s "${FIELD_SEP}" -t |
     # Add colors to the graph again
-    cut -f 2 -d "${SEP2}"  |
+    cut -f 2 -d "${GRAPH_SEP}"  |
     paste -d"\0" <(echo "${graph_with_colors}") - |
     # Remove double backslashes
     sed -E 's/\\\\/\\/g' |
