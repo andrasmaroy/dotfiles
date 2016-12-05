@@ -14,7 +14,7 @@ fi
 
 # Does the remote "origin" point to GitHub?
 if ("$REAL_GIT" remote -v 2>/dev/null |
-    grep '^origin\b.*github.com.*(push)$' >/dev/null 2>&1); then
+    grep '^origin\b.*github.com:.*(push)$' >/dev/null 2>&1); then
 
     # Yes.  Set username and email that you use on GitHub.
     export GIT_AUTHOR_NAME='User Name'
