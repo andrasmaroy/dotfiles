@@ -242,7 +242,7 @@ extract () {
 
 # Change sudo behaviour to preserve user profile
 sudo() {
-  if [[ "$@" == '-s' ]]; then
+  if [[ "$@" == '-s' ]] || [[ "$@" == '-i' ]]; then
     # sudo -s invoked, replace it with login prompt
     command sudo -E /bin/bash -l
   elif [ -z "$1" ] || [[ "$1" == -* ]]; then
