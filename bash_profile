@@ -108,6 +108,11 @@ if [ -f "${HOME}/.git-completion.bash" ]; then
   source "${HOME}/.git-completion.bash"
 fi
 
+# Azure cli completion
+if [ -f "${HOME}/.azure-completion.bash" ]; then
+  source "${HOME}/.azure-completion.bash"
+fi
+
 # ============================== PROMPT SETUP ==================================
 
 # Git prompt setup
