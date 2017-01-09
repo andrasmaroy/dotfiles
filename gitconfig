@@ -40,6 +40,8 @@
 	d = difftool
 	dg = difftool -g
 	ctags = !.git/hooks/ctags
+	unstage = reset HEAD
+	smu = submodule update --init --recursive
 [push]
 	default = simple
 [diff]
