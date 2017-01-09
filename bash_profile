@@ -71,6 +71,7 @@ if (ls --color &> /dev/null); then
 else
   export CLICOLOR='Yes'
   export LSCOLORS='ExGxFxdaCxDADAadhbheFx'
+  export TREE_COLORS='ln=36'
 fi
 
 # Highlight section titles in manual pages.
@@ -247,12 +248,20 @@ sudo() {
   fi
 }
 
+lstree() {
+  local -r shortpath="$(basename "$(pwd)")"
+  local -r output=$(tree -C -d --noreport "$@")
+
+  echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
+  echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
+}
+
 # ================================= ALIASES ====================================
 
 alias sudo='sudo '                    # With this aliases can be used with sudo
 alias grep='grep --color'
 alias ll='ls -lAhp'
-alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+alias lr='lstree'
 alias mkdir='mkdir -pv'
 alias f='open -a Finder ./'
 alias numfiles='echo $(ls -1 | wc -l)'
