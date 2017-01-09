@@ -25,6 +25,7 @@ fi
 
 # Android stuff
 if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-ndk-r10e/r10e" ]; then
+  export ANDROID_NDK="$(brew --prefix)/Cellar/android-ndk-r10e/r10e"
   export NDK_HOME="$(brew --prefix)/Cellar/android-ndk-r10e/r10e"
 fi
 if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-sdk/22.0.5_1" ]; then
