@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  >&2 echo 'Usage: codegrep [arguments] pattern path'
+  exit 1
+fi
+
+grep -RI --color --exclude-dir=.git "$@" 2> /dev/null
