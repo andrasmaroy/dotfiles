@@ -12,7 +12,7 @@ call pathogen#helptags()
 
 set shell=bash                  " Use bash instead of sh
 set backspace=indent,eol,start  " Allow backspace in insert mode
-set iskeyword-=_                " Treat underscore as word separator
+set iskeyword+=_                " Don't treat underscore as word separator
 set history=1000                " Store lots of :cmdline history
 set nojoinspaces                " Only insert single space after a '.', '?' and '!' with a join command
 set nostartofline               " Don’t reset cursor to start of line when moving around
@@ -132,6 +132,8 @@ set wildignore=*.o,*.obj,*.pyc,*~  " Ignore compiled files
 set wildignore+=.git/*
 set wildignore+=*DS_Store*
 
+set omnifunc=syntaxcomplete#Complete
+
 " ================================= SCROLLING ==================================
 
 " Start scrolling when we're 5 lines away from margins vertically
@@ -204,7 +206,7 @@ if has("autocmd")
   " Vagrantfile
   autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby
   " Proper indentation for source files
-  autocmd vimrc FileType puppet,ruby,sh setl ts=2 sts=2 sw=2
+  autocmd vimrc FileType puppet,ruby,sh,json setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
   " https://github.com/nvie/vimrc/blob/master/vimrc :489
@@ -231,7 +233,7 @@ noremap <Leader>tn :tabnew<CR>
 noremap <Leader>to :tabonly<CR>
 noremap <Leader>tc :tabclose<CR>
 noremap <Leader>tm :tabmove
-noremap <Leader>t<Leader> :tabnext
+noremap <Leader>t<Leader> :tabnext<CR>
 
 " Diff tab management: open the current git diff in a tab
 command! GdiffInTab tabedit %|Gdiff
@@ -357,6 +359,7 @@ function! InsertTabWrapper()
 endfunction
 inoremap <expr> <Tab> InsertTabWrapper()
 inoremap <S-Tab> <C-n>
+inoremap <C-Tab> <C-x><C-]>
 
 " ================================== PLUGINS ===================================
 
@@ -365,7 +368,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " CtrlP
-noremap <Leader>f :CtrlPMixed<CR>
+nmap <Leader>f :CtrlP<CR>
 map <Leader>gf :CtrlP %%<CR>
 
 " Indexed search
