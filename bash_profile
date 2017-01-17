@@ -66,6 +66,7 @@ ORANGE="$(tput setaf 166)"
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 # http://askubuntu.com/a/17300
 # https://github.com/apjanke/oh-my-zsh-custom/blob/master/lscolors.zsh
+# http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
 if (ls --color &> /dev/null); then
   alias ls='ls --color=auto'
   export LS_COLORS='di=1;34:ln=1;36:so=1;35:pi=33;40:ex=1;32:bd=1;33;40:cd=1;33;40:su=30;43:sg=37;41:tw=37;44:ow=1;35'
@@ -240,6 +241,15 @@ extract () {
   fi
 }
 
+# Show directory structure as a tree from `pwd`
+lstree() {
+  local -r shortpath="$(basename "$(pwd)")"
+  local -r output=$(tree -C -d --noreport "$@")
+
+  echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
+  echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
+}
+
 # Change sudo behaviour to preserve user profile
 sudo() {
   if [[ "$@" == '-s' ]] || [[ "$@" == '-i' ]]; then
@@ -252,14 +262,6 @@ sudo() {
     # No arguments passed to sudo, add -E
     command sudo -E "$@"
   fi
-}
-
-lstree() {
-  local -r shortpath="$(basename "$(pwd)")"
-  local -r output=$(tree -C -d --noreport "$@")
-
-  echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
-  echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
 }
 
 # ================================= ALIASES ====================================
