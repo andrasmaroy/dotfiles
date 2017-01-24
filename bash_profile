@@ -266,17 +266,17 @@ sudo() {
 
 # ================================= ALIASES ====================================
 
-alias sudo='sudo '                    # With this aliases can be used with sudo
+alias dirs='dirs -v'
+alias f='open -a Finder ./'
 alias grep='grep --color'
 alias ll='ls -lAhp'
 alias lr='lstree'
 alias mkdir='mkdir -pv'
-alias f='open -a Finder ./'
 alias numfiles='echo $(ls -1 | wc -l)'
 alias prettyjson='python -m json.tool'
+alias sudo='sudo '                    # With this aliases can be used with sudo
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-  alias cask-updates='for cask in $(brew cask list); do echo -n "$cask "; brew cask info $cask | grep "Not installed"; if [ $? -eq 1 ]; then echo ""; fi; done'
 fi
 
