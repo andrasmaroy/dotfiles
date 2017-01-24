@@ -39,6 +39,9 @@ if which rbenv > /dev/null; then
   eval "$(rbenv init -)"
 fi
 
+if which brew &> /dev/null; then
+  export HOMEBREW_NO_GITHUB_API=1
+fi
 # ============================ TERMINAL OPTIONS ================================
 
 # Make vim the default editor.
