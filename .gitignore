@@ -1,2 +1,3 @@
 vim/backups/**
 bin/git-dependencies
+tmux-*.log
