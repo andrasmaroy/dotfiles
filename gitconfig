@@ -41,6 +41,8 @@
 	ctags = !.git/hooks/ctags
 	unstage = reset HEAD
 	smu = submodule update --init --recursive
+	prettylog = "!bash -c '. ~/.githelpers && pretty_git_log $*' $*"
+	prunebranches = "!git fetch --prune --all && git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d"
 [push]
 	default = simple
 [diff]
