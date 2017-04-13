@@ -206,7 +206,7 @@ if has("autocmd")
   " Vagrantfile
   autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby
   " Proper indentation for source files
-  autocmd vimrc FileType puppet,ruby,sh,json setl ts=2 sts=2 sw=2
+  autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
   " https://github.com/nvie/vimrc/blob/master/vimrc :489
