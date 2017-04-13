@@ -35,9 +35,9 @@
 	la = "!bash -c '. ~/.githelpers && pretty_git_log --all $*' $*"
 	# Show current branch history
 	lb = "!bash -c '. ~/.githelpers && show_branch_history $*' $*"
-	ss = status -s
+	ss = status --short --branch
 	d = difftool
-	dg = difftool -g
+	dg = difftool --gui
 	ctags = !.git/hooks/ctags
 	unstage = reset HEAD
 	smu = submodule update --init --recursive
