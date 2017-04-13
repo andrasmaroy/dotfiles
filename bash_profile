@@ -39,6 +39,13 @@ if which rbenv > /dev/null; then
   eval "$(rbenv init -)"
 fi
 
+# Kubernetes
+if which kubectl &> /dev/null; then
+  for file in $(find ~/.kube -name "config-*"); do
+    export KUBECONFIG="${file}:${KUBECONFIG}"
+  done
+fi
+
 if which brew &> /dev/null; then
   export HOMEBREW_NO_GITHUB_API=1
 fi
