@@ -274,6 +274,11 @@ sudo() {
   fi
 }
 
+docker-clean() {
+  docker container prune -f
+  docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
+}
+
 # ================================= ALIASES ====================================
 
 alias dirs='dirs -v'
