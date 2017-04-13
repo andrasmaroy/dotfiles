@@ -383,6 +383,16 @@ nnoremap <silent> N N:ShowSearchIndex<CR>
 vnoremap <silent> N N:ShowSearchIndex<CR>
 
 " Airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#default#layout = [
+    \ [ 'c' ],
+    \ [ 'y', 'z', 'warning', 'error' ]
+    \ ]
+function! AirlineInit()
+    let g:airline_section_y = airline#section#create_right(['%c|'])
+    let g:airline_section_z = airline#section#create(['branch'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#syntastic#enabled = 1
 
