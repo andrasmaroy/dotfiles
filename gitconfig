@@ -1,5 +1,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = vim
+	trustctime = false
 [color]
 	branch = auto
 	diff = auto
