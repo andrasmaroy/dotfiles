@@ -1,8 +1,27 @@
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set menu-complete-display-prefix on
+
+set editing-mode vi
+set show-mode-in-prompt on
+# Set the color of the $ in the prompt based on editing mode
+set vi-ins-mode-string "\1\e[32m\2"
+set vi-cmd-mode-string "\1\e[34m\2"
+
+set keymap vi-command
 "\e[A": history-search-backward     # up arrow
 "\e[B": history-search-forward      # down arrow
 "\e[5~": previous-history           # page up
 "\e[6~": next-history               # page down
 
-set show-all-if-ambiguous on
-set completion-ignore-case on
+set keymap vi-insert
+# Pressing tab will list all completions & select the first one. Pressing it
+# again will cycle through available completions.
+TAB: menu-complete
+# Shift-TAB cycles completions backward
+"\e[Z": menu-complete-backward
 
+"\e[A": history-search-backward     # up arrow
+"\e[B": history-search-forward      # down arrow
+"\e[5~": previous-history           # page up
+"\e[6~": next-history               # page down

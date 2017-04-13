@@ -200,7 +200,8 @@ __prompt_command() {
   local CWD="${BOLD}$(__abbrev_cwd)${RESET}"
   local JOBS="${BOLD}$(__jobs_count)${RESET}"
   local VENV="$(__virtualenv_name)"
-  local PROMPT="\n\[${WHITE}\]\\\$\[${RESET}\]"
+  # $ color is set by inputrc editing mode, only reset
+  local PROMPT="\n\\\$\[${RESET}\]"
 
   local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${JOBS}${VENV}${USER}@${HOST}:${CWD} "
   local POST="${PROMPT} "
