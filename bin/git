@@ -18,7 +18,8 @@ if [ -f ~/.dotoverrides/git-remotes ]; then
 fi
 
 # Does the remote "origin" point to GitHub?
-if ("$REAL_GIT" remote -v 2>/dev/null | grep -E "${GIT_PRIVATE_REMOTE_REGEX}" >/dev/null 2>&1); then
+if "$REAL_GIT" remote -v 2>/dev/null | grep -E "${GIT_PRIVATE_REMOTE_REGEX}" >/dev/null 2>&1 \
+  && [ -f ~/.dotoverrides/git ]; then
     # Yes.  Set username and email that you use on GitHub.
     source ~/.dotoverrides/git
 fi
