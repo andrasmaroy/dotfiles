@@ -1,0 +1,5 @@
+export GIT_AUTHOR_NAME='User Name'
+export GIT_AUTHOR_EMAIL='user@example.com'
+export GIT_COMMITTER_NAME='User Name'
+export GIT_COMMITTER_EMAIL='user@example.com'
+

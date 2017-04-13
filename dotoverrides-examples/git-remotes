@@ -1,0 +1,2 @@
+export GIT_PRIVATE_REMOTE_REGEX='^origin\b.*@(?:github\.com|bitbucket\.org):.*\(push\)$'
+
