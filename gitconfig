@@ -17,9 +17,6 @@
 	added = yellow
 	changed = green
 	untracked = cyan
-[user]
-	name = user
-	email = user@example.com
 [alias]
 	amend = commit --amend
 	ci = commit --verbose
@@ -60,3 +57,5 @@
 	keepBackup = false
 [init]
 	templatedir = ~/.git_template
+[include]
+	path = ~/.dotoverrides/gitconfig
