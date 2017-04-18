@@ -59,18 +59,7 @@ export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
 # Set colors
-RESET="$(tput sgr0)"
-BOLD="$(tput bold)"
-BLACK="$(tput setaf 0)"
-RED="$(tput setaf 1)"
-GREEN="$(tput setaf 2)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
-MAGENTA="$(tput setaf 5)"
-CYAN="$(tput setaf 6)"
-WHITE="$(tput setaf 7)"
-PURPLE="$(tput setaf 141)"
-ORANGE="$(tput setaf 166)"
+source ~/.bash_colors
 
 # Enable colors for tools
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
