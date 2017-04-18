@@ -1,0 +1,33 @@
+#!/bin/bash
+
+source ~/.bash_colors
+
+find ~/Git -type d -depth 2 -maxdepth 2 | while read -r repo; do
+  cd "${repo}" || continue
+  git status &> /dev/null
+  if [ "$?" -eq 128 ]; then
+    # not a git repo
+    continue;
+  fi
+
+  status=''
+  commitdiff="$(git status -sb --porcelain 2> /dev/null | head -n 1 | grep -E '(ahead|behind)' | sed -Ee "s/.*\[(.+)\]$/${RED}\1${RESET}/")"
+  staged="$(git diff-index --quiet --cached HEAD 2> /dev/null || echo "${YELLOW}Staged changes${RESET}")"
+  working="$(git diff-files --quiet 2> /dev/null || echo "${GREEN}Local changes${RESET}")"
+
+  if [ -z "${commitdiff}" ] && [ -z "${staged}" ] && [ -z "${working}" ]; then
+    # nothing to see here, move along
+    continue;
+  else
+    for arg in commitdiff staged working; do
+      value=${!arg}
+      if [ -n "${status}" ] && [ -n "${value}" ]; then
+        status+=', '
+      fi
+      status+="${value}"
+    done
+  fi
+
+  echo "${repo##*Git/}: ${status}"
+
+done
