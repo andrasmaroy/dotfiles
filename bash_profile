@@ -246,8 +246,10 @@ lstree() {
   local -r shortpath="$(basename "$(pwd)")"
   local -r output=$(tree -C -d --noreport "$@")
 
-  echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
-  echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
+  (
+    echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
+    echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
+  ) | less -EFSX
 }
 
 # Change sudo behaviour to preserve user profile
