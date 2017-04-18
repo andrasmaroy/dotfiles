@@ -1,8 +1,14 @@
 #!/bin/bash
+#
+# Iterate over a directory and check all folder inside it for git repositories
+# in 2 depth. Check each repository for unpushed commit, staged and unstaged
+# changes. List these in an easy to read format.
+
+readonly GIT_DIR="${HOME}/Git"
 
 source ~/.bash_colors
 
-find ~/Git -type d -depth 2 -maxdepth 2 | while read -r repo; do
+find "${GIT_DIR}" -type d -depth 2 -maxdepth 2 | while read -r repo; do
   cd "${repo}" || continue
   git status &> /dev/null
   if [ "$?" -eq 128 ]; then
