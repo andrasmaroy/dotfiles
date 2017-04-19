@@ -221,6 +221,13 @@ commandstats() {
   history | awk '{print $4}' | awk 'BEGIN {FS="|"} {print $1}' | sort | uniq -c | sort -rn | head -30
 }
 
+
+# Remove stopped containers and noname images
+docker-clean() {
+  docker container prune -f
+  docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
+}
+
 # Get escape code for a character
 escape() {
   printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
@@ -274,11 +281,6 @@ sudo() {
     # No arguments passed to sudo, add -E
     command sudo -E "$@"
   fi
-}
-
-docker-clean() {
-  docker container prune -f
-  docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
 }
 
 # ================================= ALIASES ====================================
