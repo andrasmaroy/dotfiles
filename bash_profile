@@ -147,15 +147,6 @@ __return_code() {
   echo "${1}${RESET}"
 }
 
-# Get CWD abbreviated VIm style
-__abbrev_cwd() {
-  p="${PWD#$HOME}"
-  if [[ "${PWD}" != "${p}" ]]; then
-    echo -n '~'
-  fi
-  sed 's:\([^/]\)[^/]*/:\1/:g' <<< "${p}"
-}
-
 # Highlight the user name when logged in as root
 __user_style() {
   if [[ "${USER}" == 'root' ]]; then
@@ -188,7 +179,7 @@ __jobs_count() {
 # Put together to prompt
 __prompt_command() {
   local EXIT_CODE="$(__return_code $?)"       # this line has to be the first
-  local TITLEBAR="\033]0;$(__abbrev_cwd)\007"
+  local TITLEBAR="\033]0;$(abbrev-path "${PWD}")\007"
   local  TIME='\t'
   if [ "${USER}" != "${LC_LOGINUSER}" ]; then
     local _USER="$(__user_style)\u${RESET}"
@@ -196,7 +187,7 @@ __prompt_command() {
   if [ "${HOSTNAME}" != "${LC_LOGINHOST}" ]; then
     local HOST="$(__host_style)\h${RESET}"
   fi
-  local CWD="${BOLD}$(__abbrev_cwd)${RESET}"
+  local CWD="${BOLD}$(abbrev-path "${PWD}")${RESET}"
   local JOBS="${BOLD}$(__jobs_count)${RESET}"
   local VENV="$(__virtualenv_name)"
   # $ color is set by inputrc editing mode, only reset
@@ -215,6 +206,15 @@ __prompt_command() {
 export PROMPT_COMMAND=__prompt_command
 
 # ============================ HELPER FUNCTIONS ================================
+
+# Abbreviate given path Vim style
+abbrev-path() {
+  p="${1#$HOME}"
+  if [[ "${1}" != "${p}" ]]; then
+    echo -n '~'
+  fi
+  sed 's:\([^/]\)[^/]*/:\1/:g' <<< "${p}"
+}
 
 # Get statistics of used commands
 commandstats() {
