@@ -137,73 +137,7 @@ if type -t __git_ps1 &> /dev/null; then
   export GIT_PS1_SHOWUPSTREAM='auto'
 fi
 
-# Color the given return code
-__return_code() {
-  if [ "$1" -eq 0 ]; then
-    echo -n "${GREEN}"
-  else
-    echo -n "${RED}"
-  fi
-  echo "${1}${RESET}"
-}
-
-# Highlight the user name when logged in as root
-__user_style() {
-  if [[ "${USER}" == 'root' ]]; then
-    echo "${RED}"
-  fi
-}
-
-# Highlight the hostname when connected via SSH
-__host_style() {
-  if [[ -n "${SSH_TTY}" ]]; then
-    echo "${BOLD}${RED}"
-  fi
-}
-
-# Get current python virtualenv name
-__virtualenv_name() {
-  if [[ -n "${VIRTUAL_ENV}" ]]; then
-    echo "(${BLUE}${VIRTUAL_ENV##*/}${RESET}) "
-  fi
-}
-
-__jobs_count() {
-  local stopped=$(jobs -sp | wc -l | grep -Eo "[0-9]+")
-  local running=$(jobs -rp | wc -l | grep -Eo "[0-9]+")
-  if [ $stopped -ne 0 ] || [ $running -ne 0 ]; then
-    echo "[${running}r/${stopped}s] "
-  fi
-}
-
-# Put together to prompt
-__prompt_command() {
-  local EXIT_CODE="$(__return_code $?)"       # this line has to be the first
-  local TITLEBAR="\033]0;$(abbrev-path "${PWD}")\007"
-  local  TIME='\t'
-  if [ "${USER}" != "${LC_LOGINUSER}" ]; then
-    local _USER="$(__user_style)\u${RESET}"
-  fi
-  if [ "${HOSTNAME}" != "${LC_LOGINHOST}" ]; then
-    local HOST="$(__host_style)\h${RESET}"
-  fi
-  local CWD="${BOLD}$(abbrev-path "${PWD}")${RESET}"
-  local JOBS="${BOLD}$(__jobs_count)${RESET}"
-  local VENV="$(__virtualenv_name)"
-  # $ color is set by inputrc editing mode, only reset
-  local PROMPT="\n\\\$\[${RESET}\]"
-
-  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${JOBS}${VENV}${_USER}@${HOST}:${CWD} "
-  local POST="${PROMPT} "
-
-  if type -t __git_ps1 &> /dev/null; then
-    __git_ps1 "${PRE}" "${POST}" '(%s)'
-  else
-    export PS1="${PRE}${POST}"
-  fi
-}
-
-export PROMPT_COMMAND=__prompt_command
+source ~/.bash_prompt
 
 # ============================ HELPER FUNCTIONS ================================
 
@@ -220,7 +154,6 @@ abbrev-path() {
 commandstats() {
   history | awk '{print $4}' | awk 'BEGIN {FS="|"} {print $1}' | sort | uniq -c | sort -rn | head -30
 }
-
 
 # Remove stopped containers and noname images
 docker-clean() {

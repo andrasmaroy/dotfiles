@@ -1,0 +1,63 @@
+# Bash prompt code
+# Source from ~/.bash_profile
+
+__prompt_command() {
+  # Save the last exit code before doing anything else
+  if [ "$?" -ne 0 ]; then
+    local -r p_exit_code=" [${RED}$?${RESET}]"
+  fi
+
+  # Set abbreviated cwd in titlebar
+  local -r p_titlebar="\033]0;$(abbrev-path "${PWD}")\007"
+
+  # Show time in prompt
+  local -r p_time="${BOLD}\\t${RESET}"
+
+  # Show background jobs
+  local -r _stopped_jobs=$(jobs -sp | wc -l | grep -Eo "[0-9]+")
+  local -r _running_jobs=$(jobs -rp | wc -l | grep -Eo "[0-9]+")
+  if [ "${_stopped_jobs}" -ne 0 ] || [ "${_running_jobs}" -ne 0 ]; then
+    local -r p_job_count=" ${BOLD}[${_running_jobs}r/${_stopped_jobs}s]${RESET}"
+  fi
+
+  # Get current python virtualenv name
+  if [ -n "${VIRTUAL_ENV}" ]; then
+    local -r p_virtualenv_name=" (${BLUE}${VIRTUAL_ENV##*/}${RESET})"
+  fi
+
+  # Only show different user name
+  if [[ "${USER}" != "${LC_LOGINUSER}" ]]; then
+    # Hightlight root with red
+    local p_user=" ${USER/root/${RED}${USER}}${RESET}:"
+  fi
+
+  # Only show hostname when not localhost
+  if [ "${HOSTNAME}" != "${LC_LOGINHOST}" ]; then
+    local p_user="${p_user/:/@}"
+    local p_user="${p_user:= @}"
+    # Hightlight SSH
+    if [ -n "${SSH_TTY}" ]; then
+      local p_host="${BOLD}${RED}"
+    fi
+    local -r p_host+="${HOSTNAME}${RESET}:"
+  fi
+
+  # CWD formatting for prompt
+  local -r p_cwd="${BOLD}$(abbrev-path "${PWD}")${RESET}"
+
+  # Prompt symbol
+  local -r p_symbol="\n\\\$\[${RESET}\] " # $ color is set by inputrc editing mode, only reset
+
+  # Assemble the prompt
+  local -r pre="${p_titlebar}${p_time}${p_exit_code}${p_job_count}${p_virtualenv_name}${p_user:= }${p_host}${p_cwd}"
+  local -r post="${p_symbol}"
+
+  if type -t __git_ps1 &> /dev/null; then
+    __git_ps1 "${pre}" "${post}" ' (%s)'
+  else
+    export PS1="${pre}${post}"
+  fi
+}
+
+export PROMPT_COMMAND=__prompt_command
+
