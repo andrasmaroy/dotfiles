@@ -49,6 +49,12 @@ fi
 if which brew &> /dev/null; then
   export HOMEBREW_NO_GITHUB_API=1
 fi
+
+if [ -z "${LC_LOGINUSER}" ]; then
+  export LC_LOGINUSER=$(logname)
+  export LC_LOGINHOST=$(hostname)
+fi
+
 # ============================ TERMINAL OPTIONS ================================
 
 # Make vim the default editor.
@@ -183,16 +189,20 @@ __jobs_count() {
 __prompt_command() {
   local EXIT_CODE="$(__return_code $?)"       # this line has to be the first
   local TITLEBAR="\033]0;$(__abbrev_cwd)\007"
-  local TIME='\t'
-  local USER="$(__user_style)\u${RESET}"
-  local HOST="$(__host_style)\h${RESET}"
+  local  TIME='\t'
+  if [ "${USER}" != "${LC_LOGINUSER}" ]; then
+    local _USER="$(__user_style)\u${RESET}"
+  fi
+  if [ "${HOSTNAME}" != "${LC_LOGINHOST}" ]; then
+    local HOST="$(__host_style)\h${RESET}"
+  fi
   local CWD="${BOLD}$(__abbrev_cwd)${RESET}"
   local JOBS="${BOLD}$(__jobs_count)${RESET}"
   local VENV="$(__virtualenv_name)"
   # $ color is set by inputrc editing mode, only reset
   local PROMPT="\n\\\$\[${RESET}\]"
 
-  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${JOBS}${VENV}${USER}@${HOST}:${CWD} "
+  local PRE="${TITLEBAR}${TIME} [${EXIT_CODE}] ${JOBS}${VENV}${_USER}@${HOST}:${CWD} "
   local POST="${PROMPT} "
 
   if type -t __git_ps1 &> /dev/null; then
