@@ -206,7 +206,7 @@ lstree() {
 sudo() {
   if [[ "$@" == '-s' ]] || [[ "$@" == '-i' ]]; then
     # sudo -s invoked, replace it with login prompt
-    command sudo -E /bin/bash -l
+    command sudo -E bash -l
   elif [ -z "$1" ] || [[ "$1" == -* ]]; then
     # Some arguments passed to sudo, don't touch them
     command sudo "$@"
