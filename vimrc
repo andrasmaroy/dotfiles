@@ -383,7 +383,7 @@ nnoremap <silent> N N:ShowSearchIndex<CR>
 vnoremap <silent> N N:ShowSearchIndex<CR>
 
 " Airline
-let g:airline_powerline_fonts = 1
+let g:airline_right_sep=''
 let g:airline#extensions#default#layout = [
     \ [ 'c' ],
     \ [ 'y', 'z', 'warning', 'error' ]
