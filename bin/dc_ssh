@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# DEPRECATED: Use ProxyJump (-J) introduced in OpenSSH 7.3 instead
+#
 # Allocate a random port then use that as a tunnel to the host provided in the
 # parameters. Uses the 'datacenter' host for the tunnel, configure that in
 # ~/.ssh/config
