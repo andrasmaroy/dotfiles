@@ -205,6 +205,8 @@ if has("autocmd")
   autocmd vimrc BufNewFile,BufRead *.md setl ft=markdown
   " Vagrantfile
   autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby
+  " Turn on syntax hightlight for editing from bash vi mode
+  autocmd vimrc BufNewFile,BufRead bash-fc.* setl filetype=sh
   " Proper indentation for source files
   autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
