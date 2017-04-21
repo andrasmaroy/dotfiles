@@ -28,9 +28,6 @@ if has('mouse')
   set mouse=a
 endif
 
-" http://www.shallowsky.com/linux/noaltscreen.html
-" set t_ti= t_te=               " Don't clear the screen when quitting
-
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -52,7 +49,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 set showcmd         " Show incomplete cmds down the bottom
 set showmode        " Show current mode down the bottom
 set report=0        " Show all changes
-set ruler           " Show the cursor position
 set title           " Show the filename in the window titlebar
 set laststatus=2    " Always show status line
 set showtabline=2   " Always show tab bar
@@ -237,10 +233,6 @@ noremap <Leader>tc :tabclose<CR>
 noremap <Leader>tm :tabmove
 noremap <Leader>t<Leader> :tabnext<CR>
 
-" Diff tab management: open the current git diff in a tab
-command! GdiffInTab tabedit %|Gdiff
-nnoremap <Leader>d :GdiffInTab<CR>
-
 " Save a file as root
 command! W w !sudo tee % > /dev/null
 
@@ -251,24 +243,6 @@ vnoremap j gj
 vnoremap k gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
-
-" TODO: test linux/ssh
-" Move a line of text using ALT+[jk]
-" nnoremap j :m .+1<CR>==
-" nnoremap k :m .-2<CR>==
-" inoremap j <Esc>:m .+1<CR>==gi
-" inoremap k <Esc>:m .-2<CR>==gi
-" vnoremap j :m '>+1<CR>gv=gv
-" vnoremap k :m '<-2<CR>gv=gv
-
-" ALT+[jk] on Mac
-" TODO: replace escape with something else, it messes up exiting insert mode
-" if has("mac") || has("macunix")
-"   map ∆ j
-"   map ˚ k
-"   map! ∆ j
-"   map! ˚ k
-" endif
 
 " Return clears search highlight
 nnoremap <CR> :nohlsearch<CR>
@@ -327,19 +301,6 @@ function! PreviewHeightWorkAround()
     endif
 endfunction
 
-" Split horizontally with both windows having the same size, reset without
-" argument
-function! SplitEqual(...)
-    if a:0
-        let &winheight=winheight(winnr()) / 2
-        execute 'split ' a:1
-    else
-        let &winheight=999
-    endif
-endfunction
-command! -nargs=? -complete=file Spe call SplitEqual(<f-args>)
-nnoremap <Leader>spe :Spe<Space>
-
 " Strip trailing whitespace
 function! StripWhitespace()
   let save_cursor = getpos(".")
@@ -364,10 +325,6 @@ inoremap <S-Tab> <C-n>
 inoremap <C-Tab> <C-x><C-]>
 
 " ================================== PLUGINS ===================================
-
-" Expand region - Use v to expand selection and ctrl-v to shrink
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 
 " CtrlP
 nmap <Leader>f :CtrlP<CR>

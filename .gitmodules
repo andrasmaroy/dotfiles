@@ -6,10 +6,6 @@
 	path = vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline
 	ignore = dirty
-[submodule "vim/bundle/vim-expand-region"]
-	path = vim/bundle/vim-expand-region
-	url = https://github.com/terryma/vim-expand-region
-	ignore = dirty
 [submodule "vim/bundle/vim-indexed-search"]
 	path = vim/bundle/vim-indexed-search
 	url = https://github.com/henrik/vim-indexed-search.git
