@@ -3,8 +3,11 @@
 
 __prompt_command() {
   # Save the last exit code before doing anything else
-  if [ "$?" -ne 0 ]; then
-    local -r p_exit_code=" [${RED}$?${RESET}]"
+  local p_exit_code="$?"
+  if [ "${p_exit_code}" -ne 0 ]; then
+    local -r p_exit_code=" [${RED}${p_exit_code}${RESET}]"
+  else
+    local -r p_exit_code=''
   fi
 
   # Set abbreviated cwd in titlebar
