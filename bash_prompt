@@ -49,7 +49,7 @@ __prompt_command() {
   local -r p_cwd="${BOLD}$(abbrev-path "${PWD}")${RESET}"
 
   # Prompt symbol
-  local -r p_symbol="\n\\\$\[${RESET}\] " # $ color is set by inputrc editing mode, only reset
+  local -r p_symbol="\n\\\$ "
 
   # Assemble the prompt
   local -r pre="${p_titlebar}${p_time}${p_exit_code}${p_job_count}${p_virtualenv_name}${p_user:= }${p_host}${p_cwd}"

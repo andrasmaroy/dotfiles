@@ -4,9 +4,10 @@ set menu-complete-display-prefix on
 
 set editing-mode vi
 set show-mode-in-prompt on
-# Set the color of the $ in the prompt based on editing mode
-set vi-ins-mode-string "\1\e[32m\2"
-set vi-cmd-mode-string "\1\e[34m\2"
+# Set the cursor shape based on editing mode
+# see: http://stackoverflow.com/a/17100535
+set vi-ins-mode-string "\1\x1b[\x36 q\2"
+set vi-cmd-mode-string "\1\x1b[\x32 q\2"
 
 set keymap vi-command
 "\e[A": history-search-backward     # up arrow

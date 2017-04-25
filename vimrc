@@ -42,10 +42,6 @@ set clipboard=unnamed
 set background=dark
 colorscheme Tomorrow-Night-Eighties
 
-" Switch from block-cursor to vertical-line-cursor when going into/out of insert mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 set showcmd         " Show incomplete cmds down the bottom
 set showmode        " Show current mode down the bottom
 set report=0        " Show all changes
@@ -174,6 +170,20 @@ if has("autocmd")
   augroup vimrc
     autocmd!
   augroup END
+
+
+  " Change cursor shape appropriately
+  " Block in normal, Bar in insert, Underscore in replace
+  " http://stackoverflow.com/a/17100535
+  autocmd vimrc VimEnter * silent !echo -ne "\x1b[\x32 q"
+  autocmd vimrc InsertEnter *
+              \ if v:insertmode == 'i' |
+              \   silent execute '!echo -ne "\x1b[\x36 q"' |
+              \ elseif v:insertmode == 'r' |
+              \   silent execute '!echo -ne "\x1b[\x34 q"' |
+              \ endif
+  autocmd vimrc InsertLeave * silent !echo -ne "\x1b[\x32 q"
+  autocmd vimrc VimLeave * silent !echo -ne "\x1b[\x32 q"
 
   " When editing a file, always jump to the last known cursor position. Don't do
   " it for commit messages, when the position is invalid, or when inside an
