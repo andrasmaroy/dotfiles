@@ -174,6 +174,7 @@ if has("autocmd")
 
   " Change cursor shape appropriately
   " Block in normal, Bar in insert, Underscore in replace
+  " See the C-z remap for foreground - background hack
   " http://stackoverflow.com/a/17100535
   autocmd vimrc VimEnter * silent !echo -ne "\x1b[\x32 q"
   autocmd vimrc InsertEnter *
@@ -229,6 +230,10 @@ endif
 
 " Change leader to a comma
 let mapleader=","
+
+" Override C-Z (background current process) to change back the cursor
+" when brought back to foreground
+noremap <C-z> :suspend<CR>:silent execute '!echo -ne "\x1b[\x32 q"'<CR>:redraw!<CR>
 
 " Ctrl-H/J/K/L select split
 nnoremap <C-H> <C-W>h
