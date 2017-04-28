@@ -36,6 +36,11 @@ set hidden
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 
+" Don't use viminfo when in diff mode, messes up cursor position
+if &diff
+    set viminfo="NONE"
+endif
+
 " ================================ LOOK & FEEL =================================
 
 " Theme
@@ -93,6 +98,11 @@ syntax on           " Turn syntax highlighting on
 
 " Hightlight color
 highlight SpecialKey ctermfg=DarkGray ctermbg=Black
+
+" Make diff mode actually readable
+if &diff
+    highlight! link DiffText MatchParen
+endif
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_
@@ -187,10 +197,10 @@ if has("autocmd")
   autocmd vimrc VimLeave * silent !echo -ne "\x1b[\x32 q"
 
   " When editing a file, always jump to the last known cursor position. Don't do
-  " it for commit messages, when the position is invalid, or when inside an
-  " event handler (happens when dropping a file on gvim).
+  " it for commit messages, when the position is invalid, when inside an
+  " event handler (happens when dropping a file on gvim) or in diff mode.
   autocmd vimrc BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") && !&diff |
     \   exe "normal g`\"" |
     \ endif
 
