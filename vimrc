@@ -349,6 +349,26 @@ inoremap <expr> <Tab> InsertTabWrapper()
 inoremap <S-Tab> <C-n>
 inoremap <C-Tab> <C-x><C-]>
 
+" Calculate column number with padding added for airline
+function! Column()
+    redir =>l:a |exe "sil sign place buffer=".bufnr('')|redir end
+    let l:signlist=split(l:a, '\n')
+    let padding=&numberwidth + &foldcolumn + (len(signlist) > 2 ? 2 : 0)
+    let vc = virtcol('.')
+    let column_width = strlen(vc)
+    let padding = padding - column_width
+    let column = ''
+
+    if padding <= 1
+        let column .= vc
+    else
+        let column .= repeat(' ', padding - 2) . vc
+    endif
+
+    return column
+endfunction
+call airline#parts#define_function('column', 'Column')
+
 " ================================== PLUGINS ===================================
 
 " CtrlP
@@ -367,18 +387,21 @@ nnoremap <silent> N N:ShowSearchIndex<CR>
 vnoremap <silent> N N:ShowSearchIndex<CR>
 
 " Airline
-let g:airline_right_sep=''
-let g:airline#extensions#default#layout = [
-    \ [ 'c' ],
-    \ [ 'y', 'z', 'warning', 'error' ]
-    \ ]
-function! AirlineInit()
-    let g:airline_section_y = airline#section#create_right(['%c|'])
-    let g:airline_section_z = airline#section#create(['branch'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline#extensions#default#layout = [
+    \ [ 'b', 'c' ],
+    \ [ 'x', 'warning', 'error' ]
+    \ ]
+
+" Redefine the content of some sections
+function! AirlineInit()
+    let g:airline_section_b = airline#section#create_left(['column'])
+    let g:airline_section_x = airline#section#create_right(['branch'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
 " Syntastic
 let g:syntastic_puppet_checkers = ['puppetlint']
