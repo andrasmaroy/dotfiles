@@ -33,9 +33,6 @@ endif
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-
 " Don't use viminfo when in diff mode, messes up cursor position
 if &diff
     set viminfo="NONE"
@@ -273,7 +270,10 @@ inoremap <Up> <C-o>gk
 nnoremap <CR> :nohlsearch<CR>
 
 " Copy and paste using system clipboard
-vnoremap <Leader>y "+y
+nnoremap y "+y
+nnoremap Y "+Y
+vnoremap y "+y
+vnoremap Y "+Y
 vnoremap <Leader>d "+d
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
@@ -284,6 +284,9 @@ vnoremap <Leader>P "+P
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
+
+" Don't store single deleted characters in registers
+noremap x "_x
 
 " Auto center on matched string.
 noremap n nzz
