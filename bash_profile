@@ -38,7 +38,7 @@ if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-sdk/22.0.5_1
 fi
 
 # RBEnv
-if which rbenv > /dev/null; then
+if which rbenv &> /dev/null; then
   eval "$(rbenv init -)"
 fi
 
