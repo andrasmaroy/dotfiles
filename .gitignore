@@ -2,3 +2,10 @@ vim/backups/**
 bin/git-dependencies
 tmux-*.log
 dotoverrides
+bin
+!bin/codegrep
+!bin/dc_ssh
+!bin/git
+!bin/git-dirty
+!bin/git-whodoneit
+!bin/line
