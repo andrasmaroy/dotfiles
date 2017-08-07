@@ -16,11 +16,14 @@ fi
 # Wrapper for python virtualenvs
 if which brew &> /dev/null \
      && [ -f "$(brew --prefix)/bin/virtualenvwrapper.sh" ]; then
+  export WORKON_HOME="${HOME}/.virtualenvs"
+  # These need to be set explicitly for brewed python
+  export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python/libexec/bin/python
+  export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source "$(brew --prefix)/bin/virtualenvwrapper.sh"
+elif [ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
-elif [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  source /usr/local/bin/virtualenvwrapper.sh
-  export WORKON_HOME="${HOME}/.virtualenvs"
+  source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
 
 # Android stuff
