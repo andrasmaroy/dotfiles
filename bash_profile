@@ -5,7 +5,7 @@ if [ -d "${HOME}/Git/github/depot_tools" ]; then
   export PATH="${HOME}/Git/github/depot_tools:${PATH}"
 fi
 
-if [ -d "$HOME/.bin" ]; then
+if [ -d "${HOME}/.bin" ]; then
   export PATH="${HOME}/.bin:${PATH}"
 fi
 
@@ -43,7 +43,7 @@ if which rbenv &> /dev/null; then
 fi
 
 # Kubernetes
-if which kubectl &> /dev/null; then
+if which kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
   for file in $(find ~/.kube -name "config-*"); do
     export KUBECONFIG="${file}:${KUBECONFIG}"
   done
@@ -54,7 +54,11 @@ if which brew &> /dev/null; then
 fi
 
 if [ -z "${LC_LOGINUSER}" ]; then
-  export LC_LOGINUSER=$(logname)
+  if logname &> /dev/null ; then
+    export LC_LOGINUSER=$(logname)
+  else
+    export LC_LOGINUSER=$(id | cut -d "(" -f 2 | cut -d ")" -f1)
+  fi
   export LC_LOGINHOST=$(hostname)
 fi
 
