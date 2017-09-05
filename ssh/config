@@ -18,8 +18,9 @@ Host *
     ControlPersist 600
 
     # Pass environment variables for bash prompt
-    SendEnv LC_LOGINUSER
     SendEnv LC_LOGINHOST
+    SendEnv LC_LOGINSYSN
+    SendEnv LC_LOGINUSER
 
     # Prevent client bug CVE-2016-0777, CVE-2016-0778
     UseRoaming no

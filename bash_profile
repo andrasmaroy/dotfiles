@@ -1,4 +1,14 @@
 # ============================== BASH PROFILE ==================================
+if [ -z "${LC_LOGINUSER}" ]; then
+  if logname &> /dev/null ; then
+    export LC_LOGINUSER=$(logname)
+  else
+    export LC_LOGINUSER=$(id | cut -d "(" -f 2 | cut -d ")" -f1)
+  fi
+  export LC_LOGINHOST=$(hostname)
+  export LC_LOGINSYSN=$(uname -s)
+fi
+
 export PATH="/usr/local/sbin:${PATH}"
 
 if [ -d "${HOME}/Git/github/depot_tools" ]; then
@@ -54,15 +64,6 @@ fi
 
 if which brew &> /dev/null; then
   export HOMEBREW_NO_GITHUB_API=1
-fi
-
-if [ -z "${LC_LOGINUSER}" ]; then
-  if logname &> /dev/null ; then
-    export LC_LOGINUSER=$(logname)
-  else
-    export LC_LOGINUSER=$(id | cut -d "(" -f 2 | cut -d ")" -f1)
-  fi
-  export LC_LOGINHOST=$(hostname)
 fi
 
 # ============================ TERMINAL OPTIONS ================================

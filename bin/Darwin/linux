@@ -43,6 +43,7 @@ docker run \
   --rm \
   --tty \
   --env LC_LOGINHOST="${LC_LOGINHOST}" \
+  --env LC_LOGINSYSN="${LC_LOGINSYSN}" \
   --env LC_LOGINUSER="${LC_LOGINUSER}" \
   --env USER="${LC_LOGINUSER}" \
   --volume ~/.bash_colors:/root/.bash_colors \
