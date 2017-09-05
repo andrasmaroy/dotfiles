@@ -267,7 +267,7 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
 " Return clears search highlight
-nnoremap <CR> :nohlsearch<CR>
+nnoremap <silent> <CR> :nohlsearch<CR>
 
 " Copy and paste using system clipboard
 nnoremap y "+y
