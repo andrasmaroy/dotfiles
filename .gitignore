@@ -10,3 +10,5 @@ bin
 !bin/git-dirty
 !bin/git-whodoneit
 !bin/line
+!bin/remote_utils/remote-copy
+!bin/remote_utils/remote-paste

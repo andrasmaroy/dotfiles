@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "${LC_LOGINSYSN}" = 'Darwin' ]]; then
+  # Tunnel pbpaste through ssh from the source host if available
+  # Configure the host via SSH config for non-interactive login for this to work
+  ssh "${LC_LOGINHOST}" 'if [[ "$(which pbpaste 2> /dev/null)" = "/usr/bin/pbpaste" ]]; then /usr/bin/pbpaste; fi'
+fi

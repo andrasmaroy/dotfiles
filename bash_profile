@@ -17,8 +17,14 @@ fi
 
 if [ -d "${HOME}/.bin" ]; then
   export PATH="${HOME}/.bin:${PATH}"
+
   if [ -d "${HOME}/.bin/$(uname -s)" ]; then
     export PATH="${HOME}/.bin/$(uname -s):${PATH}"
+  fi
+
+  if [[ "${LC_LOGINHOST}" != "$(hostname)" ]] \
+       && [ -d "${HOME}/.bin/remote_utils" ]; then
+    export PATH="${HOME}/.bin/remote_utils:${PATH}"
   fi
 fi
 

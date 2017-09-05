@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "${LC_LOGINSYSN}" = 'Darwin' ]]; then
+  # Tunnel clipboard through SSH into pbcopy on the source host if available
+  # Configure the host via SSH config for non-interactive login for this to work
+  ssh "${LC_LOGINHOST}" 'if [[ "$(which pbcopy 2> /dev/null)" = "/usr/bin/pbcopy" ]]; then /usr/bin/pbcopy; fi'
+fi
