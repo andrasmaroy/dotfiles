@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# Script to run a linux docker image based on Debian, prepared with all the
+# development tools I need and relevant configs mounted as volumes. Docker
+# socket is mounted as well so Docker can be used on the host. Hyperkit IP
+# is used to add the host for SSH for some tools.
+# Run with -b to build the image.
+# See Dockerfile in repo root for installed tools.
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# Build the image
+if [ "$*" == '-b' ] || [ "$*" == '--build' ]; then
+  echo 'Building image...'
+  REPO_DIR="$(cd "$(dirname "$0")" && cd "$(pwd -P)" && git rev-parse --show-toplevel)"
+  docker build -t debocker "${REPO_DIR}"
+  exit 0
+fi
+
+# Exit if image is not available locally
+if [ "$(docker images -q debocker)" == '' ]; then
+  REPO_DIR="$(cd "$(dirname "$0")" && cd "$(pwd -P)" && git rev-parse --show-toplevel)"
+  cat <<- EOF
+Error: image not available!
+
+Build image first with -b or --build parameter: \`linux --build\`
+Or by hand with:
+docker build -t debocker ${REPO_DIR}
+	EOF
+  exit 1
+fi
+
+# Notice regarding hyperkit ip
+if [ -z "${HYPERKIT_IP:=}" ]; then
+  echo 'Using default hyperkit ip: 192.168.65.1, override with HYPERKIT_IP'
+fi
+
+docker run \
+  --add-host "${LC_LOGINHOST}:${HYPERKIT_IP:=192.168.65.1}" \
+  --hostname debocker \
+  --interactive \
+  --rm \
+  --tty \
+  --env LC_LOGINHOST="${LC_LOGINHOST}" \
+  --env LC_LOGINUSER="${LC_LOGINUSER}" \
+  --env USER="${LC_LOGINUSER}" \
+  --volume ~/.bash_colors:/root/.bash_colors \
+  --volume ~/.bash_profile:/root/.bash_profile \
+  --volume ~/.bash_prompt:/root/.bash_prompt \
+  --volume ~/.bin:/root/.bin \
+  --volume ~/.config/flake8:/root/.config/flake8 \
+  --volume ~/.ctags:/root/.ctags \
+  --volume ~/.dotoverrides:/root/.dotoverrides \
+  --volume ~/.git_template:/root/.git_template \
+  --volume ~/.gitconfig:/root/.gitconfig \
+  --volume ~/.githelpers:/root/.githelpers \
+  --volume ~/.gvimrc:/root/.gvimrc \
+  --volume ~/.inputrc:/root/.inputrc \
+  --volume ~/.jshintrc:/root/.jshintrc \
+  --volume ~/.kube:/root/.kube \
+  --volume ~/.pumpkin:/root/.pumpkin \
+  --volume ~/.ssh/config.d:/root/.ssh/config.d \
+  --volume ~/.ssh/config:/root/.ssh/config \
+  --volume ~/.ssh/keys:/root/.ssh/keys \
+  --volume ~/.tmux.conf:/root/.tmux.conf \
+  --volume ~/.vim:/root/.vim \
+  --volume ~/.vimrc:/root/.vimrc \
+  --volume ~/Git:/root/Git \
+  --volume /var/run/docker.sock:/root/docker.sock:ro \
+  "$@" \
+  debocker:latest /bin/bash -il

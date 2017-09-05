@@ -42,7 +42,7 @@ __prompt_command() {
     if [ -n "${SSH_TTY}" ]; then
       local p_host="${RED}"
     fi
-    local -r p_host+="${BOLD}${HOSTNAME}${RESET}:"
+    local -r p_host+="${BOLD}${HOSTNAME/debocker/${BLUE}${HOSTNAME}}${RESET}:"
   fi
 
   # CWD formatting for prompt

@@ -7,6 +7,9 @@ fi
 
 if [ -d "${HOME}/.bin" ]; then
   export PATH="${HOME}/.bin:${PATH}"
+  if [ -d "${HOME}/.bin/$(uname -s)" ]; then
+    export PATH="${HOME}/.bin/$(uname -s):${PATH}"
+  fi
 fi
 
 if [ -d "${HOME}/.pumpkin" ]; then

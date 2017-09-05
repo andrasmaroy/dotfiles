@@ -3,6 +3,7 @@ bin/git-dependencies
 tmux-*.log
 dotoverrides
 bin
+!bin/Darwin/linux
 !bin/codegrep
 !bin/dc_ssh
 !bin/git
