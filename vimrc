@@ -270,18 +270,40 @@ inoremap <Up> <C-o>gk
 nnoremap <silent> <CR> :nohlsearch<CR>
 
 " Copy and paste using system clipboard
-nnoremap y "+y
-nnoremap Y "+Y
-vnoremap y "+y
-vnoremap Y "+Y
-vnoremap <Leader>d "+d
-nnoremap <Leader>p "+p
-nnoremap <Leader>P "+P
-vnoremap <Leader>p "+p
-vnoremap <Leader>P "+P
+if has('clipboard')
+    nnoremap <silent> y :silent set opfunc=YankFunction<CR>g@
+    nnoremap yy "+yy
+    nnoremap Y "+Y
+    vnoremap y "+y
+    vnoremap Y "+Y`[
+    nnoremap <Leader>p "+p`]
+    nnoremap <Leader>P "+P`]
+    vnoremap <Leader>p "+p`]
+    vnoremap <Leader>P "+P`]
+
+    " Just to be able to jump the end of the copied text
+    function! YankFunction(...)
+        silent execute "normal! `[v`]\"+y`]"
+    endfunction
+" Copy using either native pbcopy or with ~/.bin/Linux/pbcopy hack if present
+elseif executable('remote-copy') && executable('remote-paste')
+    nnoremap <silent> y :silent set opfunc=YankFunction<CR>g@
+    nnoremap <silent> yy yy:silent let res = system("remote-copy", @")<CR>
+    nnoremap <silent> Y Y:silent let res = system("remote-copy", @")<CR>
+    vnoremap <silent> y y:silent let res = system("remote-copy", @")<CR>
+    vnoremap <silent> Y Y:silent let res = system("remote-copy", @")<CR>`[
+    nnoremap <silent> <Leader>p :let @"=system("remote-paste")<CR>p`]
+    nnoremap <silent> <Leader>P :let @"=system("remote-paste")<CR>P`]
+    vnoremap <silent> <Leader>p :<CR>:let @"=system("remote-paste") \| execute "normal! vgv"<CR>p`]
+    vnoremap <silent> <Leader>P :<CR>:let @"=system("remote-paste") \| execute "normal! vgv"<CR>P`]
+
+    function! YankFunction(...)
+        silent execute "normal! `[v`]y`]"
+        silent let res = system("remote-copy", @")
+    endfunction
+endif
 
 " Automatically jump to end of text you pasted:
-vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
