@@ -8,6 +8,7 @@ bin
 !bin/dc_ssh
 !bin/git
 !bin/git-dirty
+!bin/git-tmux
 !bin/git-whodoneit
 !bin/line
 !bin/remote_utils/remote-copy
