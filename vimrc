@@ -339,6 +339,10 @@ nmap <Leader>e :edit %%
 " Leader leader switches between the two most recent buffers
 nnoremap <Leader><Leader> <C-^>
 
+" Indenting in visual mode should keep the highlight
+vnoremap < <gv
+vnoremap > >gv
+
 " ================================= FUNCTIONS ==================================
 
 " Hack to change preview window sizes in the same fashion
