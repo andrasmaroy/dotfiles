@@ -233,6 +233,16 @@ sudo() {
   fi
 }
 
+tmux() {
+  if [ $# -ne 0 ]; then
+    command "$(which tmux)" "$@"
+  elif [ -n "${TERM_SESSION_ID}" ]; then
+    tmux attach -t "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)" 2> /dev/null || tmux new -s "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)"
+  else
+    tmux attach 2> /dev/null || tmux new
+  fi
+}
+
 # ================================= ALIASES ====================================
 
 alias dirs='dirs -v'
