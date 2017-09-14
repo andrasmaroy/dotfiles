@@ -988,7 +988,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>/usr/local/bin/bash -il</string>
+			<string>/usr/local/bin/bash -ilc tmux</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
