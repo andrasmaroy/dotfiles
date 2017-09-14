@@ -688,7 +688,7 @@
 	<key>HideScrollbar</key>
 	<false/>
 	<key>HideTab</key>
-	<false/>
+	<true/>
 	<key>HighlightTabLabels</key>
 	<true/>
 	<key>HotKeyBookmark</key>
