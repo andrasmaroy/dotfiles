@@ -7,23 +7,36 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-if [ $# -eq 1 ] && [ -d "$1" ]; then
-  cd "$1"
-fi
+REPLACE=0
 
-readonly REPO_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
-readonly SESSION_NAME="$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)"
+while [[ "$#" -gt 0 ]]; do
+  if [ -d "$1" ]; then
+    cd "$1"
+    shift
+  elif [[ "$1" == '--replace' ]]; then
+    REPLACE=1
+    shift
+  else
+    shift
+  fi
+done
+
+readonly REPLACE
+readonly REPO_DIR=$(basename "$(git rev-parse --show-toplevel 2> /dev/null)")
+readonly SESSION_NAME="$(echo "${TERM_SESSION_ID:=${WINDOWID:=}}" | cut -f 1 -d :)"
 
 if [ -z "${REPO_DIR}" ]; then
   exit 1
 fi
 
-if [ -n "${TMUX:=}" ]; then
-  tmux new-window -n "$(basename "${REPO_DIR}")"
+if [ -n "${TMUX:=}" ] && [ "${REPLACE}" -eq 1 ]; then
+  tmux new-window -k -t "$(tmux display-message -p '#S:#I')" -c "$(pwd)" -n "${REPO_DIR}"
+elif [ -n "${TMUX:=}" ]; then
+  tmux new-window -c "$(pwd)" -n "${REPO_DIR}"
 elif [ -n "${SESSION_NAME}" ] && tmux has-session -t "${SESSION_NAME}" 2> /dev/null; then
-  tmux new-window -a -t "${SESSION_NAME}:0" -n "$(basename "${REPO_DIR}")"
+  tmux new-window -a -t "${SESSION_NAME}:0" -c "$(pwd)" -n "${REPO_DIR}"
 elif [ -n "${SESSION_NAME}" ]; then
-  tmux new-session -s "${SESSION_NAME}" -n "$(basename "${REPO_DIR}")"
+  tmux new-session -s "${SESSION_NAME}" -c "$(pwd)" -n "${REPO_DIR}"
 else
-  tmux new-session -n "$(basename "${REPO_DIR}")"
+  tmux new-session -c "$(pwd)" -n "${REPO_DIR}"
 fi
