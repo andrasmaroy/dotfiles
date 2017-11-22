@@ -434,10 +434,14 @@ autocmd User AirlineAfterInit call AirlineInit()
 
 " Syntastic
 let g:syntastic_puppet_checkers = ['puppetlint']
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['flake8', 'pep8']
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_sh_shellcheck_args = "-x -e SC1090 -e SC1091"
+
+" YouCompleteMe
+let g:ycm_python_binary_path = 'python'
+let g:ycm_autoclose_preview_window_after_insertion = 1
