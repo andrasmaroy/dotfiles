@@ -1,8 +1,10 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
+#
 # Change commit author depending on origin url
 # Originally from @mmorearty
 # http://stackoverflow.com/a/13752961
+
+set -euo pipefail
 
 # "Real" git is the second one returned by 'which'
 # REAL_GIT=$(which -a git | sed -n 2p)
@@ -12,15 +14,15 @@ else
   REAL_GIT='/usr/bin/git'
 fi
 
-GIT_PRIVATE_REMOTE_REGEX='^origin\b.*@(?:github\.com):.*\(push\)$'
+GIT_PRIVATE_REMOTE_REGEX=''
 if [ -f ~/.dotoverrides/git-remotes ]; then
   source ~/.dotoverrides/git-remotes
 fi
 
-# Does the remote "origin" point to GitHub?
-if "$REAL_GIT" remote -v 2>/dev/null | grep -E "${GIT_PRIVATE_REMOTE_REGEX}" >/dev/null 2>&1 \
+# Does the remote "origin" point a private repo
+if "$REAL_GIT" remote get-url origin 2> /dev/null | grep -qsE "${GIT_PRIVATE_REMOTE_REGEX}" \
   && [ -f ~/.dotoverrides/git ]; then
-    # Yes.  Set username and email that you use on GitHub.
+    # Yes, change username and email
     source ~/.dotoverrides/git
 fi
 
