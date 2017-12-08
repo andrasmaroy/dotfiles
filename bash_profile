@@ -32,6 +32,11 @@ if [ -d "${HOME}/.pumpkin" ]; then
   export PUMPKIN_HOME="${HOME}/.pumpkin"
 fi
 
+# Use brewed python
+if which brew &> /dev/null && [ -d "$(brew --prefix)/opt/python/libexec/bin" ]; then
+    export PATH="$(brew --prefix)/opt/python/libexec/bin:${PATH}"
+fi
+
 # Wrapper for python virtualenvs
 if which brew &> /dev/null \
      && [ -f "$(brew --prefix)/bin/virtualenvwrapper.sh" ]; then
