@@ -73,6 +73,16 @@ if which kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
   done
 fi
 
+# Golang
+if which go &> /dev/null && [ -d "${HOME}/.go" ]; then
+  export GOPATH="${HOME}/.go"
+  path="${GOPATH}/bin:${PATH}"
+  if which brew &> /dev/null; then
+    export GOROOT="$(brew --prefix)/opt/go/libexec"
+    export PATH="${GOROOT}/bin:${PATH}"
+  fi
+fi
+
 if which brew &> /dev/null; then
   export HOMEBREW_NO_GITHUB_API=1
 fi
