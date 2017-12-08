@@ -263,6 +263,7 @@ alias prettyjson='python -m json.tool'
 alias sudo='sudo '                    # With this aliases can be used with sudo
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
+  alias cask='brew cask'
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
