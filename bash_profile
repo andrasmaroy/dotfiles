@@ -1,4 +1,11 @@
 # ============================== BASH PROFILE ==================================
+pathadd() {
+  ARG="$1"
+  if [ -d "${ARG}" ] && [[ ":${PATH}:" != *":${ARG}:"* ]]; then
+    export PATH="${ARG}${PATH:+":${PATH}"}"
+  fi
+}
+
 if [ -z "${LC_LOGINUSER}" ]; then
   if logname &> /dev/null ; then
     export LC_LOGINUSER=$(logname)
@@ -9,23 +16,13 @@ if [ -z "${LC_LOGINUSER}" ]; then
   export LC_LOGINSYSN=$(uname -s)
 fi
 
-export PATH="/usr/local/sbin:${PATH}"
+pathadd /usr/local/sbin
+pathadd "${HOME}/Git/github/depot_tools"
+pathadd "${HOME}/.bin"
+pathadd "${HOME}/.bin/$(uname -s)"
 
-if [ -d "${HOME}/Git/github/depot_tools" ]; then
-  export PATH="${HOME}/Git/github/depot_tools:${PATH}"
-fi
-
-if [ -d "${HOME}/.bin" ]; then
-  export PATH="${HOME}/.bin:${PATH}"
-
-  if [ -d "${HOME}/.bin/$(uname -s)" ]; then
-    export PATH="${HOME}/.bin/$(uname -s):${PATH}"
-  fi
-
-  if [[ "${LC_LOGINHOST}" != "$(hostname -s)" ]] \
-       && [ -d "${HOME}/.bin/remote_utils" ]; then
-    export PATH="${HOME}/.bin/remote_utils:${PATH}"
-  fi
+if [[ "${LC_LOGINHOST}" != "$(hostname -s)" ]]; then
+  pathadd "${HOME}/.bin/remote_utils"
 fi
 
 if [ -d "${HOME}/.pumpkin" ]; then
@@ -33,8 +30,8 @@ if [ -d "${HOME}/.pumpkin" ]; then
 fi
 
 # Use brewed python
-if which brew &> /dev/null && [ -d "$(brew --prefix)/opt/python/libexec/bin" ]; then
-    export PATH="$(brew --prefix)/opt/python/libexec/bin:${PATH}"
+if which brew &> /dev/null; then
+    pathadd "$(brew --prefix)/opt/python/libexec/bin"
 fi
 
 # Wrapper for python virtualenvs
@@ -57,8 +54,8 @@ if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-ndk-r10e/r10
 fi
 if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-sdk/22.0.5_1" ]; then
   export ANDROID_HOME="$(brew --prefix)/Cellar/android-sdk/22.0.5_1"
-  export PATH="$ANDROID_HOME/platform-tools:$PATH"
-  export PATH="$ANDROID_HOME/tools:$PATH"
+  pathadd "${ANDROID_HOME}/platform-tools"
+  pathadd "${ANDROID_HOME}/tools"
 fi
 
 # RBEnv
@@ -76,10 +73,10 @@ fi
 # Golang
 if which go &> /dev/null && [ -d "${HOME}/.go" ]; then
   export GOPATH="${HOME}/.go"
-  path="${GOPATH}/bin:${PATH}"
+  pathadd "${GOPATH}/bin"
   if which brew &> /dev/null; then
     export GOROOT="$(brew --prefix)/opt/go/libexec"
-    export PATH="${GOROOT}/bin:${PATH}"
+    pathadd "${GOROOT}/bin"
   fi
 fi
 
@@ -277,3 +274,4 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
+unset -f pathadd
