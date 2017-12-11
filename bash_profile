@@ -266,12 +266,13 @@ sudo() {
 tmux() {
   if [ "$#" -ne 0 ]; then
     command "$(which tmux)" "$@"
-  elif [ -n "${TERM_SESSION_ID}" ]; then
-    tmux attach -t "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)" 2> /dev/null || tmux new -s "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)"
-  elif [ -n "${WINDOWID}" ]; then
-    tmux attach -t "${WINDOWID}" 2> /dev/null || tmux new -s "${WINDOWID}"
   else
-    tmux attach 2> /dev/null || tmux new
+    local -r id="$(ps -p $$ -o tty= | sed -e 's/ *$//')"
+    if [ -n "${id}" ]; then
+      tmux attach -t "${id}" 2> /dev/null || tmux new -s "${id}"
+    else
+      tmux attach 2> /dev/null || tmux new
+    fi
   fi
 }
 
