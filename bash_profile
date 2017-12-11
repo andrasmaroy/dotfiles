@@ -10,6 +10,11 @@ if which brew &> /dev/null; then
   BREW_PREFIX="$(brew --prefix)"
 fi
 
+if [ -n "${TMUX}" ] && [ -f /usr/libexec/path_helper ]; then
+  export PATH=""
+  source /etc/profile
+fi
+
 if [ -z "${LC_LOGINUSER}" ]; then
   if logname &> /dev/null ; then
     export LC_LOGINUSER=$(logname)
