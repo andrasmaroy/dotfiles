@@ -5,7 +5,7 @@ if [ -z "${LC_LOGINUSER}" ]; then
   else
     export LC_LOGINUSER=$(id | cut -d "(" -f 2 | cut -d ")" -f1)
   fi
-  export LC_LOGINHOST=$(hostname)
+  export LC_LOGINHOST=$(hostname -s)
   export LC_LOGINSYSN=$(uname -s)
 fi
 
@@ -22,7 +22,7 @@ if [ -d "${HOME}/.bin" ]; then
     export PATH="${HOME}/.bin/$(uname -s):${PATH}"
   fi
 
-  if [[ "${LC_LOGINHOST}" != "$(hostname)" ]] \
+  if [[ "${LC_LOGINHOST}" != "$(hostname -s)" ]] \
        && [ -d "${HOME}/.bin/remote_utils" ]; then
     export PATH="${HOME}/.bin/remote_utils:${PATH}"
   fi

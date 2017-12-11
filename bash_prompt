@@ -35,14 +35,15 @@ __prompt_command() {
   fi
 
   # Only show hostname when not localhost
-  if [ "${HOSTNAME}" != "${LC_LOGINHOST}" ]; then
+  local -r hostname="$(hostname -s)"
+  if [ "${hostname}" != "${LC_LOGINHOST}" ]; then
     local p_user="${p_user/:/@}"
     local p_user="${p_user:= }"
     # Hightlight SSH
     if [ -n "${SSH_TTY}" ]; then
       local p_host="${RED}"
     fi
-    local -r p_host+="${BOLD}${HOSTNAME/debocker/${BLUE}${HOSTNAME}}${RESET}:"
+    local -r p_host+="${BOLD}${hostname/debocker/${BLUE}${hostname}}${RESET}:"
   fi
 
   # CWD formatting for prompt
