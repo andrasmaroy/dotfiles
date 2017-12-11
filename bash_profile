@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 # ============================== BASH PROFILE ==================================
 pathadd() {
   ARG="$1"
@@ -17,12 +18,16 @@ fi
 
 if [ -z "${LC_LOGINUSER}" ]; then
   if logname &> /dev/null ; then
-    export LC_LOGINUSER=$(logname)
+    LC_LOGINUSER="$(logname)"
   else
-    export LC_LOGINUSER=$(id | cut -d "(" -f 2 | cut -d ")" -f1)
+    LC_LOGINUSER="$(id -un)"
   fi
-  export LC_LOGINHOST=$(hostname -s)
-  export LC_LOGINSYSN=$(uname -s)
+  LC_LOGINHOST="$(hostname -s)"
+  LC_LOGINSYSN="$(uname -s)"
+
+  export LC_LOGINHOST
+  export LC_LOGINSYSN
+  export LC_LOGINUSER
 fi
 
 pathadd /usr/local/sbin
@@ -74,9 +79,9 @@ fi
 
 # Kubernetes
 if which kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
-  for file in $(find ~/.kube -name "config-*"); do
+  while read -r file; do
     export KUBECONFIG="${file}:${KUBECONFIG}"
-  done
+  done < <(find "${HOME}/.kube" -name "config-*")
 fi
 
 # Golang
@@ -103,7 +108,9 @@ export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
 # Set colors
-source ~/.bash_colors
+if [ -f "${HOME}/.bash_colors" ]; then
+  source "${HOME}/.bash_colors"
+fi
 
 # Enable colors for tools
 #export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
@@ -175,13 +182,15 @@ if type -t __git_ps1 &> /dev/null; then
   export GIT_PS1_SHOWUPSTREAM='auto'
 fi
 
-source ~/.bash_prompt
+if [ -f "${HOME}/.bash_prompt" ]; then
+  source "${HOME}/.bash_prompt"
+fi
 
 # ============================ HELPER FUNCTIONS ================================
 
 # Abbreviate given path Vim style
 abbrev-path() {
-  p="${1#$HOME}"
+  p="${1#${HOME}}"
   if [[ "${1}" != "${p}" ]]; then
     echo -n '~'
   fi
@@ -201,7 +210,7 @@ docker-clean() {
 
 # Get escape code for a character
 escape() {
-  printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
+  printf "\\\x%s" "$(printf '%s' "$@" | xxd -p -c1 -u)"
   # print a newline unless we’re piping the output to another program
   if [ -t 1 ]; then
     echo ""
@@ -232,17 +241,17 @@ extract () {
 # Show directory structure as a tree from `pwd`
 lstree() {
   local -r shortpath="$(basename "$(pwd)")"
-  local -r output=$(tree -C -d --noreport "$@")
+  local -r output="$(tree -C -d --noreport "$@")"
 
   (
     echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
-    echo "${output}" | tail -n $(($(echo "${output}" | wc -l)-1))
+    echo "${output}" | tail -n "$(($(echo "${output}" | wc -l)-1))"
   ) | less -EFSX
 }
 
 # Change sudo behaviour to preserve user profile
 sudo() {
-  if [[ "$@" == '-s' ]] || [[ "$@" == '-i' ]]; then
+  if [[ "$*" == '-s' ]] || [[ "$*" == '-i' ]]; then
     # sudo -s invoked, replace it with login prompt
     command sudo -E bash -l
   elif [ -z "$1" ] || [[ "$1" == -* ]]; then
@@ -255,7 +264,7 @@ sudo() {
 }
 
 tmux() {
-  if [ $# -ne 0 ]; then
+  if [ "$#" -ne 0 ]; then
     command "$(which tmux)" "$@"
   elif [ -n "${TERM_SESSION_ID}" ]; then
     tmux attach -t "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)" 2> /dev/null || tmux new -s "$(echo "${TERM_SESSION_ID}" | cut -f 1 -d :)"
