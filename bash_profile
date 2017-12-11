@@ -6,6 +6,10 @@ pathadd() {
   fi
 }
 
+if which brew &> /dev/null; then
+  BREW_PREFIX="$(brew --prefix)"
+fi
+
 if [ -z "${LC_LOGINUSER}" ]; then
   if logname &> /dev/null ; then
     export LC_LOGINUSER=$(logname)
@@ -31,29 +35,29 @@ fi
 
 # Use brewed python
 if which brew &> /dev/null; then
-    pathadd "$(brew --prefix)/opt/python/libexec/bin"
+    pathadd "${BREW_PREFIX}/opt/python/libexec/bin"
 fi
 
 # Wrapper for python virtualenvs
 if which brew &> /dev/null \
-     && [ -f "$(brew --prefix)/bin/virtualenvwrapper.sh" ]; then
+     && [ -f "${BREW_PREFIX}/bin/virtualenvwrapper.sh" ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
   # These need to be set explicitly for brewed python
   export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python/libexec/bin/python
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-  source "$(brew --prefix)/bin/virtualenvwrapper.sh"
+  source "${BREW_PREFIX}/bin/virtualenvwrapper.sh"
 elif [ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
   source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
 
 # Android stuff
-if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-ndk-r10e/r10e" ]; then
-  export ANDROID_NDK="$(brew --prefix)/Cellar/android-ndk-r10e/r10e"
-  export NDK_HOME="$(brew --prefix)/Cellar/android-ndk-r10e/r10e"
+if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e" ]; then
+  export ANDROID_NDK="${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e"
+  export NDK_HOME="${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e"
 fi
-if which brew &> /dev/null && [ -d "$(brew --prefix)/Cellar/android-sdk/22.0.5_1" ]; then
-  export ANDROID_HOME="$(brew --prefix)/Cellar/android-sdk/22.0.5_1"
+if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1" ]; then
+  export ANDROID_HOME="${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1"
   pathadd "${ANDROID_HOME}/platform-tools"
   pathadd "${ANDROID_HOME}/tools"
 fi
@@ -75,7 +79,7 @@ if which go &> /dev/null && [ -d "${HOME}/.go" ]; then
   export GOPATH="${HOME}/.go"
   pathadd "${GOPATH}/bin"
   if which brew &> /dev/null; then
-    export GOROOT="$(brew --prefix)/opt/go/libexec"
+    export GOROOT="${BREW_PREFIX}/opt/go/libexec"
     pathadd "${GOROOT}/bin"
   fi
 fi
@@ -130,8 +134,8 @@ export AUTOSSH_POLL=30
 # =============================== COMPLETIONS ==================================
 
 # Add tab completion for many Bash commands
-if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-  source "$(brew --prefix)/etc/bash_completion"
+if which brew > /dev/null && [ -f "${BREW_PREFIX}/etc/bash_completion" ]; then
+  source "${BREW_PREFIX}/etc/bash_completion"
 elif [ -f /usr/share/bash-completion/bash_completion ]; then
   source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
@@ -275,3 +279,4 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
 fi
 
 unset -f pathadd
+unset BREW_PREFIX
