@@ -7,6 +7,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+ARGS=''
 REPLACE=0
 
 while [[ "$#" -gt 0 ]]; do
@@ -23,20 +24,44 @@ done
 
 readonly REPLACE
 readonly REPO_DIR=$(basename "$(git rev-parse --show-toplevel 2> /dev/null)")
-readonly SESSION_NAME="$(echo "${TERM_SESSION_ID:=${WINDOWID:=}}" | cut -f 1 -d :)"
+readonly SESSION_NAME="$(ps -p $$ -o tty= | sed -e 's/ *$//')"
 
 if [ -z "${REPO_DIR}" ]; then
   exit 1
 fi
 
-if [ -n "${TMUX:=}" ] && [ "${REPLACE}" -eq 1 ]; then
-  tmux new-window -k -t "$(tmux display-message -p '#S:#I')" -c "$(pwd)" -n "${REPO_DIR}"
-elif [ -n "${TMUX:=}" ]; then
-  tmux new-window -c "$(pwd)" -n "${REPO_DIR}"
-elif [ -n "${SESSION_NAME}" ] && tmux has-session -t "${SESSION_NAME}" 2> /dev/null; then
-  tmux new-window -a -t "${SESSION_NAME}:0" -c "$(pwd)" -n "${REPO_DIR}"
-elif [ -n "${SESSION_NAME}" ]; then
-  tmux new-session -s "${SESSION_NAME}" -c "$(pwd)" -n "${REPO_DIR}"
-else
-  tmux new-session -c "$(pwd)" -n "${REPO_DIR}"
+if [ -n "${WORKON_HOME}" ] \
+    && [ -d "${WORKON_HOME}/${REPO_DIR}" ]; then
+  readonly VENV_PARAM="bash --rcfile <(echo 'source ~/.bash_profile; workon ${REPO_DIR}')"
 fi
+
+if [ -n "${TMUX:=}" ] && [ "${REPLACE}" -eq 1 ]; then
+  ARGS+='\0new-window'
+  ARGS+='\0-k'
+  ARGS+='\0-t'
+  ARGS+='\0'"$(tmux display-message -p '#S:#I')"
+elif [ -n "${TMUX:=}" ]; then
+  ARGS+='\0new-window'
+elif [ -n "${SESSION_NAME}" ] && tmux has-session -t "${SESSION_NAME}" 2> /dev/null; then
+  ARGS+='\0new-window'
+  ARGS+='\0-a'
+  ARGS+='\0-t'
+  ARGS+='\0'"${SESSION_NAME}:0"
+elif [ -n "${SESSION_NAME}" ]; then
+  ARGS+='\0new-session'
+  ARGS+='\0-s'
+  ARGS+='\0'"${SESSION_NAME}"
+else
+  ARGS+='\0new-session'
+fi
+
+# Common parameters
+ARGS+='\0-c'
+ARGS+='\0'"$(pwd)"
+ARGS+='\0-n'
+ARGS+='\0'"${REPO_DIR}"
+if [ -n "${VENV_PARAM:=}" ]; then
+  ARGS+='\0'"${VENV_PARAM}"
+fi
+
+echo -e "${ARGS}" | xargs -0 command tmux
