@@ -1,0 +1,10 @@
+brew 'awscli'
+brew 'packer'
+brew 'packer-completion'
+brew 'terraform'
+
+cask 'microsoft-office'
+cask 'onedrive'
+cask 'resilio-sync'
+cask 'slack'
+cask 'zoomus'
