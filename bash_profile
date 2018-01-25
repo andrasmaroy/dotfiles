@@ -1,6 +1,6 @@
 # shellcheck disable=SC2148
 # ============================== BASH PROFILE ==================================
-pathadd() {
+addpath() {
   ARG="$1"
   if [ -d "${ARG}" ] && [[ ":${PATH}:" != *":${ARG}:"* ]]; then
     export PATH="${ARG}${PATH:+":${PATH}"}"
@@ -30,13 +30,13 @@ if [ -z "${LC_LOGINUSER}" ]; then
   export LC_LOGINUSER
 fi
 
-pathadd /usr/local/sbin
-pathadd "${HOME}/Git/github/depot_tools"
-pathadd "${HOME}/.bin"
-pathadd "${HOME}/.bin/$(uname -s)"
+addpath /usr/local/sbin
+addpath "${HOME}/Git/github/depot_tools"
+addpath "${HOME}/.bin"
+addpath "${HOME}/.bin/$(uname -s)"
 
 if [[ "${LC_LOGINHOST}" != "$(hostname -s)" ]]; then
-  pathadd "${HOME}/.bin/remote_utils"
+  addpath "${HOME}/.bin/remote_utils"
 fi
 
 if [ -d "${HOME}/.pumpkin" ]; then
@@ -45,7 +45,7 @@ fi
 
 # Use brewed python
 if which brew &> /dev/null; then
-    pathadd "${BREW_PREFIX}/opt/python/libexec/bin"
+    addpath "${BREW_PREFIX}/opt/python/libexec/bin"
 fi
 
 # Wrapper for python virtualenvs
@@ -68,8 +68,8 @@ if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e"
 fi
 if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1" ]; then
   export ANDROID_HOME="${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1"
-  pathadd "${ANDROID_HOME}/platform-tools"
-  pathadd "${ANDROID_HOME}/tools"
+  addpath "${ANDROID_HOME}/platform-tools"
+  addpath "${ANDROID_HOME}/tools"
 fi
 
 # RBEnv
@@ -87,10 +87,10 @@ fi
 # Golang
 if which go &> /dev/null && [ -d "${HOME}/.go" ]; then
   export GOPATH="${HOME}/.go"
-  pathadd "${GOPATH}/bin"
+  addpath "${GOPATH}/bin"
   if which brew &> /dev/null; then
     export GOROOT="${BREW_PREFIX}/opt/go/libexec"
-    pathadd "${GOROOT}/bin"
+    addpath "${GOROOT}/bin"
   fi
 fi
 
@@ -293,5 +293,5 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
-unset -f pathadd
+unset -f addpath
 unset BREW_PREFIX
