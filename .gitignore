@@ -11,5 +11,6 @@ bin
 !bin/git-tmux
 !bin/git-whodoneit
 !bin/line
+!bin/load-color
 !bin/remote_utils/remote-copy
 !bin/remote_utils/remote-paste

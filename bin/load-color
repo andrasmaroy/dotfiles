@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Print the 3 load average values in a color gradient from green to red. Each
+# load value is compared to the number of CPU threads and colored based on that.
+
+set -euo pipefail
+
+source ~/.bash_colors
+
+if [[ "$(uname -s)" == 'Darwin' ]]; then
+  readonly CPU_COUNT="$(sysctl hw.ncpu | cut -d ' ' -f 2)"
+else
+  readonly CPU_COUNT="$(nproc)"
+fi
+
+readonly GRADIENT_RED=(0 38 69 100 131 162 193 224 255)
+readonly GRADIENT_GREEN=(255 217 186 155 124 93 62 31 0)
+readonly GRADIENT_RED_HEX=(00 26 45 64 83 A2 C1 E0 FF)
+readonly GRADIENT_GREEN_HEX=(FF D9 BA 9B 7C 5D 3E 1F 00)
+readonly LOAD="$(w | head -n 1 | sed -e 's/^.*load averages: //')"
+
+for load in ${LOAD}; do
+  i="$(printf "%.0f" "$(echo "9 * $(echo "${load} / ${CPU_COUNT}" | bc -l)" | bc -l)")"
+  if [ -n "${TMUX}" ]; then
+    echo -n "#[fg=#${GRADIENT_RED_HEX[$i]}${GRADIENT_GREEN_HEX[$i]}00]"
+  else
+    printf "\x1b[38;2;%d;%d;0m" "${GRADIENT_RED[$i]}" "${GRADIENT_GREEN[$i]}"
+  fi
+  echo -n "${load} "
+done
+if [ -n "${TMUX}" ]; then
+  echo -n '#[default]'
+else
+  echo "${RESET}"
+fi
