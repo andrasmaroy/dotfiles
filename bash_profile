@@ -246,7 +246,7 @@ lstree() {
   (
     echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
     echo "${output}" | tail -n "$(($(echo "${output}" | wc -l)-1))"
-  ) | less -EFSX
+  ) | less -EFRSX
 }
 
 # Change sudo behaviour to preserve user profile
