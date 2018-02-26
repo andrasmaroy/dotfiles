@@ -52,6 +52,7 @@ ln -isv "${GIT_DIR}/ctags" ~/.ctags
 ln -isv "${GIT_DIR}/git_template" ~/.git_template
 ln -isv "${GIT_DIR}/gitconfig" ~/.gitconfig
 ln -isv "${GIT_DIR}/githelpers" ~/.githelpers
+ln -isv "${GIT_DIR}/gitignore_global" ~/.gitignore_global
 ln -isv "${GIT_DIR}/gvimrc" ~/.gvimrc
 ln -isv "${GIT_DIR}/inputrc" ~/.inputrc
 ln -isv "${GIT_DIR}/jshintrc" ~/.jshintrc
