@@ -23,7 +23,8 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 readonly REPLACE
-readonly REPO_DIR=$(basename "$(git rev-parse --show-toplevel 2> /dev/null)")
+readonly GIT_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
+readonly REPO_DIR=$(basename "${GIT_DIR}")
 readonly SESSION_NAME="$(ps -p $$ -o tty= | sed -e 's/ *$//')"
 
 if [ -z "${REPO_DIR}" ]; then
@@ -32,7 +33,11 @@ fi
 
 if [ -n "${WORKON_HOME}" ] \
     && [ -d "${WORKON_HOME}/${REPO_DIR}" ]; then
-  readonly VENV_PARAM="bash --rcfile <(echo 'source ~/.bash_profile; workon ${REPO_DIR}')"
+  SHELL_PARAM+="; workon ${REPO_DIR}"
+fi
+
+if [ -f "${GIT_DIR}/.project_env" ]; then
+  SHELL_PARAM+="; source ${GIT_DIR}/.project_env"
 fi
 
 if [ -n "${TMUX:=}" ] && [ "${REPLACE}" -eq 1 ]; then
@@ -60,8 +65,8 @@ ARGS+='\0-c'
 ARGS+='\0'"$(pwd)"
 ARGS+='\0-n'
 ARGS+='\0'"${REPO_DIR}"
-if [ -n "${VENV_PARAM:=}" ]; then
-  ARGS+='\0'"${VENV_PARAM}"
+if [ -n "${SHELL_PARAM:=}" ]; then
+  ARGS+='\0'"bash --rcfile <(echo 'source ~/.bash_profile${SHELL_PARAM}')"
 fi
 
 echo -e "${ARGS}" | xargs -0 command tmux
