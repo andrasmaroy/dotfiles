@@ -225,6 +225,8 @@ if has("autocmd")
   autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
+  " Terraform
+  autocmd vimrc BufNewFile,BufRead *.tfvars setl ft=tf
   " https://github.com/nvie/vimrc/blob/master/vimrc :489
   "  augroup python_files "{{{
   "        au!
