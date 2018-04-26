@@ -24,6 +24,9 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
   echo 'Installing packages from Brewfile'
   brew bundle -f Brewfile
   brew bundle -f Brewfile-work
+  if brew list fzf &> /dev/null; then
+    /usr/local/opt/fzf/install
+  fi
   if which vagrant &> /dev/null; then
     if ! vagrant plugin list | grep -qs 'vagrant-vmware-fusion'; then
       vagrant plugin install vagrant-vmware-fusion

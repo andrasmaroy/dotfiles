@@ -12,6 +12,7 @@ brew 'ctags'
 # brew 'dfu-programmer'
 brew 'docker-completion'
 brew 'docker-compose-completion'
+brew 'fzf'
 brew 'git', args: ['with-openssl']
 brew 'gnu-sed'
 brew 'openssh'

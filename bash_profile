@@ -164,6 +164,11 @@ if [ -f "${HOME}/.azure-completion.bash" ]; then
   source "${HOME}/.azure-completion.bash"
 fi
 
+# Fzf
+if [ -f "${HOME}/.fzf.bash" ]; then
+  source "${HOME}/.fzf.bash"
+fi
+
 # ============================== PROMPT SETUP ==================================
 
 # Git prompt setup
