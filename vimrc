@@ -227,6 +227,8 @@ if has("autocmd")
   autocmd vimrc Filetype * setl fo-=o
   " Terraform
   autocmd vimrc BufNewFile,BufRead *.tfvars setl ft=tf
+  " Use taskpaper for TODO files
+  autocmd vimrc BufNewFile,BufRead TODO setl ft=taskpaper
   " https://github.com/nvie/vimrc/blob/master/vimrc :489
   "  augroup python_files "{{{
   "        au!

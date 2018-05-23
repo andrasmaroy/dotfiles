@@ -23,3 +23,6 @@
 	path = vim/bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git
 	ignore = dirty
+[submodule "vim/bundle/taskpaper.vim"]
+	path = vim/bundle/taskpaper.vim
+	url = git@github.com:davidoc/taskpaper.vim.git
