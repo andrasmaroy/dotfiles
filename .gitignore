@@ -14,3 +14,4 @@ bin
 !bin/load-color
 !bin/remote_utils/remote-copy
 !bin/remote_utils/remote-paste
+!bin/ssh-rmhost

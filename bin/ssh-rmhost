@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Tool to remove a line from ~/.ssh/known_hosts provided as a line number
+
+set -euo pipefail
+
+if [ $# -lt 1 ]; then
+  >&2 echo 'Provide at least one line number'
+  exit 1
+fi
+
+for arg in "$@"; do
+  if ! [ "${arg}" -eq "${arg}" ] 2> /dev/null; then
+    echo 'Provide only numbers as arguments!'
+    exit 1
+  fi
+done
+
+LINE_NUMBERS=""
+if [ $# -gt 1 ]; then
+  for number in "$@"; do
+    LINE_NUMBERS="${LINE_NUMBERS}${number}d;"
+  done
+  LINE_NUMBERS="${LINE_NUMBERS/%;/}"
+else
+  LINE_NUMBERS="$1d"
+fi
+
+sed -ie "${LINE_NUMBERS}" ~/.ssh/known_hosts
