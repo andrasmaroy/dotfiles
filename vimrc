@@ -405,6 +405,7 @@ call airline#parts#define_function('column', 'Column')
 " ================================== PLUGINS ===================================
 
 " CtrlP
+let g:ctrlp_custom_ignore = 'node_modules'
 nmap <Leader>f :CtrlP<CR>
 map <Leader>gf :CtrlP %%<CR>
 
