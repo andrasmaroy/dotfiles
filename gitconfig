@@ -56,7 +56,8 @@
 	tool = p4mergetool
 [mergetool "p4mergetool"]
 	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = true
+	keepTemporaries = false
+	trustExitCode = false
 [mergetool]
 	keepBackup = false
 [init]
