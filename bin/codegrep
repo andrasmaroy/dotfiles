@@ -5,4 +5,11 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
-grep -RI --color --exclude-dir=.git "$@" 2> /dev/null
+grep \
+  --binary-file=without-match \
+  --color \
+  --exclude-dir=.git \
+  --exclude-dir=.terraform \
+  --exclude-dir=node_modules \
+  --recursive \
+  "$@" 2> /dev/null
