@@ -2,6 +2,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = vim
 	trustctime = false
+	pager = "$(brew --prefix)"/share/git-core/contrib/diff-highlight/diff-highlight | less --tabs=4 -RFX
 [color]
 	branch = auto
 	diff = auto
@@ -48,6 +49,7 @@
 [diff]
 	tool = vimdiff
 	guitool = p4mergetool
+	compactionHeuristic = true
 [difftool]
 	prompt = false
 [difftool "p4mergetool"]
@@ -64,3 +66,10 @@
 	templatedir = ~/.git_template
 [include]
 	path = ~/.dotoverrides/gitconfig
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[interactive]
+	diffFilter = "$(brew --prefix)"/share/git-core/contrib/diff-highlight/diff-highlight
