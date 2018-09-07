@@ -6,10 +6,8 @@ tap 'osx-cross/avr'
 cask_args appdir: "/Applications"
 
 brew 'bash', link: true
-brew 'bash-completion'
-brew 'cmake'
-brew 'ctags'
-# brew 'dfu-programmer'
+brew 'bat'
+brew 'coreutils'
 brew 'docker-completion'
 brew 'docker-compose-completion'
 brew 'fzf'
@@ -17,25 +15,31 @@ brew 'git', args: ['with-openssl']
 brew 'gnu-sed'
 brew 'openssh'
 brew 'openssl'
-brew 'go'
 brew 'gpg'
-brew 'python'
-brew 'python3'
 brew 'reattach-to-user-namespace'
-brew 'shellcheck'
 brew 'telnet'
 brew 'tmux'
 brew 'tree'
-# brew 'unrar'
 brew 'vim'
 brew 'watch'
 brew 'wget'
 
+# dev tools
+brew 'cmake'
+brew 'ctags'
+brew 'go'
+brew 'python'
+brew 'python3'
+brew 'pipenv'
+brew 'shellcheck'
+
 # completions
+brew 'bash-completion'
 brew 'brew-cask-completion'
 brew 'pip-completion'
 brew 'vagrant-completion'
 
+# stuff for ergodox
 cask 'teensy', args: { appdir: "~/Applications" }
 brew 'osx-cross/avr/avr-binutils'
 brew 'osx-cross/avr/avr-gcc'
@@ -53,7 +57,6 @@ cask 'docker'
 cask 'dropbox', args: { appdir: "~/Applications" }
 cask 'firefox'
 cask 'flux', args: { appdir: "~/Applications" }
-cask 'freesmug-chromium'
 cask 'google-backup-and-sync', args: { appdir: "~/Applications" }
 cask 'keepassxc', args: { appdir: "~/Applications" }
 cask 'marshallofsound-google-play-music-player'
@@ -61,7 +64,6 @@ cask 'itsycal', args: { appdir: "~/Applications" }
 cask 'caskroom/versions/microsoft-remote-desktop-beta', args: { appdir: "~/Applications" }
 cask 'owncloud'
 cask 'p4merge'
-cask 'skype'
 cask 'signal', args: { appdir: "~/Applications" }
 cask 'spectacle', args: { appdir: "~/Applications" }
 cask 'steam', args: { appdir: "~/Applications" }
