@@ -7,7 +7,7 @@ addpath() {
   fi
 }
 
-if which brew &> /dev/null; then
+if command -v brew &> /dev/null; then
   BREW_PREFIX="$(brew --prefix)"
 fi
 
@@ -44,12 +44,12 @@ if [ -d "${HOME}/.pumpkin" ]; then
 fi
 
 # Use brewed python
-if which brew &> /dev/null; then
+if [ -n "${BREW_PREFIX}" ]; then
     addpath "${BREW_PREFIX}/opt/python/libexec/bin"
 fi
 
 # Wrapper for python virtualenvs
-if which brew &> /dev/null \
+if [ -n "${BREW_PREFIX}" ] \
      && [ -f "${BREW_PREFIX}/bin/virtualenvwrapper.sh" ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
   # These need to be set explicitly for brewed python
@@ -62,39 +62,39 @@ elif [ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
 fi
 
 # Android stuff
-if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e" ]; then
+if [ -n "${BREW_PREFIX}" ] && [ -d "${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e" ]; then
   export ANDROID_NDK="${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e"
   export NDK_HOME="${BREW_PREFIX}/Cellar/android-ndk-r10e/r10e"
 fi
-if which brew &> /dev/null && [ -d "${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1" ]; then
+if [ -n "${BREW_PREFIX}" ] && [ -d "${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1" ]; then
   export ANDROID_HOME="${BREW_PREFIX}/Cellar/android-sdk/22.0.5_1"
   addpath "${ANDROID_HOME}/platform-tools"
   addpath "${ANDROID_HOME}/tools"
 fi
 
 # RBEnv
-if which rbenv &> /dev/null; then
+if command -v rbenv &> /dev/null; then
   eval "$(rbenv init -)"
 fi
 
 # Kubernetes
-if which kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
+if command -v kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
   while read -r file; do
     export KUBECONFIG="${file}:${KUBECONFIG}"
   done < <(find "${HOME}/.kube" -name "config-*")
 fi
 
 # Golang
-if which go &> /dev/null && [ -d "${HOME}/.go" ]; then
+if command -v go &> /dev/null && [ -d "${HOME}/.go" ]; then
   export GOPATH="${HOME}/.go"
   addpath "${GOPATH}/bin"
-  if which brew &> /dev/null; then
+  if [ -n "${BREW_PREFIX}" ]; then
     export GOROOT="${BREW_PREFIX}/opt/go/libexec"
     addpath "${GOROOT}/bin"
   fi
 fi
 
-if which brew &> /dev/null; then
+if [ -n "${BREW_PREFIX}" ]; then
   export HOMEBREW_NO_GITHUB_API=1
 fi
 
@@ -146,7 +146,7 @@ export AUTOSSH_POLL=30
 # =============================== COMPLETIONS ==================================
 
 # Add tab completion for many Bash commands
-if which brew > /dev/null && [ -f "${BREW_PREFIX}/etc/bash_completion" ]; then
+if [ -n "${BREW_PREFIX}" ] && [ -f "${BREW_PREFIX}/etc/bash_completion" ]; then
   source "${BREW_PREFIX}/etc/bash_completion"
 elif [ -f /usr/share/bash-completion/bash_completion ]; then
   source /usr/share/bash-completion/bash_completion
@@ -270,7 +270,7 @@ sudo() {
 
 tmux() {
   if [ "$#" -ne 0 ]; then
-    command "$(which tmux)" "$@"
+    command "$(command -v tmux)" "$@"
   else
     local -r id="$(ps -p $$ -o tty= | sed -e 's/ *$//')"
     if [ -n "${id}" ]; then
