@@ -1,6 +1,11 @@
 set show-all-if-ambiguous on
 set completion-ignore-case on
+set completion-map-case on
 set menu-complete-display-prefix on
+set completion-prefix-display-length 3
+set expand-tilde off
+set visible-stats on                     # Show item type like 'ls -F', displays /,*,@ next to name
+set mark-symlinked-directories on
 
 set editing-mode vi
 set show-mode-in-prompt on
@@ -10,19 +15,26 @@ set vi-ins-mode-string "\1\x1b[\x36 q\2"
 set vi-cmd-mode-string "\1\x1b[\x32 q\2"
 
 set keymap vi-command
-"\e[A": history-search-backward     # up arrow
-"\e[B": history-search-forward      # down arrow
+"\e[A":  history-search-backward    # up arrow
+"k":     history-search-backward
+"\e[B":  history-search-forward     # down arrow
+"j":     history-search-forward
 "\e[5~": previous-history           # page up
 "\e[6~": next-history               # page down
+"?":     reverse-search-history
+"/":     forward-search-history
 
 set keymap vi-insert
 # Pressing tab will list all completions & select the first one. Pressing it
 # again will cycle through available completions.
-TAB: menu-complete
-# Shift-TAB cycles completions backward
-"\e[Z": menu-complete-backward
+TAB:     menu-complete
+"\e[Z":  menu-complete-backward     # Shift-TAB
 
-"\e[A": history-search-backward     # up arrow
-"\e[B": history-search-forward      # down arrow
+"\e[A":  history-search-backward    # up arrow
+"\e[B":  history-search-forward     # down arrow
 "\e[5~": previous-history           # page up
 "\e[6~": next-history               # page down
+
+$if Bash
+  Space: magic-space                # expand bash built-in features (!$) by hitting space after
+$endif
