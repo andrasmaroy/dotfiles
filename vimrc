@@ -221,20 +221,17 @@ if has("autocmd")
   autocmd vimrc BufNewFile,BufRead Vagrantfile setl ft=ruby
   " Turn on syntax hightlight for editing from bash vi mode
   autocmd vimrc BufNewFile,BufRead bash-fc.* setl filetype=sh
-  " Proper indentation for source files
-  autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
-  " Don't start new lines w/ comment leader on pressing 'o'
-  autocmd vimrc Filetype * setl fo-=o
   " Terraform
   autocmd vimrc BufNewFile,BufRead *.tfvars setl ft=tf
   " Use taskpaper for TODO files
   autocmd vimrc BufNewFile,BufRead TODO setl ft=taskpaper
-  " https://github.com/nvie/vimrc/blob/master/vimrc :489
-  "  augroup python_files "{{{
-  "        au!
-  "        " Automatic insertion of breakpoints
-  "        autocmd filetype python nnoremap <Buffer> <Leader>bp :normal oimport pdb; pdb.set_trace()  # TODO: BREAKPOINT  # noqa<Esc>
-  "    augroup end " }}}
+
+  " Proper indentation for source files
+  autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
+  " Don't start new lines w/ comment leader on pressing 'o'
+  autocmd vimrc Filetype * setl fo-=o
+  " Turn on spell checking for markdown files and git commits
+  autocmd vimrc FileType markdown,gitcommit setl spell
 endif
 
 " ================================== MAPPINGS ==================================
