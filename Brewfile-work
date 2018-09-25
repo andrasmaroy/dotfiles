@@ -5,7 +5,7 @@ brew 'packer-completion'
 brew 'terraform'
 brew 'yarn'
 
-cask 'freesmug-chromium'
+cask 'eloston-chromium'
 cask 'microsoft-office'
 cask 'onedrive'
 cask 'resilio-sync'
