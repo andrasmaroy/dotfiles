@@ -49,18 +49,18 @@ cask 'osxfuse'
 brew 'ntfs-3g'
 
 cask 'aerial'
-cask 'caffeine', args: { appdir: "~/Applications" }
 cask 'caprine', args: { appdir: "~/Applications" }
-cask 'disk-inventory-x', args: { appdir: "~/Applications" }
 cask 'discord', args: { appdir: "~/Applications" }
+cask 'disk-inventory-x', args: { appdir: "~/Applications" }
 cask 'docker'
 cask 'dropbox', args: { appdir: "~/Applications" }
 cask 'firefox'
 cask 'flux', args: { appdir: "~/Applications" }
 cask 'google-backup-and-sync', args: { appdir: "~/Applications" }
-cask 'keepassxc', args: { appdir: "~/Applications" }
-cask 'marshallofsound-google-play-music-player'
 cask 'itsycal', args: { appdir: "~/Applications" }
+cask 'keepassxc', args: { appdir: "~/Applications" }
+cask 'keepingyouawake', args: { appdir: "~/Applications" }
+cask 'marshallofsound-google-play-music-player'
 cask 'caskroom/versions/microsoft-remote-desktop-beta', args: { appdir: "~/Applications" }
 cask 'owncloud'
 cask 'p4merge'
