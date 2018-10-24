@@ -13,7 +13,7 @@ if git submodule status | grep '^-' &> /dev/null; then
 fi
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
-  if ! which brew &> /dev/null; then
+  if ! command -v brew &> /dev/null; then
     echo 'Setting up Homebrew'
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
@@ -27,7 +27,7 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
   if brew list fzf &> /dev/null; then
     /usr/local/opt/fzf/install
   fi
-  if which vagrant &> /dev/null; then
+  if command -v vagrant &> /dev/null; then
     if ! vagrant plugin list | grep -qs 'vagrant-vmware-fusion'; then
       vagrant plugin install vagrant-vmware-fusion
       echo 'Vagrant vmware fusion provider installed, setup the license with:'
