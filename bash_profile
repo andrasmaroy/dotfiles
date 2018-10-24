@@ -126,6 +126,10 @@ else
   export TREE_COLORS='ln=36'
 fi
 
+if command -v bat &> /dev/null; then
+  export BAT_THEME=Tomorrow-Night-Eighties
+fi
+
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${ORANGE}"
 
@@ -292,6 +296,7 @@ tmux() {
 
 # ================================= ALIASES ====================================
 
+alias cat='bat'
 alias dirs='dirs -v'
 alias f='open -a Finder ./'
 alias grep='grep --color'
