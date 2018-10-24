@@ -144,6 +144,14 @@ export HISTSIZE=10000
 # Append to history, don't overwrite it
 shopt -s histappend
 
+# Prevent file overwrite on stdout redirection
+# Use `>|` to force redirection to an existing file
+set -o noclobber
+# Update window size after every command
+shopt -s checkwinsize
+# Prepend cd to directory names automatically
+shopt -s autocd 2> /dev/null
+
 # A setting that does its best to keep ssh connections from freezing
 export AUTOSSH_POLL=30
 
