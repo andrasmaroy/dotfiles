@@ -214,6 +214,7 @@ commandstats() {
 # Remove stopped containers and noname images
 docker-clean() {
   docker container prune -f
+  docker volume prune -f
   docker images | grep '^<none>' | awk '{print $3}' | xargs docker rmi
 }
 
