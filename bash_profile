@@ -220,7 +220,7 @@ docker-clean() {
 
 # Get escape code for a character
 escape() {
-  printf "\\\x%s" "$(printf '%s' "$@" | xxd -p -c1 -u)"
+  printf "\\\\x%s" "$(printf '%s' "$@" | xxd -p -c1 -u)"
   # print a newline unless we’re piping the output to another program
   if [ -t 1 ]; then
     echo ""
@@ -263,7 +263,7 @@ lstree() {
   local -r output="$(tree -C -d --noreport "$@")"
 
   (
-    echo "${output}" | head -n 1 | sed -e "s/^\.$/${shortpath}/"
+    echo "${output}" | head -n 1 | sed -e "s/^\\.$/${shortpath}/"
     echo "${output}" | tail -n "$(($(echo "${output}" | wc -l)-1))"
   ) | less -EFRSX
 }
