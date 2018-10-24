@@ -243,6 +243,15 @@ extract () {
   fi
 }
 
+# Use fzf to fuzzy find files and open with vim
+fe() {
+  local files
+  mapfile -t files <<< "$(fzf --query="$1" --multi --select-1 --exit-0)"
+  if [ ! -z "${files[*]}" ]; then
+    vim "${files[@]}"
+  fi
+}
+
 # Show directory structure as a tree from `pwd`
 lstree() {
   local -r shortpath="$(basename "$(pwd)")"
