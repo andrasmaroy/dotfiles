@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# https://github.com/Goles/Battery/blob/master/battery
+
+readonly BATTER_PATH=/sys/class/power_supply/BAT0
+
+# Determine battery charge state
+battery_charge() {
+    case $(uname -s) in
+        "Darwin")
+            if [ "$(pmset -g batt | grep -o 'AC Power')" ]; then
+                BATT_CONNECTED=1
+            else
+                BATT_CONNECTED=0
+            fi
+            BATT_PCT=$(pmset -g batt | grep -o '[0-9]*%' | tr -d %)
+            ;;
+        "Linux")
+            case $(cat /etc/*-release) in
+                *"Arch Linux"*|*"Ubuntu"*|*"openSUSE"*)
+                    battery_state=$(cat $battery_path/energy_now)
+                    battery_full=$battery_path/energy_full
+                    battery_current=$battery_path/energy_now
+                    ;;
+                *)
+                    battery_state=$(cat $battery_path/status)
+                    battery_full=$battery_path/charge_full
+                    battery_current=$battery_path/charge_now
+                    ;;
+            esac
+            if [ $battery_state == 'Discharging' ]; then
+                BATT_CONNECTED=0
+            else
+                BATT_CONNECTED=1
+            fi
+                now=$(cat $battery_current)
+                full=$(cat $battery_full)
+                BATT_PCT=$((100 * $now / $full))
+            ;;
+    esac
+}
+
+# Apply the correct color to the battery status prompt
+apply_colors() {
+    # Green
+    if [[ $BATT_PCT -ge 75 ]]; then
+        COLOR="#[fg=green]"
+    # Yellow
+    elif [[ $BATT_PCT -ge 25 ]] && [[ $BATT_PCT -lt 75 ]]; then
+        COLOR="#[fg=yellow]"
+    # Red
+    elif [[ $BATT_PCT -lt 25 ]]; then
+        COLOR="#[fg=red]"
+    fi
+}
+
+# Print the battery status
+print_status() {
+  symbol=""
+  if [ $BATT_CONNECTED -eq 1 ]; then
+    echo "batt connected"
+    symbol="⚡️"
+  fi
+  echo "${COLOR}${symbol}${BATT_PCT}%#[default]"
+}
+
+battery_charge
+apply_colors
+print_status
