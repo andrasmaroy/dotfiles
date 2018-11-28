@@ -227,7 +227,7 @@ if has("autocmd")
   autocmd vimrc BufNewFile,BufRead TODO setl ft=taskpaper
 
   " Proper indentation for source files
-  autocmd vimrc FileType puppet,ruby,sh,json,yaml setl ts=2 sts=2 sw=2
+  autocmd vimrc FileType puppet,ruby,sh,json,yaml,terraform setl ts=2 sts=2 sw=2
   " Don't start new lines w/ comment leader on pressing 'o'
   autocmd vimrc Filetype * setl fo-=o
   " Turn on spell checking for markdown files and git commits
