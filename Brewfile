@@ -34,7 +34,7 @@ brew 'pipenv'
 brew 'shellcheck'
 
 # completions
-brew 'bash-completion'
+brew 'bash-completion@2'
 brew 'brew-cask-completion'
 brew 'pip-completion'
 brew 'vagrant-completion'
