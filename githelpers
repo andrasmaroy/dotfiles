@@ -21,7 +21,7 @@ IFS=$'\n'
 
 # ASCII separator characters won't ever be in commit messages
 readonly FIELD_SEP="$(echo -e '\x1E')"     # Field separator
-readonly GRAPH_SEP="$(echo -e '\x1F')"    # Separate the graph from the rest
+readonly GRAPH_SEP="$(echo -e '\x1F')"     # Separate the graph from the rest
 
 readonly HASH='%C(auto)%h%C(reset)'
 readonly RELATIVE_TIME='%C(green)(%ar)%C(reset)'
@@ -40,12 +40,11 @@ show_git_head() {
 }
 
 show_branch_history() {
-  local -r ls_remote="$(git ls-remote -q)"
-  local -r head_hash="$(echo "${ls_remote}" | grep 'HEAD$' | cut -f 1 -d '	')"
-  local -r base_branch="$(echo "${ls_remote}" | grep "${head_hash}"'\s*refs/heads/' | tail -n 1 | sed -e 's/.*\/\(.*\)$/\1/')"
+  # assume master as base branch, override with `git config githelpers.base_branch <NAME>`
+  local -r base_branch="$(git config githelpers.base_branch 2> /dev/null || echo 'master')"
 
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
-    local -r branch_point=$(git rev-list --boundary HEAD..."${base_branch}" | grep "^-" | cut -c2- | tail -n 1)
+    local -r branch_point="$(git show-branch --current --sha1-name --topo-order --topics --no-color | grep '^\s*\*\s*\[' | tail -n 1 | sed 's/^.*\[\([a-z0-9]*\)\].*$/\1/')^"
     pretty_git_log --ancestry-path --first-parent "${branch_point}"...HEAD
   else
     pretty_git_log --first-parent HEAD
