@@ -49,11 +49,31 @@ __prompt_command() {
   # CWD formatting for prompt
   local -r p_cwd="${BOLD}$(abbrev-path "${PWD}")${RESET}"
 
+  # AWS settings
+  if [ -n "${AWS_DEFAULT_PROFILE}" ]; then
+      local p_aws=" ["
+      case "${AWS_DEFAULT_PROFILE}" in
+          test)
+              local p_aws+="${GREEN}"
+              ;;
+          preprod)
+              local p_aws+="${ORANGE}"
+              ;;
+          prod)
+              local p_aws+="${RED}"
+              ;;
+      esac
+      local p_aws+="${AWS_DEFAULT_PROFILE}${RESET}]"
+  else
+      local -r p_aws=""
+  fi
+
+
   # Prompt symbol
   local -r p_symbol="\n\\\$ "
 
   # Assemble the prompt
-  local -r pre="${p_titlebar}${p_time}${p_exit_code}${p_job_count}${p_virtualenv_name}${p_user:= }${p_host}${p_cwd}"
+  local -r pre="${p_titlebar}${p_time}${p_exit_code}${p_job_count}${p_virtualenv_name}${p_user:= }${p_host}${p_cwd}${p_aws}"
   local -r post="${p_symbol}"
 
   if type -t __git_ps1 &> /dev/null; then
