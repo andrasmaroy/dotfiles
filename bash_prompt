@@ -4,7 +4,7 @@
 __prompt_command() {
   # Save the last exit code before doing anything else
   local p_exit_code="$?"
-  if [ "${p_exit_code}" -ne 0 ]; then
+  if [ "${p_exit_code}" -ne 0 ] && [ "${p_exit_code}" -ne 146 ]; then
     local -r p_exit_code=" [${RED}${p_exit_code}${RESET}]"
   else
     local -r p_exit_code=''
