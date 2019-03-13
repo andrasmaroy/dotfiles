@@ -134,15 +134,19 @@ fi
 export LESS_TERMCAP_md="${ORANGE}"
 
 # Put timestamps in bash history
-export HISTTIMEFORMAT='%F %T '
+# export HISTTIMEFORMAT='%F %T '
 # Don't put duplicate commands into the history
 export HISTCONTROL='ignoreboth'
 # Don't record these commands in the history; who cares about ls?
-export HISTIGNORE='pwd:ls:history:'
+export HISTIGNORE='pwd:ls:ll:history:exit:bg:fg:clear'
 # Store more history
 export HISTSIZE=10000
+export HISTFILESIZE=10000
+export SHELL_SESSION_HISTORY=1
 # Append to history, don't overwrite it
-shopt -s histappend
+# shopt -s histappend
+# Save multiline commands as one history entry
+shopt -s cmdhist
 
 # Prevent file overwrite on stdout redirection
 # Use `>|` to force redirection to an existing file
