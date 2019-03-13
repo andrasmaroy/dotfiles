@@ -322,6 +322,9 @@ alias sudo='sudo '                    # With this aliases can be used with sudo
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias cask='brew cask'
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+  if command -v terminal-notifier &> /dev/null; then
+    alias notify='if [ $? -eq 0 ]; then terminal-notifier -message "Command finished succesfully"; else terminal-notifier -message "Command failed"; fi'
+  fi
   if command -v gmkdir &> /dev/null; then
     alias mkdir='gmkdir -pv'
   fi
