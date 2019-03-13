@@ -50,9 +50,9 @@ __prompt_command() {
   local -r p_cwd="${BOLD}$(abbrev-path "${PWD}")${RESET}"
 
   # AWS settings
-  if [ -n "${AWS_DEFAULT_PROFILE}" ]; then
+  if [ -n "${AWS_PROFILE}" ]; then
       local p_aws=" ["
-      case "${AWS_DEFAULT_PROFILE}" in
+      case "${AWS_PROFILE}" in
           test)
               local p_aws+="${GREEN}"
               ;;
@@ -63,7 +63,7 @@ __prompt_command() {
               local p_aws+="${RED}"
               ;;
       esac
-      local p_aws+="${AWS_DEFAULT_PROFILE}${RESET}]"
+      local p_aws+="${AWS_PROFILE}${RESET}]"
   else
       local -r p_aws=""
   fi
