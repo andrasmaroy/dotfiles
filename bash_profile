@@ -315,7 +315,6 @@ alias f='open -a Finder ./'
 alias grep='grep --color'
 alias ll='ls -lAhp'
 alias lr='lstree'
-alias mkdir='mkdir -pv'
 alias numfiles='echo $(ls -1 | wc -l)'
 alias prettyjson='python -m json.tool'
 alias sudo='sudo '                    # With this aliases can be used with sudo
@@ -323,6 +322,11 @@ alias sudo='sudo '                    # With this aliases can be used with sudo
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   alias cask='brew cask'
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+  if command -v gmkdir &> /dev/null; then
+    alias mkdir='gmkdir -pv'
+  fi
+else
+  alias mkdir='mkdir -pv'
 fi
 
 unset -f addpath
