@@ -40,8 +40,8 @@ show_git_head() {
 }
 
 show_branch_history() {
-  # assume master as base branch, override with `git config githelpers.base_branch <NAME>`
-  local -r base_branch="$(git config githelpers.base_branch 2> /dev/null || echo 'master')"
+  # assume master as base branch, override with `git config githelpers.basebranch <NAME>`
+  local -r base_branch="$(git config githelpers.basebranch 2> /dev/null || echo 'master')"
 
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
     local -r branch_point="$(git show-branch --current --sha1-name --topo-order --topics --no-color | grep '^\s*\*\s*\[' | tail -n 1 | sed 's/^.*\[\([a-z0-9]*\)\].*$/\1/')^"
