@@ -36,9 +36,14 @@ if [ -n "${WORKON_HOME}" ] \
   SHELL_PARAM+="; workon ${REPO_DIR}"
 fi
 
-if [ -f "${GIT_DIR}/.project_env" ]; then
-  SHELL_PARAM+="; source ${GIT_DIR}/.project_env"
-fi
+while [[ "$(pwd)" != '/' ]]; do
+  pushd .. &> /dev/null
+done
+while popd &> /dev/null; do
+  if [ -f ./.project_env ]; then
+    SHELL_PARAM+="; source $(pwd)/.project_env"
+  fi
+done
 
 if [ -n "${TMUX:=}" ] && [ "${REPLACE}" -eq 1 ]; then
   ARGS+='\0new-window'
