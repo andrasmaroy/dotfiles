@@ -57,7 +57,7 @@ __prompt_command() {
               local p_aws+="${GREEN}"
               ;;
           preprod)
-              local p_aws+="${ORANGE}"
+              local p_aws+="${YELLOW}"
               ;;
           prod)
               local p_aws+="${RED}"
