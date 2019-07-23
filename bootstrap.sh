@@ -44,6 +44,9 @@ mkdir -p ~/.go
 mkdir -p ~/.ssh/{cm_sockets,config.d,keys}
 mkdir -p ~/.ssh/keys/{personal,work}
 
+mkdir -p vim/{backup,swap,undo}
+chmod 700 vim/{backup,swap,undo}
+
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8
 ln -isv "../${GIT_DIR}/ssh/config" ~/.ssh/config

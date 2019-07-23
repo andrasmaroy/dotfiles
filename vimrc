@@ -63,21 +63,24 @@ set number                      " Line numbers are good
 set relativenumber              " Relative line number are even better
 set numberwidth=5               " Show line numbers of up to 4 characters
 
-" ================================= SWAP FILES =================================
+" ============================= BACKUP, SWAP, UNDO =============================
 
-set noswapfile
+" protect against crash-during-write
+set writebackup
+" but do not persist backup after successful write
 set nobackup
-set nowritebackup
+" use rename-and-write-new method whenever safe
+set backupcopy=auto
+" consolidate the writebackups
+set backupdir^=~/.vim/backup//
 
-" ============================== PERSISTENT UNDO ===============================
+" Protect changes between writes.
+set swapfile
+set directory^=~/.vim/swap//
 
 " Keep undo history across sessions, by storing in file.
-" Only works all the time.
-if has('persistent_undo')
-  silent !mkdir ~/.vim/backups > /dev/null 2>&1
-  set undodir=~/.vim/backups
-  set undofile
-endif
+set undofile
+set undodir^=~/.vim/undo//
 
 " ================================ INDENTATION =================================
 

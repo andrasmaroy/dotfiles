@@ -1,4 +1,6 @@
-vim/backups/**
+vim/backup
+vim/swap
+vim/undo
 bin/git-dependencies
 tmux-*.log
 dotoverrides
