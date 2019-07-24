@@ -401,10 +401,19 @@ call airline#parts#define_function('column', 'Column')
 
 " ================================== PLUGINS ===================================
 
-" CtrlP
-let g:ctrlp_custom_ignore = 'node_modules'
-nmap <Leader>f :CtrlP<CR>
-map <Leader>gf :CtrlP %%<CR>
+" FZF
+set rtp+=/usr/local/opt/fzf
+nmap <Leader>f :Files<CR>
+nmap <Leader>gf :GFiles<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>/ :BLines<CR>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " Indexed search
 let g:indexed_search_mappings = 0
@@ -418,7 +427,6 @@ nnoremap <silent> N N:ShowSearchIndex<CR>
 vnoremap <silent> N N:ShowSearchIndex<CR>
 
 " Airline
-
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
