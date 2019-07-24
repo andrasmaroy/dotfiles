@@ -1,8 +1,8 @@
-brew 'angular'
+brew 'angular-cli'
 brew 'awscli'
-brew 'packer'
+brew 'consul-template'
 brew 'packer-completion'
-brew 'terraform'
+brew 'terraform_landscape'
 brew 'yarn'
 
 cask 'eloston-chromium'
