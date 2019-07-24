@@ -10,6 +10,7 @@ bin
 !bin/dc_ssh
 !bin/git
 !bin/git-dirty
+!bin/git-fco
 !bin/git-tmux
 !bin/git-whodoneit
 !bin/line

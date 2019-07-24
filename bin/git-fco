@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Fuzzy search for git branches and tags
+# Lists items updated latest first
+# based on https://github.com/junegunn/fzf/wiki/Examples#git
+
+fco() {
+  local tags branches target
+  tags=$(
+    git tag --sort=committerdate             |
+    awk '{print "\x1b[31;1mtag\x1b[m\t" $1}'
+    ) || return
+  branches=$(
+    git branch --all --sort=committerdate       |
+    grep -v HEAD                                |
+    sed "s/^.* //"                              |
+    sed "s#remotes/[^/]*/##"                    |
+    awk '!seen[$0]++'                           |
+    awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+    ) || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --ansi +m -n 2 +s --tac
+    ) || return
+  git checkout "$(echo "$target" | awk '{print $2}')"
+}
+
+fco
