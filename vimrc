@@ -1,13 +1,6 @@
 " Make Vim more useful
 set nocompatible
 
-" ================================== PATHOGEN ==================================
-
-" Pathogen load
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-
 " =============================== GENERAL CONFIG ===============================
 
 set shell=bash                  " Use bash instead of sh
@@ -401,6 +394,9 @@ function! Column()
 
     return column
 endfunction
+" Load vim-airline ahead of time, define_function would only be loaded after
+" .vimrc making this call fail otherwise
+packadd! vim-airline
 call airline#parts#define_function('column', 'Column')
 
 " ================================== PLUGINS ===================================

@@ -72,7 +72,7 @@ if [ -d dotoverrides ]; then
 fi
 
 echo 'Installing YouCompleteMe vim plugin'
-pushd vim/bundle/YouCompleteMe > /dev/null
+pushd vim/pack/functional/start/YouCompleteMe > /dev/null
 ./install.py --clang-completer --gocode-completer
 popd > /dev/null
 
