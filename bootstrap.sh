@@ -103,6 +103,7 @@ if command -v bat &> /dev/null; then
   mkdir -p "$BAT_CONFIG_DIR/syntaxes"
   pushd "$BAT_CONFIG_DIR/syntaxes" > /dev/null
   wget https://raw.githubusercontent.com/aziz/PlainTasks/master/PlainTasks.sublime-syntax
+  wget https://raw.githubusercontent.com/alexlouden/Terraform.tmLanguage/master/Terraform.sublime-syntax
   # shellcheck disable=SC1003
   sed -e 's/\(file_extensions:$\)/\1\'$'\n  - TODO/' PlainTasks.sublime-syntax
   popd > /dev/null
