@@ -53,6 +53,7 @@ cask 'osxfuse'
 brew 'ntfs-3g'
 
 cask 'aerial'
+cask 'appcleaner'
 cask 'caprine', args: { appdir: "~/Applications" }
 cask 'discord', args: { appdir: "~/Applications" }
 cask 'disk-inventory-x', args: { appdir: "~/Applications" }
