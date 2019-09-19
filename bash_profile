@@ -165,8 +165,8 @@ export AUTOSSH_POLL=30
 # =============================== COMPLETIONS ==================================
 
 # Add tab completion for many Bash commands
-if [ -n "${BREW_PREFIX}" ] && [ -f "${BREW_PREFIX}/share/bash-completion/bash_completion" ]; then
-  source "${BREW_PREFIX}/share/bash-completion/bash_completion"
+if [ -n "${BREW_PREFIX}" ] && [ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
+  source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 elif [ -f /usr/share/bash-completion/bash_completion ]; then
   source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
