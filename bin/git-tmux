@@ -27,7 +27,7 @@ readonly GIT_DIR=$(git rev-parse --show-toplevel 2> /dev/null)
 readonly REPO_DIR=$(basename "${GIT_DIR}")
 readonly SESSION_NAME="$(ps -p $$ -o tty= | sed -e 's/ *$//')"
 
-if [ -z "${REPO_DIR}" ]; then
+if [ -z "${REPO_DIR}" ] || tmux list-windows -F '#W' | grep -q "^${REPO_DIR}$" &> /dev/null; then
   exit 1
 fi
 
@@ -71,7 +71,7 @@ ARGS+='\0'"$(pwd)"
 ARGS+='\0-n'
 ARGS+='\0'"${REPO_DIR}"
 if [ -n "${SHELL_PARAM:=}" ]; then
-  ARGS+='\0'"bash --rcfile <(echo 'source ~/.bash_profile${SHELL_PARAM}')"
+  ARGS+='\0'"bash --rcfile <(echo 'export PROJECT_NAME=${REPO_DIR}; source ~/.bash_profile${SHELL_PARAM}')"
 fi
 
 echo -e "${ARGS}" | xargs -0 command tmux

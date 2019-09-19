@@ -134,7 +134,7 @@ fi
 export LESS_TERMCAP_md="${ORANGE}"
 
 # Put timestamps in bash history
-# export HISTTIMEFORMAT='%F %T '
+export HISTTIMEFORMAT='%F %T '
 # Don't put duplicate commands into the history
 export HISTCONTROL='ignoreboth'
 # Don't record these commands in the history; who cares about ls?
@@ -143,8 +143,11 @@ export HISTIGNORE='pwd:ls:ll:history:exit:bg:fg:clear'
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 export SHELL_SESSION_HISTORY=1
+if [ -n "${PROJECT_NAME}" ]; then
+  export HISTFILE="${HOME}/.bash_history_${PROJECT_NAME}"
+fi
 # Append to history, don't overwrite it
-# shopt -s histappend
+shopt -s histappend
 # Save multiline commands as one history entry
 shopt -s cmdhist
 

@@ -83,5 +83,5 @@ __prompt_command() {
   fi
 }
 
-export PROMPT_COMMAND=__prompt_command
+export PROMPT_COMMAND="__prompt_command; history -a"
 
