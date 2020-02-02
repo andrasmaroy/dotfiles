@@ -6,6 +6,7 @@ tap 'osx-cross/avr'
 cask_args appdir: "/Applications"
 
 brew 'bash', link: true
+brew 'bandwhich'
 brew 'bat'
 brew 'coreutils'
 brew 'docker-completion'
@@ -68,11 +69,10 @@ cask 'keepingyouawake', args: { appdir: "~/Applications" }
 cask 'marshallofsound-google-play-music-player'
 cask 'caskroom/versions/microsoft-remote-desktop-beta', args: { appdir: "~/Applications" }
 cask 'owncloud'
-cask 'p4merge'
+cask 'p4v'
 cask 'signal', args: { appdir: "~/Applications" }
 cask 'spectacle', args: { appdir: "~/Applications" }
 cask 'steam', args: { appdir: "~/Applications" }
-cask 'thunderbird', args: { appdir: "~/Applications" }
 cask 'tunnelblick'
 cask 'vagrant'
 cask 'vlc', args: { appdir: "~/Applications" }

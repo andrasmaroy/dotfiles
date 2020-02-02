@@ -1,9 +1,7 @@
-brew 'angular-cli'
 brew 'awscli'
 brew 'consul-template'
 brew 'packer-completion'
 brew 'terraform_landscape'
-brew 'yarn'
 
 cask 'eloston-chromium'
 cask 'microsoft-office'
