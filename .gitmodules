@@ -41,3 +41,6 @@
 [submodule "vim/pack/syntax/vim-mikrotik"]
 	path = vim/pack/syntax/start/vim-mikrotik
 	url = git@github.com:zainin/vim-mikrotik.git
+[submodule "vim/pack/ui/start/vim-gitgutter"]
+	path = vim/pack/ui/start/vim-gitgutter
+	url = git@github.com:airblade/vim-gitgutter.git
