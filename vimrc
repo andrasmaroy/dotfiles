@@ -402,18 +402,19 @@ call airline#parts#define_function('column', 'Column')
 " ================================== PLUGINS ===================================
 
 " FZF
-set rtp+=/usr/local/opt/fzf
-nmap <Leader>f :Files<CR>
-nmap <Leader>gf :GFiles<CR>
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>/ :BLines<CR>
-
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+set rtp+=/usr/local/opt/fzf
+nmap <Leader>f :Files<CR>
+nmap <Leader>gf :GFiles<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>/ :BLines<CR>
+nmap <Leader>r :Rg<CR>
 
 " Indexed search
 let g:indexed_search_mappings = 0
