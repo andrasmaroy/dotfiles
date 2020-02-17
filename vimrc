@@ -430,7 +430,7 @@ vnoremap <silent> N N:ShowSearchIndex<CR>
 " Airline
 let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#default#layout = [
@@ -445,15 +445,8 @@ function! AirlineInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
-" Syntastic
-let g:syntastic_puppet_checkers = ['puppetlint']
-let g:syntastic_python_checkers = ['flake8', 'pep8']
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_sh_shellcheck_args = "-x -e SC1090 -e SC1091"
+" Ale
+let g:ale_sh_shellcheck_options = "-x -e SC1090 -e SC1091"
 
 " YouCompleteMe
 let g:ycm_python_binary_path = 'python'

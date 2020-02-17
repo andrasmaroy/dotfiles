@@ -1,7 +1,3 @@
-[submodule "vim/bundle/syntastic"]
-	path = vim/pack/functional/start/syntastic
-	url = https://github.com/scrooloose/syntastic
-	ignore = dirty
 [submodule "vim/bundle/vim-airline"]
 	path = vim/pack/ui/opt/vim-airline
 	url = https://github.com/bling/vim-airline
@@ -44,3 +40,6 @@
 [submodule "vim/pack/ui/start/vim-gitgutter"]
 	path = vim/pack/ui/start/vim-gitgutter
 	url = git@github.com:airblade/vim-gitgutter.git
+[submodule "vim/pack/functional/start/ale"]
+	path = vim/pack/functional/start/ale
+	url = https://github.com/dense-analysis/ale.git
