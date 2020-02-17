@@ -27,7 +27,7 @@ readonly HASH='%C(auto)%h%C(reset)'
 readonly RELATIVE_TIME='%C(green)(%ar)%C(reset)'
 readonly AUTHOR='%C(bold cyan)<%an>%C(reset)'
 readonly REFS='%C(auto)%d%C(reset)'
-readonly SUBJECT='%s'
+readonly SUBJECT='%<(120,trunc)%s'
 
 readonly FORMAT="${GRAPH_SEP}${HASH}${FIELD_SEP}${RELATIVE_TIME}${FIELD_SEP}${AUTHOR}${FIELD_SEP}${REFS} ${SUBJECT}"
 
