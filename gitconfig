@@ -51,6 +51,7 @@
 	tool = vimdiff
 	guitool = p4mergetool
 	compactionHeuristic = true
+	algorithm = patience
 [difftool]
 	prompt = false
 [difftool "p4mergetool"]
