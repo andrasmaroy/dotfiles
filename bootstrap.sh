@@ -94,7 +94,7 @@ fi
 
 if command -v bat &> /dev/null; then
   echo 'Setting up bat theme'
-  BAT_CONFIG_DIR="$(bat cache --config-dir)"
+  BAT_CONFIG_DIR="$(bat --config-dir)"
   mkdir -p "$BAT_CONFIG_DIR/themes"
   pushd "$BAT_CONFIG_DIR/themes" > /dev/null
   wget https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/textmate/Tomorrow-Night-Eighties.tmTheme
@@ -108,5 +108,5 @@ if command -v bat &> /dev/null; then
   sed -e 's/\(file_extensions:$\)/\1\'$'\n  - TODO/' PlainTasks.sublime-syntax
   popd > /dev/null
 
-  bat cache --init
+  bat cache --build
 fi
