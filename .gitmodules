@@ -43,3 +43,6 @@
 [submodule "vim/pack/functional/start/ale"]
 	path = vim/pack/functional/start/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "vim/pack/functional/start/vim-surround"]
+	path = vim/pack/functional/start/vim-surround
+	url = git@github.com:tpope/vim-surround.git
