@@ -11,6 +11,7 @@ brew 'bat'
 brew 'coreutils'
 brew 'docker-completion'
 brew 'docker-compose-completion'
+brew 'fd'
 brew 'fzf'
 brew 'git', args: ['with-openssl']
 brew 'gnu-sed'
