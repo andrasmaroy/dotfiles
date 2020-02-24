@@ -44,7 +44,7 @@ show_branch_history() {
   local -r base_branch="$(git config githelpers.basebranch 2> /dev/null || echo 'master')"
 
   if [ "$(git rev-parse --abbrev-ref HEAD)" != "${base_branch}" ]; then
-    local -r branch_point="$(git show-branch --current --sha1-name --topo-order --topics --no-color | grep '^\s*\*\s*\[' | tail -n 1 | sed 's/^.*\[\([a-z0-9]*\)\].*$/\1/')^"
+    local -r branch_point="$(git show-branch --current --sha1-name --topo-order --topics --no-color 2> /dev/null | grep '^\s*\*\s*\[' | tail -n 1 | sed 's/^.*\[\([a-z0-9]*\)\].*$/\1/')^"
     pretty_git_log --ancestry-path --first-parent "${branch_point}"...HEAD
   else
     pretty_git_log --first-parent HEAD
