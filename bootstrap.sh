@@ -46,6 +46,9 @@ mkdir -p ~/.ssh/keys/{personal,work}
 
 mkdir -p vim/{backup,swap,undo}
 chmod 700 vim/{backup,swap,undo}
+if [[ "$(uname -s)" == 'Darwin' ]]; then
+  mkdir -p ~/Library/Caches/org.freedesktop
+fi
 
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8

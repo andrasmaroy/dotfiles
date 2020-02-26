@@ -98,6 +98,11 @@ if [ -n "${BREW_PREFIX}" ]; then
   export HOMEBREW_NO_GITHUB_API=1
 fi
 
+# Set proper path cache dir on Mac OS
+if [[ "$(uname -s)" == 'Darwin' ]] && [ -d "${HOME}/Library/Caches/org.freedesktop" ]; then
+  export XDG_CACHE_HOME="${HOME}/Library/Caches/org.freedesktop"
+fi
+
 # ============================ TERMINAL OPTIONS ================================
 
 # Make vim the default editor.
