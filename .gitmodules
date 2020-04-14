@@ -49,3 +49,6 @@
 [submodule "vim/pack/functional/start/vim-commentary"]
 	path = vim/pack/functional/start/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+[submodule "vim/pack/functional/start/undotree"]
+	path = vim/pack/functional/start/undotree
+	url = git@github.com:mbbill/undotree.git

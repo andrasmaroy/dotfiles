@@ -451,3 +451,7 @@ let g:ale_sh_shellcheck_options = "-x -e SC1090 -e SC1091"
 " YouCompleteMe
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Undotree
+let g:undotree_SetFocusWhenToggle = 1
+nmap <Leader>u :UndotreeToggle<CR>
