@@ -1,9 +1,8 @@
+dotoverrides
+tmux-*.log
 vim/backup
 vim/swap
 vim/undo
-bin/git-dependencies
-tmux-*.log
-dotoverrides
 bin
 !bin/Darwin/linux
 !bin/codegrep
@@ -11,6 +10,8 @@ bin
 !bin/git
 !bin/git-dirty
 !bin/git-fco
+!bin/git-fshow
+!bin/git-fstash
 !bin/git-tmux
 !bin/git-whodoneit
 !bin/line
