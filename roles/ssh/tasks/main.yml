@@ -1,0 +1,27 @@
+---
+
+- name: Install OpenSSH via Homebrew
+  homebrew:
+    name: openssh
+
+- name: Create control master folder
+  file:
+    state: directory
+    dest: ~/.ssh/cm_sockets
+    mode: "0700"
+
+- name: Create ssh folders
+  file:
+    state: directory
+    dest: "~/.ssh/{{ item }}"
+  loop:
+    - config.d
+    - keys/personal
+    - keys/work
+
+- name: Link ssh config
+  file:
+    state: link
+    src: "../{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/ssh/files/config"
+    dest: "~/.ssh/config"
+    force: yes
