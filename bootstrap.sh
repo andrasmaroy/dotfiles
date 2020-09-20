@@ -4,6 +4,12 @@
 
 set -euo pipefail
 
+if [[ "$(uname -s)" == 'Darwin' ]]; then
+  if ! xcode-select --print-path &> /dev/null; then
+    xcode-select --install
+  fi
+fi
+
 readonly GIT_DIR="$(git rev-parse --show-toplevel | sed -e "s:${HOME}/::")"
 
 # Check submodules
@@ -12,11 +18,11 @@ if git submodule status | grep '^-' &> /dev/null; then
   git submodule update --init --recursive
 fi
 
+pip3 install --user pipenv
+pipenv install ansible
+pipenv run ansible-playbook --connection=local --inventory 127.0.0.1, --ask-become-pass site.yml
+
 if [[ "$(uname -s)" == 'Darwin' ]]; then
-  if ! command -v brew &> /dev/null; then
-    echo 'Setting up Homebrew'
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
   if ! brew tap | grep -q Homebrew/bundle &> /dev/null; then
     echo 'Setting up Homebrew Bundle'
     brew tap Homebrew/bundle
