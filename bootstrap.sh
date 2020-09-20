@@ -51,9 +51,6 @@ mkdir -p ~/.go
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8
 ln -isv "${GIT_DIR}/jshintrc" ~/.jshintrc
-ln -isv "${GIT_DIR}/tmux-linux.conf" ~/.tmux-linux.conf
-ln -isv "${GIT_DIR}/tmux-osx.conf" ~/.tmux-osx.conf
-ln -isv "${GIT_DIR}/tmux.conf" ~/.tmux.conf
 
 echo 'Installing python packages'
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"

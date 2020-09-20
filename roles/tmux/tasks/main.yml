@@ -1,0 +1,18 @@
+---
+
+- name: Install tmux via Homebrew
+  homebrew:
+    name:
+      - reattach-to-user-namespace
+      - tmux
+
+- name: Link config files and folders
+  file:
+    state: link
+    src: "{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/tmux/files/{{ item }}"
+    dest: "~/.{{ item }}"
+    force: yes
+  loop:
+    - tmux-linux.conf
+    - tmux-osx.conf
+    - tmux.conf
