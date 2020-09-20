@@ -1,0 +1,18 @@
+---
+
+- homebrew:
+    name:
+      - bandwhich
+      - coreutils
+      - fd
+      - gnu-sed
+      - gnupg
+      - grep
+      - jq
+      - openssl
+      - ripgrep
+      - telnet
+      - terminal-notifier
+      - tree
+      - watch
+      - wget

@@ -1,0 +1,35 @@
+---
+
+- homebrew_cask:
+    name:
+      - keepassxc
+      - microsoft-office
+      - onedrive
+      - resilio-sync
+      - skype
+      - slack
+      - tunnelblick
+      - zoomus
+
+- homebrew:
+    name:
+      - awscli
+      - consul-template
+      - packer-completion
+      - terraform_landscape
+
+- name: Get bat config path
+  shell: bat --config-dir
+  changed_when: False
+  register: bat_config_path
+  check_mode: no
+
+- name: Download Terraform bat syntax
+  get_url:
+    url: https://raw.githubusercontent.com/alexlouden/Terraform.tmLanguage/master/Terraform.sublime-syntax
+    dest: "{{ bat_config_path.stdout }}/syntaxes/Terraform.sublime-syntax"
+  register: bat_terraform_syntax
+
+- name: Rebuild bat cache
+  shell: bat cache --build
+  when: bat_terraform_syntax.changed

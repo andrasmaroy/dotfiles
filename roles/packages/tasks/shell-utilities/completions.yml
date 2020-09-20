@@ -1,0 +1,7 @@
+---
+
+- homebrew:
+    name:
+      - bash-completion@2
+      - brew-cask-completion
+      - pip-completion

@@ -1,0 +1,7 @@
+---
+
+- homebrew_cask:
+    name:
+      - signal
+      # - yakyak
+    install_options: 'appdir=~/Applications'

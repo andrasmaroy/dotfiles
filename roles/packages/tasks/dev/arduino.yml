@@ -1,0 +1,16 @@
+---
+
+- name: Add cross compiler tap
+  homebrew_tap:
+    name: osx-cross/avr
+
+- homebrew:
+    name:
+      - osx-cross/avr/avr-binutils
+      - osx-cross/avr/avr-gcc
+
+- homebrew_cask:
+    name:
+      - arduino
+      - teensy
+    install_options: 'appdir=~/Applications'

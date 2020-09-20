@@ -1,0 +1,43 @@
+---
+
+- name: Install bat via Homebrew
+  homebrew:
+    name: bat
+
+- name: Get bat config path
+  shell: bat --config-dir
+  changed_when: False
+  register: bat_config_path
+  check_mode: no
+
+- name: Create config folders
+  file:
+    state: directory
+    dest: "{{ bat_config_path.stdout }}/{{ item }}"
+  loop:
+    - syntaxes
+    - themes
+
+- name: Download theme
+  get_url:
+    url: https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/textmate/Tomorrow-Night-Eighties.tmTheme
+    dest: "{{ bat_config_path.stdout }}/themes/Tomorrow-Night-Eighties.tmTheme"
+  register: bat_tomorrow_theme
+
+- name: Download PlainTasks syntax
+  get_url:
+    url: https://raw.githubusercontent.com/aziz/PlainTasks/master/PlainTasks.sublime-syntax
+    dest: "{{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax"
+    checksum: "sha1:c24dcbc52e3e1f33a09ece1024298e4baec8b9bf"
+  register: bat_plaintasks_syntax
+
+- name: Add TODO as recognized extension for PlainTasks
+  lineinfile:
+    path: "{{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax"
+    line: "  - TODO"
+    regexp: "  - TODO"
+    insertafter: "^file_extensions:$"
+
+- name: Rebuild bat cache
+  shell: bat cache --build
+  when: bat_tomorrow_theme.changed or bat_plaintasks_syntax.changed

@@ -1,0 +1,43 @@
+---
+
+- homebrew_cask:
+    name:
+      - android-studio
+      - caskroom/versions/microsoft-remote-desktop-beta
+      - microsoft-office
+      - slack
+      - vagrant
+      - vmware-fusion8
+
+- homebrew:
+    name:
+      - awscli
+      - azure-cli
+      - cmake
+      - ffmpeg
+      - gradle
+      - kubectl
+      - maven
+      - ninja
+      - node
+      - pssh
+      - vagrant-completion
+
+- gem:
+    name:
+      - puppet
+      - puppet-lint
+
+- npm:
+    name:
+      - grunt
+      - grunt-cli
+      - jshint
+    global: yes
+
+- name: Link jshintrc
+  file:
+    state: link
+    src: "{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/profile/files/logmein/jshintrc"
+    dest: "~/.jshintrc"
+    force: yes

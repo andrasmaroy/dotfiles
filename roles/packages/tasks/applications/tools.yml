@@ -1,0 +1,16 @@
+---
+
+- homebrew_cask:
+    name:
+      - aerial
+      - appcleaner
+      - disk-inventory-x
+      - itsycal
+      - keepingyouawake
+      - spectacle
+      - osxfuse
+    install_options: 'appdir=~/Applications'
+
+- homebrew:
+    name:
+      - ntfs-3g
