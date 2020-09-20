@@ -50,10 +50,6 @@ mkdir -p ~/.go
 
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8
-ln -isv "${GIT_DIR}/git_template" ~/.git_template
-ln -isv "${GIT_DIR}/gitconfig" ~/.gitconfig
-ln -isv "${GIT_DIR}/githelpers" ~/.githelpers
-ln -isv "${GIT_DIR}/gitignore_global" ~/.gitignore_global
 ln -isv "${GIT_DIR}/jshintrc" ~/.jshintrc
 ln -isv "${GIT_DIR}/tmux-linux.conf" ~/.tmux-linux.conf
 ln -isv "${GIT_DIR}/tmux-osx.conf" ~/.tmux-osx.conf

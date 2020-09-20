@@ -1,0 +1,18 @@
+---
+
+- name: Install git via Homebrew
+  homebrew:
+    name: git
+    install_options: with-openssl
+
+- name: Link config files and folders
+  file:
+    state: link
+    src: "{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/git/files/{{ item }}"
+    dest: "~/.{{ item }}"
+    force: yes
+  loop:
+    - git_template
+    - gitconfig
+    - githelpers
+    - gitignore_global

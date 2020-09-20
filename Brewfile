@@ -13,7 +13,6 @@ brew 'docker-completion'
 brew 'docker-compose-completion'
 brew 'fd'
 brew 'fzf'
-brew 'git', args: ['with-openssl']
 brew 'gnu-sed'
 brew 'gnupg'
 brew 'grep'
