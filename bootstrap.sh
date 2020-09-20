@@ -52,33 +52,22 @@ mkdir -p ~/.ssh/keys/{personal,work}
 
 mkdir -p vim/{backup,swap,undo}
 chmod 700 vim/{backup,swap,undo}
-if [[ "$(uname -s)" == 'Darwin' ]]; then
-  mkdir -p ~/Library/Caches/org.freedesktop
-fi
 
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8
 ln -isv "../${GIT_DIR}/ssh/config" ~/.ssh/config
-ln -isv "${GIT_DIR}/bash_colors" ~/.bash_colors
-ln -isv "${GIT_DIR}/bash_profile" ~/.bash_profile
-ln -isv "${GIT_DIR}/bash_prompt" ~/.bash_prompt
-ln -isv "${GIT_DIR}/bin" ~/.bin
 ln -isv "${GIT_DIR}/ctags" ~/.ctags
 ln -isv "${GIT_DIR}/git_template" ~/.git_template
 ln -isv "${GIT_DIR}/gitconfig" ~/.gitconfig
 ln -isv "${GIT_DIR}/githelpers" ~/.githelpers
 ln -isv "${GIT_DIR}/gitignore_global" ~/.gitignore_global
 ln -isv "${GIT_DIR}/gvimrc" ~/.gvimrc
-ln -isv "${GIT_DIR}/inputrc" ~/.inputrc
 ln -isv "${GIT_DIR}/jshintrc" ~/.jshintrc
 ln -isv "${GIT_DIR}/tmux-linux.conf" ~/.tmux-linux.conf
 ln -isv "${GIT_DIR}/tmux-osx.conf" ~/.tmux-osx.conf
 ln -isv "${GIT_DIR}/tmux.conf" ~/.tmux.conf
 ln -isv "${GIT_DIR}/vim" ~/.vim
 ln -isv "${GIT_DIR}/vimrc" ~/.vimrc
-if [ -d dotoverrides ]; then
-  ln -isv "${GIT_DIR}/dotoverrides" ~/.dotoverrides
-fi
 
 echo 'Installing YouCompleteMe vim plugin'
 pushd vim/pack/functional/start/YouCompleteMe > /dev/null
@@ -89,17 +78,6 @@ echo 'Installing python packages'
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 pip install -r requirements.txt
 # gem install puppet-lint
-
-if [[ "$(uname -s)" == 'Darwin' ]]; then
-  touch ~/.bash_sessions_disable
-  if ! grep "$(brew --prefix)/bin/bash" /etc/shells > /dev/null; then
-    echo 'Adding Homebrewed bash to /etc/shells'
-    echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells > /dev/null
-  fi
-  if [[ "$(dscacheutil -q user -a name "${USER}" | grep shell | cut -f 2 -d ' ')" != "$(brew --prefix)/bin/bash" ]]; then
-    chsh -s "$(brew --prefix)/bin/bash"
-  fi
-fi
 
 if command -v bat &> /dev/null; then
   echo 'Setting up bat theme'
