@@ -1,8 +1,8 @@
 dotoverrides
 tmux-*.log
-vim/backup
-vim/swap
-vim/undo
+roles/vim/files/vim/backup
+roles/vim/files/vim/swap
+roles/vim/files/vim/undo
 bin
 !bin/Darwin/linux
 !bin/codegrep

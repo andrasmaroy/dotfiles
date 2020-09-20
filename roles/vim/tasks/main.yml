@@ -1,0 +1,35 @@
+---
+
+- name: Install vim via Homebrew
+  homebrew:
+    name:
+      - ctags
+      - vim
+
+- name: Link config files and folders
+  file:
+    state: link
+    src: "{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/vim/files/{{ item }}"
+    dest: "~/.{{ item }}"
+    force: yes
+  loop:
+    - ctags
+    - gvimrc
+    - vim
+    - vimrc
+
+- name: Create vim backup, swap and undo folders
+  file:
+    state: directory
+    mode: "0700"
+    dest: "~/.vim/{{ item }}"
+  loop:
+    - backup
+    - swap
+    - undo
+
+- name: Install YouCompleteMe
+  shell:
+    chdir: "~/.vim/pack/functional/start/YouCompleteMe"
+    cmd: ./install.py --clang-completer
+    creates: "~/.vim/pack/functional/start/YouCompleteMe/third_party/ycmd/ycm_core.so"

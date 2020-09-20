@@ -48,28 +48,16 @@ echo 'Creating necessary folders in ~'
 mkdir -p ~/.config
 mkdir -p ~/.go
 
-mkdir -p vim/{backup,swap,undo}
-chmod 700 vim/{backup,swap,undo}
-
 echo 'Creating symlinks'
 ln -isv "../${GIT_DIR}/config/flake8" ~/.config/flake8
-ln -isv "${GIT_DIR}/ctags" ~/.ctags
 ln -isv "${GIT_DIR}/git_template" ~/.git_template
 ln -isv "${GIT_DIR}/gitconfig" ~/.gitconfig
 ln -isv "${GIT_DIR}/githelpers" ~/.githelpers
 ln -isv "${GIT_DIR}/gitignore_global" ~/.gitignore_global
-ln -isv "${GIT_DIR}/gvimrc" ~/.gvimrc
 ln -isv "${GIT_DIR}/jshintrc" ~/.jshintrc
 ln -isv "${GIT_DIR}/tmux-linux.conf" ~/.tmux-linux.conf
 ln -isv "${GIT_DIR}/tmux-osx.conf" ~/.tmux-osx.conf
 ln -isv "${GIT_DIR}/tmux.conf" ~/.tmux.conf
-ln -isv "${GIT_DIR}/vim" ~/.vim
-ln -isv "${GIT_DIR}/vimrc" ~/.vimrc
-
-echo 'Installing YouCompleteMe vim plugin'
-pushd vim/pack/functional/start/YouCompleteMe > /dev/null
-./install.py --clang-completer --gocode-completer
-popd > /dev/null
 
 echo 'Installing python packages'
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"

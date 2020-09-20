@@ -24,13 +24,11 @@ brew 'telnet'
 brew 'terminal-notifier'
 brew 'tmux'
 brew 'tree'
-brew 'vim'
 brew 'watch'
 brew 'wget'
 
 # dev tools
 brew 'cmake'
-brew 'ctags'
 brew 'go'
 brew 'python'
 brew 'python3'
