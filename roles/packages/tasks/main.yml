@@ -13,5 +13,4 @@
 - import_tasks: applications/browsers.yml
 - import_tasks: applications/comm.yml
 - import_tasks: applications/media.yml
-- import_tasks: applications/sync.yml
 - import_tasks: applications/tools.yml

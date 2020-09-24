@@ -1,9 +1,0 @@
----
-
-- homebrew_cask:
-    name:
-      - dropbox
-      - google-backup-and-sync
-      - nextcloud
-      - owncloud
-    install_options: 'appdir=~/Applications'

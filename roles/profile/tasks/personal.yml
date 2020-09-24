@@ -3,6 +3,11 @@
 - homebrew_cask:
     name:
       - discord
+      - dropbox
+      - eloston-chromium
+      - google-backup-and-sync
+      - nextcloud
+      - owncloud
       - steam
       - ynab
     install_options: 'appdir=~/Applications'

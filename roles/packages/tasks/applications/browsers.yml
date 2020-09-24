@@ -2,6 +2,5 @@
 
 - homebrew_cask:
     name:
-      - eloston-chromium
       - firefox
 
