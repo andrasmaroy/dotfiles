@@ -46,6 +46,8 @@ fi
 # Use brewed python
 if [ -n "${BREW_PREFIX}" ]; then
     addpath "${BREW_PREFIX}/opt/python/libexec/bin"
+    PYTHON_USER_PATH="$(python3 -c 'import site; print(site.USER_BASE)')"
+    addpath "${PYTHON_USER_PATH}/bin"
 fi
 
 # Wrapper for python virtualenvs
@@ -53,9 +55,16 @@ if [ -n "${BREW_PREFIX}" ] \
      && [ -f "${BREW_PREFIX}/bin/virtualenvwrapper.sh" ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
   # These need to be set explicitly for brewed python
-  export VIRTUALENVWRAPPER_PYTHON=/usr/local/opt/python/libexec/bin/python
+  export VIRTUALENVWRAPPER_PYTHON="${BREW_PREFIX}/opt/python/libexec/bin/python"
   export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
   source "${BREW_PREFIX}/bin/virtualenvwrapper.sh"
+elif [ -n "${BREW_PREFIX}" ] \
+    && [ -f "${PYTHON_USER_PATH}/bin/virtualenvwrapper.sh" ]; then
+  export WORKON_HOME="${HOME}/.virtualenvs"
+  # These need to be set explicitly for brewed python
+  export VIRTUALENVWRAPPER_PYTHON="${BREW_PREFIX}/opt/python/libexec/bin/python"
+  export VIRTUALENVWRAPPER_VIRTUALENV="${PYTHON_USER_PATH}/bin/virtualenv"
+  source "${PYTHON_USER_PATH}/bin/virtualenvwrapper.sh"
 elif [ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
   export WORKON_HOME="${HOME}/.virtualenvs"
   source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
@@ -356,3 +365,4 @@ fi
 
 unset -f addpath
 unset BREW_PREFIX
+unset PYTHON_USER_PATH
