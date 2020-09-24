@@ -8,10 +8,3 @@
 - name: Install Homebrew
   shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   when: brew_exists.stat.exists == false
-
-- name: Set up taps
-  homebrew_tap:
-    name:
-      - caskroom/cask
-      - caskroom/versions
-      - homebrew/core
