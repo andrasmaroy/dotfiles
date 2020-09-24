@@ -27,9 +27,12 @@
 - name: Download PlainTasks syntax
   get_url:
     url: https://raw.githubusercontent.com/aziz/PlainTasks/master/PlainTasks.sublime-syntax
-    dest: "{{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax"
-    checksum: "sha1:c24dcbc52e3e1f33a09ece1024298e4baec8b9bf"
+    dest: "{{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax.bak"
   register: bat_plaintasks_syntax
+
+- name: Copy PlainTasks syntax
+  shell: "cp {{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax.bak {{ bat_config_path.stdout }}/syntaxes/PlainTasks.sublime-syntax"
+  when: bat_plaintasks_syntax.changed
 
 - name: Add TODO as recognized extension for PlainTasks
   lineinfile:
