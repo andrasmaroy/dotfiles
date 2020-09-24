@@ -3,7 +3,6 @@
 - name: Install git via Homebrew
   homebrew:
     name: git
-    install_options: with-openssl
 
 - name: Link config files and folders
   file:
