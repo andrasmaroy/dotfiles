@@ -4,3 +4,7 @@
     name:
       - docker
       - p4v
+
+- homebrew:
+    name:
+      - docker-compose
