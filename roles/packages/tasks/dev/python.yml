@@ -16,6 +16,6 @@
 - name: Link flake8 config
   file:
     state: link
-    src: "../{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/path/files/dev/flake8"
+    src: "../{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/packages/files/dev/flake8"
     dest: ~/.config/flake8
     force: yes
