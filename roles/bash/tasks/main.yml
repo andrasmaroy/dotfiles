@@ -3,7 +3,13 @@
 - name: Install bash 5 via Homebrew
   homebrew:
     name: bash
+  register: bash_install
+
+- name: Link bash
+  homebrew:
+    name: bash
     state: linked
+  when: bash_install.changed
 
 - name: Link bash dotfiles
   file:
