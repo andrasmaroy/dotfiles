@@ -3,6 +3,7 @@
 - name: Install vim via Homebrew
   homebrew:
     name:
+      - cmake
       - ctags
       - vim
 
@@ -28,8 +29,14 @@
     - swap
     - undo
 
+- name: Get Homebrew prefix path
+  shell: brew --prefix
+  changed_when: False
+  register: brew_prefix
+  check_mode: no
+
 - name: Install YouCompleteMe
   shell:
     chdir: "~/.vim/pack/functional/start/YouCompleteMe"
-    cmd: ./install.py --clang-completer
+    cmd: "{{ brew_prefix.stdout }}/bin/python3 install.py"
     creates: "~/.vim/pack/functional/start/YouCompleteMe/third_party/ycmd/ycm_core.so"
