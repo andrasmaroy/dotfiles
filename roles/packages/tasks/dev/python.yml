@@ -1,8 +1,15 @@
 ---
 
+- name: Get Homebrew prefix path
+  shell: brew --prefix
+  changed_when: False
+  register: brew_prefix
+  check_mode: no
+
 - homebrew:
     name:
       - python
+      - python@3.7
 
 - pip:
     name:
@@ -11,7 +18,7 @@
       - pipenv
       - virtualenvwrapper
     extra_args: --user
-    executable: pip3
+    executable: "{{ brew_prefix.stdout }}/bin/pip3"
 
 - name: Link flake8 config
   file:
