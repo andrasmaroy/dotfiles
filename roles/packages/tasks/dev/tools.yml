@@ -7,4 +7,6 @@
 
 - homebrew:
     name:
+      - docker-completion
       - docker-compose
+      - docker-compose-completion
