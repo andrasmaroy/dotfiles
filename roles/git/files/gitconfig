@@ -1,5 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes_global
 	editor = vim
 	trustctime = false
 	pager = "$(brew --prefix)"/share/git-core/contrib/diff-highlight/diff-highlight | less --tabs=4 -RFX
