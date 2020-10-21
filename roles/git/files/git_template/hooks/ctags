@@ -9,7 +9,7 @@ git ls-files | \
 
 if [ "${VIRTUAL_ENV}" ] && [ -d "${VIRTUAL_ENV}" ]; then
   PYTHON_LIBS="$(python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$(which python)" | sed -e 's/bin/lib/')"
-  SITE_DIR="$(python -m site | grep "${VIRTUAL_ENV}" | grep "[0-9]',$" | sed -e "s/^\s*'\(.*\)',$/\1/")"
+  SITE_DIR="$(python -m site | grep "${VIRTUAL_ENV}" | grep -E "[0-9](/site-packages)?',$" | sed -e "s/^ *'\(.*\)',$/\1/")"
   ctags --append -f "$dir/$$.tags" --tag-relative "${SITE_DIR}" "$PYTHON_LIBS"
 fi
 mv "$dir/$$.tags" "$dir/tags"
