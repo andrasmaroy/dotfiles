@@ -11,7 +11,7 @@ pip3 install --user pipenv
 pipenv install ansible
 ```
 
-This assumes Python is installed, and submodules are up to date, for mroe details see [bootstrap.sh](bootstrap.sh).
+This assumes Python is installed, and submodules are up to date, for more details see [bootstrap.sh](bootstrap.sh).
 
 Afterwards to apply:
 ```bash
