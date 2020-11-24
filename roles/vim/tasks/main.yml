@@ -18,6 +18,7 @@
     - gvimrc
     - vim
     - vimrc
+    - ycm_global_extra_conf
 
 - name: Create vim backup, swap and undo folders
   file:
