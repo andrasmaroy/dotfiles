@@ -13,6 +13,8 @@
 
 - pip:
     name:
+      - black
+      - isort
       - flake8
       - pep8-naming
       - pipenv
