@@ -408,6 +408,7 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+let g:fzf_layout = { 'down': '40%' }
 
 set rtp+=/usr/local/opt/fzf
 nmap <Leader>f :Files<CR>
