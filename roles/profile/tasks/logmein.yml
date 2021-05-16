@@ -1,6 +1,7 @@
 ---
 
-- community.general.homebrew_cask:
+- name: Install casks for LogMeIn profile
+  community.general.homebrew_cask:
     name:
       - android-studio
       - caskroom/versions/microsoft-remote-desktop-beta
@@ -9,7 +10,8 @@
       - vagrant
       - vmware-fusion8
 
-- community.general.homebrew:
+- name: Install packages for LogMeIn profile
+  community.general.homebrew:
     name:
       - awscli
       - azure-cli
@@ -23,12 +25,14 @@
       - pssh
       - vagrant-completion
 
-- gem:
+- name: Install gems for LogMeIn profile
+  gem:
     name:
       - puppet
       - puppet-lint
 
-- npm:
+- name: Install npm packages for LogMeIn profile
+  npm:
     name:
       - grunt
       - grunt-cli

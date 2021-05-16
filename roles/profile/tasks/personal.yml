@@ -1,6 +1,7 @@
 ---
 
-- community.general.homebrew_cask:
+- name: Install casks for personal profile
+  community.general.homebrew_cask:
     name:
       - discord
       - dropbox

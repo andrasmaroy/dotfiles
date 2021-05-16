@@ -1,6 +1,7 @@
 ---
 
-- community.general.homebrew_cask:
+- name: Install casks for Sonrisa profile
+  community.general.homebrew_cask:
     name:
       - keepassxc
       - microsoft-office
@@ -11,7 +12,8 @@
       - tunnelblick
       - zoomus
 
-- community.general.homebrew:
+- name: Install packages for Sonrisa profile
+  community.general.homebrew:
     name:
       - awscli
       - consul-template
