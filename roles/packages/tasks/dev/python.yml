@@ -9,7 +9,6 @@
 - community.general.homebrew:
     name:
       - python
-      - python@3.7
 
 - pip:
     name:
