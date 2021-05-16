@@ -1,6 +1,6 @@
 ---
 
-- homebrew_cask:
+- community.general.homebrew_cask:
     name:
       - aerial
       - appcleaner
@@ -12,6 +12,6 @@
       - osxfuse
     install_options: 'appdir=~/Applications'
 
-- homebrew:
+- community.general.homebrew:
     name:
       - ntfs-3g

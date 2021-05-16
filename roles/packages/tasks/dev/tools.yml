@@ -1,11 +1,11 @@
 ---
 
-- homebrew_cask:
+- community.general.homebrew_cask:
     name:
       - docker
       - p4v
 
-- homebrew:
+- community.general.homebrew:
     name:
       - docker-completion
       - docker-compose

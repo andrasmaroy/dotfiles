@@ -1,6 +1,6 @@
 ---
 
-- homebrew_cask:
+- community.general.homebrew_cask:
     name:
       - signal
       # - yakyak

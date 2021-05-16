@@ -1,7 +1,7 @@
 ---
 
 - name: Install vim via Homebrew
-  homebrew:
+  community.general.homebrew:
     name:
       - cmake
       - ctags

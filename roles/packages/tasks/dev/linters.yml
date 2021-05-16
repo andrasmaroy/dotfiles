@@ -1,6 +1,6 @@
 ---
 
-- homebrew:
+- community.general.homebrew:
     name:
       - shellcheck
 

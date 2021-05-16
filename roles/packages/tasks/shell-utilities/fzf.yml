@@ -1,7 +1,7 @@
 ---
 
 - name: Install fzf via Homebrew
-  homebrew:
+  community.general.homebrew:
     name: fzf
   register: fzf_package
 

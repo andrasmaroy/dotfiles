@@ -1,7 +1,7 @@
 ---
 
 - name: Install bat via Homebrew
-  homebrew:
+  community.general.homebrew:
     name: bat
 
 - name: Get bat config path

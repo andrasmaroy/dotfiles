@@ -1,7 +1,7 @@
 ---
 
 - name: Install tmux via Homebrew
-  homebrew:
+  community.general.homebrew:
     name:
       - reattach-to-user-namespace
       - tmux

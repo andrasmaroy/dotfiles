@@ -6,7 +6,7 @@
   register: brew_prefix
   check_mode: no
 
-- homebrew:
+- community.general.homebrew:
     name:
       - python
       - python@3.7

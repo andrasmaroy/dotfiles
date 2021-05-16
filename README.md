@@ -8,7 +8,8 @@ These configuration files are managed with [Ansible](https://www.ansible.com/), 
 
 ```bash
 pip3 install --user pipenv
-pipenv install ansible
+pipenv install
+pipenv run ansible-galaxy collection install community.general
 ```
 
 This assumes Python is installed, and submodules are up to date, for more details see [bootstrap.sh](bootstrap.sh).

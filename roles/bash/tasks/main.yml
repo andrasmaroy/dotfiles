@@ -1,12 +1,12 @@
 ---
 
 - name: Install bash 5 via Homebrew
-  homebrew:
+  community.general.homebrew:
     name: bash
   register: bash_install
 
 - name: Link bash
-  homebrew:
+  community.general.homebrew:
     name: bash
     state: linked
   when: bash_install.changed
@@ -54,5 +54,5 @@
 
 - name: Set shell for user
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_user_id }}"
     shell: "{{ brew_prefix.stdout }}/bin/bash"

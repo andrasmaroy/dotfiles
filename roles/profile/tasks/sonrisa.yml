@@ -1,6 +1,6 @@
 ---
 
-- homebrew_cask:
+- community.general.homebrew_cask:
     name:
       - keepassxc
       - microsoft-office
@@ -11,7 +11,7 @@
       - tunnelblick
       - zoomus
 
-- homebrew:
+- community.general.homebrew:
     name:
       - awscli
       - consul-template

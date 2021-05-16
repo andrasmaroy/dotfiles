@@ -4,12 +4,12 @@
   homebrew_tap:
     name: osx-cross/avr
 
-- homebrew:
+- community.general.homebrew:
     name:
       - osx-cross/avr/avr-binutils
       - osx-cross/avr/avr-gcc
 
-- homebrew_cask:
+- community.general.homebrew_cask:
     name:
       - arduino
       - teensy
