@@ -55,3 +55,6 @@
 [submodule "roles/vim/files/vim/pack/syntax/start/vim-polyglot"]
 	path = roles/vim/files/vim/pack/syntax/start/vim-polyglot
 	url = git@github.com:sheerun/vim-polyglot.git
+[submodule "roles/vim/files/vim/pack/functional/start/vim-python-pep8-indent"]
+	path = roles/vim/files/vim/pack/functional/start/vim-python-pep8-indent
+	url = https://github.com/Vimjas/vim-python-pep8-indent.git
