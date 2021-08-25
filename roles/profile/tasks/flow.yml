@@ -1,0 +1,12 @@
+---
+
+- community.general.homebrew_cask:
+    name:
+      - gitkraken
+      - intellij-idea-ce
+      - microsoft-teams
+    install_options: 'appdir=~/Applications'
+
+- homebrew:
+    name:
+      - node
