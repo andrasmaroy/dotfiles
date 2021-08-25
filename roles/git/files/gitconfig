@@ -3,20 +3,13 @@
 	attributesfile = ~/.gitattributes_global
 	editor = vim
 	trustctime = false
-	pager = "$(brew --prefix)"/share/git-core/contrib/diff-highlight/diff-highlight | less --tabs=4 -RFX
 [color]
 	branch = auto
-	diff = auto
 	status = auto
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
 [color "status"]
 	added = yellow
 	changed = green
@@ -49,14 +42,28 @@
 [push]
 	default = simple
 [diff]
-	tool = vimdiff
-	guitool = p4mergetool
-	compactionHeuristic = true
 	algorithm = patience
+	colorMoved = default
+	compactionHeuristic = true
+	guitool = p4mergetool
+	tool = vimdiff
 [difftool]
 	prompt = false
 [difftool "p4mergetool"]
 	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta --side-by-side
+[delta]
+	hunk-header-decoration-style = ''
+	line-numbers = true
+	minus-style = "syntax 52"
+	navigate = true
+	syntax-theme = Tomorrow-Night-Eighties
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	tool = p4mergetool
 [mergetool "p4mergetool"]
@@ -69,10 +76,3 @@
 	templatedir = ~/.git_template
 [include]
 	path = ~/.dotoverrides/gitconfig
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[interactive]
-	diffFilter = "$(brew --prefix)"/share/git-core/contrib/diff-highlight/diff-highlight

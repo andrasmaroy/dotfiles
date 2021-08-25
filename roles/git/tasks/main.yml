@@ -2,7 +2,9 @@
 
 - name: Install git via Homebrew
   community.general.homebrew:
-    name: git
+    name:
+      - git
+      - git-delta
 
 - name: Link config files and folders
   file:
