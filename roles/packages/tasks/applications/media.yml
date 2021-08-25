@@ -2,7 +2,7 @@
 
 - community.general.homebrew_cask:
     name:
-      - marshallofsound-google-play-music-player
       - vlc
+      - ytmdesktop-youtube-music
     install_options: 'appdir=~/Applications'
 
