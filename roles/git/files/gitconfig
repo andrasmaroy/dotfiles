@@ -76,3 +76,5 @@
 	templatedir = ~/.git_template
 [include]
 	path = ~/.dotoverrides/gitconfig
+[pull]
+	rebase = false
