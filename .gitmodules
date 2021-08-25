@@ -52,3 +52,6 @@
 [submodule "vim/pack/functional/start/undotree"]
 	path = roles/vim/files/vim/pack/functional/start/undotree
 	url = git@github.com:mbbill/undotree.git
+[submodule "roles/vim/files/vim/pack/syntax/start/vim-polyglot"]
+	path = roles/vim/files/vim/pack/syntax/start/vim-polyglot
+	url = git@github.com:sheerun/vim-polyglot.git
