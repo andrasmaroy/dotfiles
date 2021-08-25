@@ -1,6 +1,8 @@
 " Make Vim more useful
 set nocompatible
 
+packloadall
+
 " =============================== GENERAL CONFIG ===============================
 
 set shell=bash                  " Use bash instead of sh
@@ -459,7 +461,15 @@ let g:ycm_extra_conf_vim_data = [
   \  'g:ycm_python_sys_path'
   \]
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_extra_conf'
+let g:ycm_collect_identifiers_from_tags_files = 1
 
 " Undotree
 let g:undotree_SetFocusWhenToggle = 1
 nmap <Leader>u :UndotreeToggle<CR>
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
