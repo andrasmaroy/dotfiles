@@ -1,0 +1,24 @@
+---
+
+- community.general.homebrew_cask:
+    name:
+      - 1password
+      - google-backup-and-sync
+      - google-chrome
+      - google-cloud-sdk
+      - keybase
+      - postman
+      - slack
+
+- homebrew:
+    name:
+      - azure-cli
+      - berglas
+      - helm
+      - kubectl
+      - kubectx
+      - postgresql
+      - python@3.7
+      - terraform@0.11
+      - terragrunt
+      - yarn
