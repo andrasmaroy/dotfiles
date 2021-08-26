@@ -224,6 +224,8 @@ if has("autocmd")
   " Use taskpaper for TODO files
   autocmd vimrc BufNewFile,BufRead TODO setl ft=taskpaper
   autocmd vimrc BufNewFile,BufRead *.ssh/config.d* setl ft=sshconfig
+  " Treat bash_profile as bash instead of sh
+  autocmd vimrc BufNewFile,BufRead *.bash_profile setl ft=bash
 
   " Proper indentation for source files
   autocmd vimrc FileType puppet,ruby,sh,json,yaml,terraform setl ts=2 sts=2 sw=2
