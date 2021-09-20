@@ -364,6 +364,40 @@ else
   alias mkdir='mkdir -pv'
 fi
 
+
+# ================================== ENV SETUP =================================
+
+_setup_env() {
+  local -r git_dir=$(git rev-parse --show-toplevel 2> /dev/null)
+  if [ -z "${git_dir}" ]; then
+    return
+  fi
+
+  local -r repo_dir=$(basename "${git_dir}")
+
+  if [ -n "${WORKON_HOME}" ] \
+    && [ -d "${WORKON_HOME}/${repo_dir}" ]; then
+      workon "${repo_dir}"
+  fi
+
+  while [[ "$(pwd)" != '/' ]]; do
+    pushd .. &> /dev/null
+  done
+  while popd &> /dev/null; do
+    if [ -f ./.project_env ]; then
+      source "$(pwd)/.project_env"
+    fi
+  done
+
+  if [ -n "${TMUX}" ] && [[ "$(tmux display-message -p '#W')" != "${repo_dir}" ]]; then
+    tmux rename-window "${repo_dir}"
+    export PROJECT_NAME=${repo_dir}
+  fi
+}
+
+_setup_env
+
+unset -f _setup_env
 unset -f addpath
 unset BREW_PREFIX
 unset PYTHON_USER_PATH
