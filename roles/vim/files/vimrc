@@ -453,7 +453,7 @@ autocmd User AirlineAfterInit call AirlineInit()
 " Ale
 let g:ale_sh_shellcheck_options = "-x -e SC1090 -e SC1091"
 let b:ale_fixers = {'python': ['isort', 'black']}
-let g:ale_python_black_options = "--target-version py37 -l 119"
+let g:ale_python_black_options = "--target-version py39 -l 119"
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_insertion = 1
