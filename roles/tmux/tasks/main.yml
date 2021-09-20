@@ -16,3 +16,15 @@
     - tmux-linux.conf
     - tmux-osx.conf
     - tmux.conf
+
+- name: Clone TPM
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+    depth: 1
+    version: v3.0.0
+  register: tpm
+
+- name: Install tmux plugins
+  shell: ~/.tmux/plugins/tpm/bin/install_plugins
+  when: tpm.changed
