@@ -1,0 +1,19 @@
+---
+
+- name: Install fish
+  community.general.homebrew:
+    name: fish
+
+- name: Get Homebrew prefix path
+  shell: brew --prefix
+  changed_when: False
+  register: brew_prefix
+  check_mode: no
+
+- name: Add fish to /etc/shells
+  lineinfile:
+    path: /etc/shells
+    line: "{{ brew_prefix.stdout }}/bin/fish"
+    regexp: "^{{ brew_prefix.stdout }}/bin/fish$"
+  become: yes
+  become_method: sudo

@@ -5,6 +5,7 @@
   roles:
     - homebrew
     - bash
+    - fish
     - git
     - ssh
     - vim
