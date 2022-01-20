@@ -5,6 +5,7 @@ roles/vim/files/vim/swap
 roles/vim/files/vim/undo
 bin
 !bin/Darwin/linux
+!bin/Darwin/ansible-vault-pass
 !bin/codegrep
 !bin/dc_ssh
 !bin/git

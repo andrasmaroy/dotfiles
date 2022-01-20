@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Script to automatically use password stored in MacOS keychain as Ansible Vault passwords.
+# To add new password use:
+# security add-generic-password -a ansible_vault_my-project -s ansible_my-project -w P4ssw0rd
+# Reference: https://coderwall.com/p/cjiljw/use-macos-keychain-for-ansible-vault-passwords
+
+NAME=$(basename "$PWD" | sed -e 's/ /-/g')
+security find-generic-password -a ansible_vault_$NAME -w
