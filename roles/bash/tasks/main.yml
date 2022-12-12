@@ -56,3 +56,5 @@
   user:
     name: "{{ ansible_user_id }}"
     shell: "{{ brew_prefix.stdout }}/bin/bash"
+  become: yes
+  become_method: sudo
