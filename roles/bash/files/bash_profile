@@ -115,6 +115,7 @@ if command -v go &> /dev/null && [ -d "${HOME}/.go" ]; then
 fi
 
 if [ -n "${BREW_PREFIX}" ]; then
+  export HOMEBREW_NO_ANALYTICS=1
   export HOMEBREW_NO_GITHUB_API=1
   export HOMEBREW_NO_INSTALL_UPGRADE=1
 fi
