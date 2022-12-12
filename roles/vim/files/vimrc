@@ -416,6 +416,7 @@ let g:fzf_layout = { 'down': '40%' }
 let g:fzf_preview_window = []
 
 set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 nmap <Leader>f :Files<CR>
 nmap <Leader>gf :GFiles<CR>
 nmap <Leader>b :Buffers<CR>

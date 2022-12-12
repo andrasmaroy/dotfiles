@@ -26,5 +26,5 @@
   register: tpm
 
 - name: Install tmux plugins
-  shell: ~/.tmux/plugins/tpm/bin/install_plugins
+  shell: PATH="/opt/homebrew/bin:$PATH" ~/.tmux/plugins/tpm/bin/install_plugins
   when: tpm.changed

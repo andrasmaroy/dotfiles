@@ -7,13 +7,17 @@ addpath() {
   fi
 }
 
-if command -v brew &> /dev/null; then
-  BREW_PREFIX="$(brew --prefix)"
-fi
-
 if [ -n "${TMUX}" ] && [ -f /usr/libexec/path_helper ]; then
   export PATH=""
   source /etc/profile
+fi
+
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if command -v brew &> /dev/null; then
+  BREW_PREFIX="$(brew --prefix)"
 fi
 
 if [ -z "${LC_LOGINUSER}" ]; then
@@ -188,7 +192,7 @@ export AUTOSSH_POLL=30
 
 # Add tab completion for many Bash commands
 if [ -n "${BREW_PREFIX}" ] && [ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
-  export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+  export BASH_COMPLETION_COMPAT_DIR="${BREW_PREFIX}/etc/bash_completion.d"
   source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 elif [ -f /usr/share/bash-completion/bash_completion ]; then
   source /usr/share/bash-completion/bash_completion

@@ -1,10 +1,17 @@
 ---
 
-- name: Check Homebrew
+- name: Check x86 Homebrew
   stat:
     path: /usr/local/bin/brew
-  register: brew_exists
+  register: x86_brew
+
+- name: Check arm Homebrew
+  stat:
+    path: /opt/homebrew/bin/brew
+  register: arm_brew
 
 - name: Install Homebrew
   shell: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  when: brew_exists.stat.exists == false
+  when:
+    - x86_brew.stat.exists == false
+    - arm_brew.stat.exists == false

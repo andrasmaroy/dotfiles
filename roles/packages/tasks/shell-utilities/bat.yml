@@ -5,7 +5,7 @@
     name: bat
 
 - name: Get bat config path
-  shell: bat --config-dir
+  shell: PATH="/opt/homebrew/bin:$PATH" bat --config-dir
   changed_when: False
   register: bat_config_path
   check_mode: no
@@ -42,5 +42,5 @@
     insertafter: "^file_extensions:$"
 
 - name: Rebuild bat cache
-  shell: bat cache --build
+  shell: PATH="/opt/homebrew/bin:$PATH" bat cache --build
   when: bat_tomorrow_theme.changed or bat_plaintasks_syntax.changed
