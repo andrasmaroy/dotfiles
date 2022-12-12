@@ -8,7 +8,6 @@
 - community.general.homebrew:
     name:
       - docker-completion
-      - docker-compose-completion
       - gh
       - helm
       - kubectl@1.22
