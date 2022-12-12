@@ -9,9 +9,4 @@
       - itsycal
       - keepingyouawake
       - spectacle
-      - osxfuse
     install_options: 'appdir=~/Applications'
-
-- community.general.homebrew:
-    name:
-      - ntfs-3g
