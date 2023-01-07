@@ -87,10 +87,17 @@ if command -v rbenv &> /dev/null; then
 fi
 
 # Kubernetes
-if command -v kubectl &> /dev/null && [ -d "${HOME}/.kube" ]; then
-  while read -r file; do
-    export KUBECONFIG="${file}:${KUBECONFIG}"
-  done < <(find "${HOME}/.kube" -name "config-*")
+if command -v kubectl &> /dev/nulll; then
+  if command -v kubectl &> /dev/null; then
+    alias k=kubectl
+    complete -o default -F __start_kubectl k
+  fi
+
+  if [ -d "${HOME}/.kube" ]; then
+    while read -r file; do
+      export KUBECONFIG="${file}:${KUBECONFIG}"
+    done < <(find "${HOME}/.kube" -name "config-*")
+  fi
 fi
 
 # Golang
