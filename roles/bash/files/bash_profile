@@ -350,7 +350,6 @@ tmux() {
 
 alias cat='bat'
 alias dirs='dirs -v'
-alias f='open -a Finder ./'
 alias grep='grep --color'
 alias ll='ls -lAhp'
 alias lr='lstree'
@@ -359,6 +358,7 @@ alias prettyjson='python -m json.tool'
 alias sudo='sudo '                    # With this aliases can be used with sudo
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
+  alias f='open -a Finder ./'
   alias cask='brew cask'
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
   if command -v terminal-notifier &> /dev/null; then
