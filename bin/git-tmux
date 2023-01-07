@@ -8,6 +8,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 ARGS=''
+SHELL_PARAM=''
 REPLACE=0
 
 while [[ "$#" -gt 0 ]]; do
@@ -70,8 +71,6 @@ ARGS+='\0-c'
 ARGS+='\0'"$(pwd)"
 ARGS+='\0-n'
 ARGS+='\0'"${REPO_DIR}"
-if [ -n "${SHELL_PARAM:=}" ]; then
-  ARGS+='\0'"bash --rcfile <(echo 'export PROJECT_NAME=${REPO_DIR}; source ~/.bash_profile${SHELL_PARAM}')"
-fi
+ARGS+='\0'"bash --rcfile <(echo 'export PROJECT_NAME=${REPO_DIR}; source ~/.bash_profile${SHELL_PARAM}')"
 
 echo -e "${ARGS}" | xargs -0 command tmux
