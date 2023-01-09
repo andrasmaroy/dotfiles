@@ -1,0 +1,37 @@
+---
+
+- name: Add taps
+  homebrew_tap:
+    name:
+      - go-task/tap
+      - hashicorp/tap
+
+- name: Install casks
+  community.general.homebrew_cask:
+    name:
+      - 1password
+      - google-chrome
+      - google-cloud-sdk
+      - infra
+      - postman
+      - slack
+
+- name: Install brew packages
+  homebrew:
+    name:
+      - go-task/tap/go-task
+      - grpcurl
+      - hashicorp/tap/terraform
+      - helm
+      - kube-ps1
+      - kubectl
+      - kubectx
+      - python@3.9
+      - skaffold@1.39
+
+- name: Link pinned versions
+  homebrew:
+    name:
+      - python@3.9
+      - skaffold@1.39
+    state: linked
