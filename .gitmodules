@@ -8,7 +8,7 @@
 	ignore = dirty
 [submodule "vim/bundle/vim-fugitive"]
 	path = roles/vim/files/vim/pack/functional/start/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/vim-airline-themes"]
 	path = roles/vim/files/vim/pack/ui/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
