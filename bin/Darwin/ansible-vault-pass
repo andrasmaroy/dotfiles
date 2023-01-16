@@ -5,5 +5,5 @@
 # security add-generic-password -a ansible_vault_my-project -s ansible_my-project -w P4ssw0rd
 # Reference: https://coderwall.com/p/cjiljw/use-macos-keychain-for-ansible-vault-passwords
 
-NAME=$(basename "$PWD" | sed -e 's/ /-/g')
-security find-generic-password -a ansible_vault_$NAME -w
+NAME="$(basename "$(git rev-parse --show-toplevel 2> /dev/null || pwd)" | sed -e 's/ /-/g')"
+security find-generic-password -a "ansible_vault_${NAME}" -w
