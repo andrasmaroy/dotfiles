@@ -8,5 +8,5 @@
       - disk-inventory-x
       - itsycal
       - keepingyouawake
-      - spectacle
+      - rectangle
     install_options: 'appdir=~/Applications'
