@@ -1,6 +1,12 @@
 # Include host specific config files from ~/.ssh/config.d
 Include config.d/*
 
+Host github.com
+    Hostname ssh.github.com
+    Port 443
+    User git
+    IdentityFile ~/.ssh/keys/personal/id_github
+
 ################################################################################
 # General
 ################################################################################
