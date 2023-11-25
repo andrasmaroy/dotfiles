@@ -13,6 +13,7 @@ fi
 # Generate SSH key if there isn't one
 readonly SSH_KEY_PATH="${HOME}/.ssh/keys/personal/id_github"
 if [ ! -f "${SSH_KEY_PATH}" ]; then
+  mkdir -p "$(dirname "${SSH_KEY_PATH}")"
   ssh-keygen -f "${SSH_KEY_PATH}" -t ed25519 -N ''
   echo 'Make sure to add the SSH key in Github!'
   cat "${SSH_KEY_PATH}.pub"
