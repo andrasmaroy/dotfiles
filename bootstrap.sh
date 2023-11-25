@@ -45,5 +45,5 @@ pip3 install --user pipenv
 PYTHON_USER_PATH="$(python3 -c 'import site; print(site.USER_BASE)')"
 export PATH="${PYTHON_USER_PATH}/bin:${PATH}"
 pipenv install
-pipenv run ansible-galaxy collection install community.general
+pipenv run ansible-galaxy install -r requirements.yml
 pipenv run ansible-playbook --connection=local --inventory 127.0.0.1, --ask-become-pass site.yml
