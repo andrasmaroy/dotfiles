@@ -91,7 +91,7 @@ if command -v rbenv &> /dev/null; then
 fi
 
 # Kubernetes
-if command -v kubectl &> /dev/nulll; then
+if command -v kubectl &> /dev/null; then
   if command -v kubectl &> /dev/null; then
     alias k=kubectl
     complete -o default -F __start_kubectl k
