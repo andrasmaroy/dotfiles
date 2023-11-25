@@ -10,11 +10,25 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
   fi
 fi
 
-# Check submodules
-if git submodule status | grep '^-' &> /dev/null; then
-  echo 'Submodules uninitialized, updating...'
-  git submodule update --init --recursive
+# Generate SSH key if there isn't one
+readonly SSH_KEY_PATH="${HOME}/.ssh/keys/personal/id_github"
+if [ ! -f "${SSH_KEY_PATH}" ]; then
+  ssh-keygen -f "${SSH_KEY_PATH}" -t ed25519 -N ''
+  echo 'Make sure to add the SSH key in Github!'
+  cat "${SSH_KEY_PATH}.pub"
+
+   read -n 1 -r -p "Added SSH key in Github? [Y/n] " response
+   if [[ ! $response =~ ^[Yy]$ ]] && [[ -n $response ]]; then
+     >&2 echo 'Bootstrap aborted.'
+     exit 1
+   fi
 fi
+
+# Clone repo
+mkdir -p "${HOME}/Documents/github"
+cd "${HOME}/Documents/github"
+export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new -i ${SSH_KEY_PATH}"
+git clone --recurse-submodules ssh://git@github.com/andrasmaroy/dotfiles.git
 
 pip3 install --user pipenv
 
