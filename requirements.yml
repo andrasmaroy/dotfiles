@@ -3,3 +3,5 @@
 collections:
   - name: community.general
     version: 8.0.2
+  - name: geerlingguy.mac
+    version: 2.1.3

@@ -2,8 +2,11 @@
 
 - hosts: 127.0.0.1
   connection: local
+  vars:
+    homebrew_taps: []
+    homebrew_use_brewfile: false
   roles:
-    - homebrew
+    - geerlingguy.mac.homebrew
     - bash
     - git
     - ssh
