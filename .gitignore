@@ -1,4 +1,3 @@
-dotoverrides
 tmux-*.log
 roles/vim/files/vim/backup
 roles/vim/files/vim/swap

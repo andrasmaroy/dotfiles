@@ -1,2 +1,0 @@
-export GIT_PRIVATE_REMOTE_REGEX='(\w+://)?(\w+@)?(github\.com|bitbucket\.org)[:/].+'
-
