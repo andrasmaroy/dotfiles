@@ -34,6 +34,7 @@ mkdir -p "${HOME}/Documents/github"
 cd "${HOME}/Documents/github"
 export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new -i ${SSH_KEY_PATH}"
 git clone --recurse-submodules ssh://git@github.com/andrasmaroy/dotfiles.git
+cd dotfiles
 
 pip3 install --user pipenv
 
