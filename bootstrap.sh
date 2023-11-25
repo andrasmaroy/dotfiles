@@ -29,12 +29,16 @@ if [ ! -f "${SSH_KEY_PATH}" ]; then
    fi
 fi
 
-# Clone repo
-mkdir -p "${HOME}/Documents/github"
-cd "${HOME}/Documents/github"
-export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new -i ${SSH_KEY_PATH}"
-git clone --recurse-submodules ssh://git@github.com/andrasmaroy/dotfiles.git
-cd dotfiles
+if ! git rev-parse --is-inside-work-tree &> /dev/null; then
+ # Clone repo
+ mkdir -p "${HOME}/Documents/github"
+ cd "${HOME}/Documents/github"
+ export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new -i ${SSH_KEY_PATH}"
+ git clone --recurse-submodules ssh://git@github.com/andrasmaroy/dotfiles.git
+ cd dotfiles
+else
+  cd "$(git rev-parse --show-toplevel)"
+fi
 
 pip3 install --user pipenv
 
