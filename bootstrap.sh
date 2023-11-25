@@ -7,6 +7,10 @@ set -euo pipefail
 if [[ "$(uname -s)" == 'Darwin' ]]; then
   if ! xcode-select --print-path &> /dev/null; then
     xcode-select --install
+    while ! xcode-select --print-path &> /dev/null; do
+      echo 'Waiting for install to finish...'
+      sleep 30
+    done
   fi
 fi
 
