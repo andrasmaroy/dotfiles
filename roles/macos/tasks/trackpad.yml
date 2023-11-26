@@ -1,0 +1,16 @@
+---
+- name: Enable three finger drag for internal trackpad
+  community.general.osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key: TrackpadThreeFingerDrag
+    type: bool
+    value: true
+  notify: Activate Settings
+
+- name: Enable three finger drag for bluetooth trackpads
+  community.general.osx_defaults:
+    domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+    key: TrackpadThreeFingerDrag
+    type: bool
+    value: true
+  notify: Activate Settings
