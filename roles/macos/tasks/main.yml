@@ -40,3 +40,19 @@
       - <dict><key>HIDKeyboardModifierMappingDst</key><integer>30064771113</integer><key>HIDKeyboardModifierMappingSrc</key><integer>30064771129</integer></dict>
   notify: Activate Settings
   when: capslock_mapping.changed
+
+- name: Enable three finger drag for internal trackpad
+  community.general.osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key: TrackpadThreeFingerDrag
+    type: bool
+    value: true
+  notify: Activate Settings
+
+- name: Enable three finger drag for bluetooth trackpads
+  community.general.osx_defaults:
+    domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+    key: TrackpadThreeFingerDrag
+    type: bool
+    value: true
+  notify: Activate Settings
