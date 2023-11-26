@@ -56,3 +56,9 @@
     type: bool
     value: true
   notify: Activate Settings
+
+- name: Enable accent menu on long press
+  community.general.osx_defaults:
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: true
