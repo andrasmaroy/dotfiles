@@ -1,0 +1,16 @@
+---
+- name: Set screensaver delay to 5 minutes
+  community.general.osx_defaults:
+    domain: com.apple.screensaver
+    host: currentHost
+    key: idleTime
+    type: integer
+    value: 300
+
+- name: Show clock on screen saver
+  community.general.osx_defaults:
+    domain: com.apple.screensaver
+    host: currentHost
+    key: showClock
+    type: bool
+    value: true

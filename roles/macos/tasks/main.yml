@@ -2,3 +2,4 @@
 - ansible.builtin.import_tasks: keyboard.yml
 - ansible.builtin.import_tasks: trackpad.yml
 - ansible.builtin.import_tasks: dock.yml
+- ansible.builtin.import_tasks: screensaver.yml
