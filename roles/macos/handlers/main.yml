@@ -1,0 +1,4 @@
+---
+- name: Activate Settings
+  ansible.builtin.command: /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  changed_when: true
