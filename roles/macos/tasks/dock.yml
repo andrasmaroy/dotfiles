@@ -1,0 +1,56 @@
+---
+- name: Auto hide dock
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
+  notify: Kill Dock
+
+- name: Set dock size
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: 28
+  notify: Kill Dock
+
+- name: Disable recent apps
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: show-recents
+    type: bool
+    value: false
+  notify: Kill Dock
+
+- name: Place dock on the left
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: left
+  notify: Kill Dock
+
+- name: Disable grouping apps in expose
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: expose-group-apps
+    type: bool
+    value: false
+  notify: Kill Dock
+
+- name: Disable rearranging spaces
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mru-spaces
+    type: bool
+    value: false
+  notify: Kill Dock
+
+- name: Start screensaver on top left hot corner
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: wvous-tl-corner
+    type: integer
+    value: 5
+  notify: Kill Dock
