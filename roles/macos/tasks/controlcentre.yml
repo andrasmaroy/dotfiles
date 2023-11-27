@@ -1,0 +1,58 @@
+---
+- name: Show current day on clock
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: ShowDayOfWeek
+    type: bool
+    value: true
+  notify: Kill SystemUIServer
+
+- name: Hide date from clock
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: ShowDate
+    type: integer
+    value: 2
+  notify: Kill SystemUIServer
+
+- name: Set menubar item visibility
+  community.general.osx_defaults:
+    domain: com.apple.controlcenter
+    key: "NSStatusItem Visible {{ item.key }}"
+    type: bool
+    value: "{{ item.value }}"
+  notify: Kill SystemUIServer
+  loop: "{{ visibility | dict2items }}"
+  vars:
+    visibility:
+      Battery: true
+      BentoBox: true
+      Bluetooth: false
+      Clock: true
+      FocusModes: true
+      Item-0: false
+      Item-1: false
+      Item-2: false
+      Item-3: false
+      Item-4: false
+      Item-5: false
+      Item-6: false
+      Sound: true
+      WiFi: false
+
+- name: Set menubar item visibility
+  community.general.osx_defaults:
+    domain: com.apple.controlcenter
+    host: currentHost
+    key: "{{ item.key }}"
+    type: integer
+    value: "{{ item.value }}"
+  notify: Kill SystemUIServer
+  loop: "{{ visibility | dict2items }}"
+  vars:
+    visibility:
+      BatteryShowPercentage: 1
+      Bluetooth: 8
+      FocusModes: 18
+      Sound: 18
+      WiFi: 8
