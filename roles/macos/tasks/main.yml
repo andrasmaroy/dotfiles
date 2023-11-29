@@ -4,3 +4,4 @@
 - ansible.builtin.import_tasks: dock.yml
 - ansible.builtin.import_tasks: screensaver.yml
 - ansible.builtin.import_tasks: controlcentre.yml
+- ansible.builtin.import_tasks: finder.yml

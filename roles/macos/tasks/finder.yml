@@ -1,0 +1,104 @@
+---
+- name: Open new window in Home
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: NewWindowTarget
+    type: string
+    value: PfHm
+  notify: Restart Finder
+
+- name: Use column view
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXPreferredViewStyle
+    type: string
+    value: clmv
+  notify: Restart Finder
+
+- name: Automatically empty bin after 30 days
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXRemoveOldTrashItems
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Search in current folder by default
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FXDefaultSearchScope
+    type: string
+    value: SCcf
+  notify: Restart Finder
+
+- name: Keep directories on top
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: _FXSortFoldersFirst
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Don't create .DS_Store on network volumes
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteNetworkStores
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Don't create .DS_Store on USB volumes
+  community.general.osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteUSBStores
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Show path bar
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowPathbar
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Show sidebar
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowSidebar
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Open in new windows instead of tabs
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: FinderSpawnTab
+    type: bool
+    value: false
+  notify: Restart Finder
+
+- name: Expand save panel by default
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSNavPanelExpandedStateForSaveMode
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Expand print panel by default
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: PMPrintingExpandedStateForPrint
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Save to disk by default, instead of iCloud"
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSDocumentSaveNewDocumentsToCloud
+    type: bool
+    value: false
+  notify: Restart Finder
