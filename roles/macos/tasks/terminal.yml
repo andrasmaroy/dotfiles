@@ -1,3 +1,7 @@
 ---
-
-- 
+- name: Always show scrollbars
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowScrollBars
+    type: string
+    value: WhenScrolling
