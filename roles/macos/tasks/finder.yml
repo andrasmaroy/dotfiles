@@ -102,3 +102,18 @@
     type: bool
     value: false
   notify: Restart Finder
+
+- name: Show extensions by default
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowAllExtensions
+    type: bool
+    value: true
+  notify: Restart Finder
+
+- name: Always show scrollbars
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleShowScrollBars
+    type: string
+    value: Always

@@ -18,7 +18,7 @@
 - name: Set menubar item visibility
   community.general.osx_defaults:
     domain: com.apple.controlcenter
-    key: "NSStatusItem Visible {{ item.key }}"
+    key: NSStatusItem Visible {{ item.key }}
     type: bool
     value: "{{ item.value }}"
   notify: Kill SystemUIServer
