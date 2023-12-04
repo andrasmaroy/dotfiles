@@ -1,7 +1,7 @@
 ---
-- name: Always show scrollbars
+- name: Don't show scrollbars in terminal
   community.general.osx_defaults:
-    domain: NSGlobalDomain
+    domain: com.apple.terminal
     key: AppleShowScrollBars
     type: string
     value: WhenScrolling
