@@ -88,3 +88,11 @@
     type: int
     value: 3
   notify: Activate Settings
+
+- name: Show emoji picker with FN key
+  community.general.osx_defaults:
+    domain: com.apple.HIToolbox
+    key: AppleFnUsageType
+    type: int
+    value: 2
+  notify: Activate Settings
