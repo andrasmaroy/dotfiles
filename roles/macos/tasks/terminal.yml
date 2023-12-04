@@ -5,3 +5,10 @@
     key: AppleShowScrollBars
     type: string
     value: WhenScrolling
+
+- name: Disable long press accent menu for terminal
+  community.general.osx_defaults:
+    domain: com.apple.terminal
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
