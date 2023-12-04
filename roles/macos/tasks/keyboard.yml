@@ -46,3 +46,45 @@
     key: ApplePressAndHoldEnabled
     type: bool
     value: true
+
+- name: Disable automatic spelling correction
+  community.general.osx_defaults:
+    key: NSAutomaticSpellingCorrectionEnabled
+    type: bool
+    value: false
+  notify: Activate Settings
+
+- name: Disable automatic capitalization
+  community.general.osx_defaults:
+    key: NSAutomaticCapitalizationEnabled
+    type: bool
+    value: false
+  notify: Activate Settings
+
+- name: Disable adding full stop with double-space
+  community.general.osx_defaults:
+    key: NSAutomaticPeriodSubstitutionEnabled
+    type: bool
+    value: false
+  notify: Activate Settings
+
+- name: Disable smart quotes
+  community.general.osx_defaults:
+    key: NSAutomaticQuoteSubstitutionEnabled
+    type: bool
+    value: false
+  notify: Activate Settings
+
+- name: Disable smart dashes
+  community.general.osx_defaults:
+    key: NSAutomaticDashSubstitutionEnabled
+    type: bool
+    value: false
+  notify: Activate Settings
+
+- name: Enable keyboard navigation in modals
+  community.general.osx_defaults:
+    key: AppleKeyboardUIMode
+    type: int
+    value: 3
+  notify: Activate Settings
