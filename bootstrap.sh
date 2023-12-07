@@ -12,6 +12,8 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
       sleep 30
     done
   fi
+
+  /usr/sbin/softwareupdate --install-rosetta --agree-to-license || true
 fi
 
 # Generate SSH key if there isn't one
