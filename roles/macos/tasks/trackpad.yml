@@ -1,16 +1,392 @@
 ---
-- name: Enable three finger drag for internal trackpad
+- name: Set tracking speed
   community.general.osx_defaults:
-    domain: com.apple.AppleMultitouchTrackpad
-    key: TrackpadThreeFingerDrag
-    type: bool
-    value: true
+    domain: NSGlobalDomain
+    key: com.apple.trackpad.scaling
+    value: !!float "0.6875"
+    type: float
   notify: Activate Settings
 
-- name: Enable three finger drag for bluetooth trackpads
+- name: Set click strength
+  block:
+    - name: First click
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: FirstClickThreshold
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+    - name: Second click
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: SecondClickThreshold
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+- name: Enable force click
   community.general.osx_defaults:
-    domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
-    key: TrackpadThreeFingerDrag
+    domain: com.apple.AppleMultitouchTrackpad
+    key: ForceSuppressed
+    value: false
+    type: bool
+  notify: Activate Settings
+
+- name: Set force click haptic feedback
+  community.general.osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key: ActuateDetents
+    value: 1
+    type: integer
+  notify: Activate Settings
+
+- name: Enable lookup with force click
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.trackpad.forceClick
+    value: true
+    type: bool
+  notify: Activate Settings
+
+- name: Enable right click with 2 fingers
+  block:
+    - name: Set context menu gesture
+      community.general.osx_defaults:
+        domain: NSGlobalDomain
+        key: ContextMenuGesture
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadRightClick
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadRightClick
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Enable secondary click
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.enableSecondaryClick
+        value: true
+        type: bool
+      notify: Activate Settings
+
+- name: Enable tap to click
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: Clicking
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: Clicking
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.mouse.tapBehavior
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+- name: Enable natural scrolling
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.swipescrolldirection
+    value: true
+    type: bool
+  notify: Activate Settings
+
+- name: Enable pinch to zoom
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadPinch
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadPinch
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.pinchGesture
+        value: true
+        type: bool
+      notify: Activate Settings
+
+- name: Enable double tap to zoom
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadTwoFingerDoubleTapGesture
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadTwoFingerDoubleTapGesture
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.twoFingerDoubleTapGesture
+        value: 1
+        type: integer
+      notify: Activate Settings
+
+- name: Enable rotate gesture
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadRotate
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadRotate
+        value: true
+        type: bool
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.rotateGesture
+        value: true
+        type: bool
+      notify: Activate Settings
+
+- name: Enable swipe between pages
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleEnableSwipeNavigateWithScrolls
+    value: true
+    type: bool
+  notify: Activate Settings
+
+- name: Enable swipe between spaces
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadFourFingerHorizSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadFourFingerHorizSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.fourFingerHorizSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+- name: Enable notification center gesture
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadTwoFingerFromRightEdgeSwipeGesture
+        value: 3
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadTwoFingerFromRightEdgeSwipeGesture
+        value: 3
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture
+        value: 3
+        type: integer
+      notify: Activate Settings
+
+- name: Enable App Expose gesture
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: showAppExposeGestureEnabled
     type: bool
     value: true
-  notify: Activate Settings
+  notify: Kill Dock
+
+- name: Disable launchpad gesture
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: showLaunchpadGestureEnabled
+    type: bool
+    value: false
+  notify: Kill Dock
+
+- name: Enable mission control gesture
+  block:
+    - name: Built-in trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadFourFingerVertSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadFourFingerVertSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable setting
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.fourFingerVertSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable mission control gesture
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: showMissionControlGestureEnabled
+        type: bool
+        value: true
+      notify: Kill Dock
+
+- name: Enable show desktop pinch gesture
+  block:
+    - name: Built-in trackpad 5 finger pinch
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadFiveFingerPinchGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad 5 finger pinch
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadFiveFingerPinchGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Built-in trackpad 4 finger pinch
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadFourFingerPinchGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Bluetooth trackpad 4 finger pinch
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadFourFingerPinchGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable 4 finger pinch
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.fourFingerPinchSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable 5 finger pinch
+      community.general.osx_defaults:
+        host: currentHost
+        domain: NSGlobalDomain
+        key: com.apple.trackpad.fiveFingerPinchSwipeGesture
+        value: 2
+        type: integer
+      notify: Activate Settings
+
+    - name: Enable show desktop gesture
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: showDesktopGestureEnabled
+        type: bool
+        value: true
+      notify: Kill Dock
+
+- name: Enable dragging with 3 fingers
+  block:
+    - name: Enable three finger drag for internal trackpad
+      community.general.osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: TrackpadThreeFingerDrag
+        type: bool
+        value: true
+      notify: Activate Settings
+
+    - name: Enable three finger drag for bluetooth trackpads
+      community.general.osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: TrackpadThreeFingerDrag
+        type: bool
+        value: true
+      notify: Activate Settings
