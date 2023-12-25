@@ -5,3 +5,10 @@
     key: disable-shadow
     type: bool
     value: true
+
+- name: Disable personalized advertising
+  community.general.osx_defaults:
+    domain: com.apple.AdLib
+    key: allowApplePersonalizedAdvertising
+    type: bool
+    value: false
