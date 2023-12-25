@@ -117,3 +117,10 @@
     key: AppleShowScrollBars
     type: string
     value: Always
+
+- name: Jump to clicked part on scrollbar
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleScrollerPagingBehavior
+    type: bool
+    value: true
