@@ -6,3 +6,4 @@
 - ansible.builtin.import_tasks: controlcentre.yml
 - ansible.builtin.import_tasks: finder.yml
 - ansible.builtin.import_tasks: terminal.yml
+- ansible.builtin.import_tasks: misc.yml
