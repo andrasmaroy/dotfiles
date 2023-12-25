@@ -19,3 +19,10 @@
     key: LSQuarantine
     type: bool
     value: false
+
+- name: Play feedback when volume is changed
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: com.apple.sound.beep.feedback
+    type: integer
+    value: 1
