@@ -1,0 +1,29 @@
+---
+
+- name: Check firewall status
+  ansible.builtin.command: '/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate'
+  changed_when: false
+  register: firewall_state
+
+- name: Enable the firewall
+  ansible.builtin.command: '/usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on'
+  changed_when: true
+  when: >
+    "firewall is enabled" not in (firewall_state.stdout | default("")).lower()
+
+- name: Check firewall incoming connection settings
+  ansible.builtin.command: '/usr/libexec/ApplicationFirewall/socketfilterfw --getallowsigned'
+  changed_when: false
+  register: incoming_state
+
+- name: Disable always allow incoming connections for built-in apps
+  ansible.builtin.command: '/usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off'
+  changed_when: true
+  when: >-
+    incoming_state.stdout is search("(?m)^.*signed built-in software ENABLED\s*$")
+
+- name: Disable always allow incoming connections for other signed apps
+  ansible.builtin.command: '/usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off'
+  changed_when: true
+  when: >-
+    incoming_state.stdout is search("(?m)^.*downloaded signed software ENABLED\s*$")

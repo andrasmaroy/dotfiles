@@ -7,3 +7,5 @@
 - ansible.builtin.import_tasks: finder.yml
 - ansible.builtin.import_tasks: terminal.yml
 - ansible.builtin.import_tasks: misc.yml
+- ansible.builtin.import_tasks: firewall.yml
+  become: true
