@@ -90,16 +90,16 @@
       community.general.osx_defaults:
         domain: com.apple.AppleMultitouchTrackpad
         key: Clicking
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Bluetooth trackpad
       community.general.osx_defaults:
         domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
         key: Clicking
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Enable setting
@@ -125,16 +125,16 @@
       community.general.osx_defaults:
         domain: com.apple.AppleMultitouchTrackpad
         key: TrackpadPinch
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Bluetooth trackpad
       community.general.osx_defaults:
         domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
         key: TrackpadPinch
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Enable setting
@@ -179,16 +179,16 @@
       community.general.osx_defaults:
         domain: com.apple.AppleMultitouchTrackpad
         key: TrackpadRotate
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Bluetooth trackpad
       community.general.osx_defaults:
         domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
         key: TrackpadRotate
-        value: true
-        type: bool
+        value: 1
+        type: integer
       notify: Activate Settings
 
     - name: Enable setting
