@@ -1,0 +1,12 @@
+---
+
+- name: Get Homebrew prefix path
+  shell: PATH="/opt/homebrew/bin:$PATH" brew --prefix
+  changed_when: false
+  register: local_brew_prefix
+  check_mode: false
+
+- name: Set Homebrew prefix path
+  ansible.builtin.set_fact:
+    brew_prefix: "{{ local_brew_prefix.stdout }}"
+    cacheable: true

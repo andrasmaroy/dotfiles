@@ -38,23 +38,17 @@
     state: directory
     dest: ~/Library/Caches/org.freedesktop
 
-- name: Get Homebrew prefix path
-  shell: PATH="/opt/homebrew/bin:$PATH" brew --prefix
-  changed_when: False
-  register: brew_prefix
-  check_mode: no
-
 - name: Add bash to /etc/shells
   lineinfile:
     path: /etc/shells
-    line: "{{ brew_prefix.stdout }}/bin/bash"
-    regexp: "^{{ brew_prefix.stdout }}/bin/bash$"
+    line: "{{ brew_prefix }}/bin/bash"
+    regexp: "^{{ brew_prefix }}/bin/bash$"
   become: yes
   become_method: sudo
 
 - name: Set shell for user
   user:
     name: "{{ ansible_user_id }}"
-    shell: "{{ brew_prefix.stdout }}/bin/bash"
+    shell: "{{ brew_prefix }}/bin/bash"
   become: yes
   become_method: sudo

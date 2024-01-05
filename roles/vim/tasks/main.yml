@@ -31,14 +31,8 @@
     - swap
     - undo
 
-- name: Get Homebrew prefix path
-  shell: PATH="/opt/homebrew/bin:$PATH" brew --prefix
-  changed_when: False
-  register: brew_prefix
-  check_mode: no
-
 - name: Install YouCompleteMe
   shell:
     chdir: "~/.vim/pack/functional/start/YouCompleteMe"
-    cmd: PATH="/opt/homebrew/bin:$PATH" "{{ brew_prefix.stdout }}/bin/python3" install.py
+    cmd: PATH="/opt/homebrew/bin:$PATH" "{{ brew_prefix }}/bin/python3" install.py
     creates: "~/.vim/pack/functional/start/YouCompleteMe/third_party/ycmd/ycm_core.so"

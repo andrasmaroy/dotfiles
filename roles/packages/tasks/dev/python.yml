@@ -1,11 +1,5 @@
 ---
 
-- name: Get Homebrew prefix path
-  shell: PATH="/opt/homebrew/bin:$PATH" brew --prefix
-  changed_when: False
-  register: brew_prefix
-  check_mode: no
-
 - community.general.homebrew:
     name:
       - python
@@ -19,7 +13,7 @@
       - pipenv
       - virtualenvwrapper
     extra_args: --user
-    executable: "{{ brew_prefix.stdout }}/bin/pip3"
+    executable: "{{ brew_prefix }}/bin/pip3"
 
 - name: Link flake8 config
   file:

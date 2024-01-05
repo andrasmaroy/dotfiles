@@ -5,13 +5,6 @@
     name: fzf
   register: fzf_package
 
-- name: Get Homebrew prefix path
-  shell: PATH="/opt/homebrew/bin:$PATH" brew --prefix
-  changed_when: False
-  register: brew_prefix
-  check_mode: no
-  when: fzf_package.changed
-
 - name: Run fzf install script
-  shell: "{{ brew_prefix.stdout }}/opt/fzf/install --no-key-bindings --completion --no-update-rc"
+  shell: "{{ brew_prefix }}/opt/fzf/install --no-key-bindings --completion --no-update-rc"
   when: fzf_package.changed
