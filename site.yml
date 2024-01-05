@@ -6,6 +6,7 @@
     homebrew_taps: []
     homebrew_use_brewfile: false
   roles:
+    - macos
     - geerlingguy.mac.homebrew
     - brew_prefix_fact
     - bash
