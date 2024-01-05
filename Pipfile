@@ -6,4 +6,4 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-ansible-base = "==2.10.*"
+ansible-core = "2.15.8"
