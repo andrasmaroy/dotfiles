@@ -10,4 +10,4 @@
       - docker-completion
       - gh
       - helm
-      - kubectl@1.22
+      - kubectl
