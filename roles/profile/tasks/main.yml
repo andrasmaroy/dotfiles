@@ -1,6 +1,6 @@
 ---
 
-- import_tasks: personal.yml
+# - import_tasks: personal.yml
 # - import_tasks: logmein.yml
 # - import_tasks: sonrisa.yml
 # - import_tasks: avatao.yml
