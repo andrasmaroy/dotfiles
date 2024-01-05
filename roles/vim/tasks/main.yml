@@ -5,6 +5,7 @@
     name:
       - cmake
       - ctags
+      - python
       - vim
 
 - name: Link config files and folders
@@ -39,5 +40,5 @@
 - name: Install YouCompleteMe
   shell:
     chdir: "~/.vim/pack/functional/start/YouCompleteMe"
-    cmd: PATH="/opt/homebrew/bin:$PATH" "{{ brew_prefix.stdout }}/bin/python3 install.py"
+    cmd: PATH="/opt/homebrew/bin:$PATH" "{{ brew_prefix.stdout }}/bin/python3" install.py
     creates: "~/.vim/pack/functional/start/YouCompleteMe/third_party/ycmd/ycm_core.so"
