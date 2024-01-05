@@ -2,11 +2,8 @@
 
 - community.general.homebrew_cask:
     name:
-      - aerial
       - appcleaner
-      - bettertouchtool
       - disk-inventory-x
-      - itsycal
       - keepingyouawake
       - rectangle
     install_options: 'appdir=~/Applications'
