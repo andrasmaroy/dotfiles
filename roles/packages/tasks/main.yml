@@ -1,5 +1,9 @@
 ---
 
+- name: Install mas
+  community.general.homebrew:
+    name: mas
+
 - import_tasks: shell-utilities/bat.yml
 - import_tasks: shell-utilities/completions.yml
 - import_tasks: shell-utilities/fzf.yml
