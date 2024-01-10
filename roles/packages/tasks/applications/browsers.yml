@@ -1,5 +1,9 @@
 ---
 
+- name: Install bitwarden extension
+  community.general.mas:
+    id: 1352778147
+
 - community.general.homebrew_cask:
     name:
       - firefox

@@ -14,7 +14,7 @@
 - import_tasks: dev/python.yml
 - import_tasks: dev/tools.yml
 
-# - import_tasks: applications/browsers.yml
+- import_tasks: applications/browsers.yml
 # - import_tasks: applications/comm.yml
 - import_tasks: applications/media.yml
 - import_tasks: applications/tools.yml
