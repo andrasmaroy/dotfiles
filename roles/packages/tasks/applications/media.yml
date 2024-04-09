@@ -3,6 +3,6 @@
 - community.general.homebrew_cask:
     name:
       - vlc
-      - ytmdesktop-youtube-music
+      # - ytmdesktop-youtube-music
     install_options: 'appdir=~/Applications'
 
