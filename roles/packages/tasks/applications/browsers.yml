@@ -7,4 +7,4 @@
 - community.general.homebrew_cask:
     name:
       - firefox
-
+      - google-chrome
