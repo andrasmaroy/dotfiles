@@ -2,18 +2,13 @@
 
 - community.general.homebrew:
     name:
-      - python
-
-- pip:
-    name:
       - black
-      - isort
       - flake8
-      - pep8-naming
+      - isort
       - pipenv
+      - python
+      - python-setuptools
       - virtualenvwrapper
-    extra_args: --user
-    executable: "{{ brew_prefix }}/bin/pip3"
 
 - name: Link flake8 config
   file:
