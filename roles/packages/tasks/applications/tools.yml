@@ -3,7 +3,13 @@
 - community.general.homebrew_cask:
     name:
       - appcleaner
+      - balenaetcher
       - disk-inventory-x
+      - hiddenbar
+      # - itsycal
       - keepingyouawake
+      - monitorcontrol
+      # - mos
+      - raspberry-pi-imager
       - rectangle
     install_options: 'appdir=~/Applications'
