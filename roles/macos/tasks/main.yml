@@ -9,3 +9,6 @@
 - ansible.builtin.import_tasks: misc.yml
 - ansible.builtin.import_tasks: firewall.yml
   become: true
+
+- name: Flush handlers
+  meta: flush_handlers
