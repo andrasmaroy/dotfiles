@@ -377,13 +377,6 @@ function! InsertTabWrapper()
     endif
 endfunction
 
-" If copilot is enabled use it, otherwise use completion
-if g:copilot#Enabled() == 1
-    inoremap <silent><script><expr> <Tab> copilot#Accept("\<CR>")
-else
-    inoremap <expr> <Tab> InsertTabWrapper()
-endif
-
 inoremap <S-Tab> <C-n>
 inoremap <C-Tab> <C-x><C-]>
 
@@ -479,6 +472,10 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " Undotree
 let g:undotree_SetFocusWhenToggle = 1
 nmap <Leader>u :UndotreeToggle<CR>
+
+" Copilot
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
