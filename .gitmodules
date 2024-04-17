@@ -61,3 +61,6 @@
 [submodule "dotoverrides"]
 	path = dotoverrides
 	url = git@github.com:andrasmaroy/dotoverrides.git
+[submodule "roles/vim/files/vim/pack/functional/start/copilot.vim"]
+	path = roles/vim/files/vim/pack/functional/start/copilot.vim
+	url = https://github.com/github/copilot.vim.git
