@@ -1,0 +1,6 @@
+---
+
+- community.general.homebrew:
+    name:
+      - node
+      - typescript

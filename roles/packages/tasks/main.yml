@@ -10,6 +10,7 @@
 - import_tasks: shell-utilities/misc.yml
 
 # - import_tasks: dev/arduino.yml
+- import_tasks: dev/javascript.yml
 - import_tasks: dev/linters.yml
 - import_tasks: dev/python.yml
 - import_tasks: dev/tools.yml
