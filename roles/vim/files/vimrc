@@ -376,7 +376,14 @@ function! InsertTabWrapper()
         return "\<C-p>"
     endif
 endfunction
-inoremap <expr> <Tab> InsertTabWrapper()
+
+" If copilot is enabled use it, otherwise use completion
+if g:copilot#Enabled() == 1
+    inoremap <silent><script><expr> <Tab> copilot#Accept("\<CR>")
+else
+    inoremap <expr> <Tab> InsertTabWrapper()
+endif
+
 inoremap <S-Tab> <C-n>
 inoremap <C-Tab> <C-x><C-]>
 
