@@ -8,8 +8,8 @@
       - hiddenbar
       # - itsycal
       - keepingyouawake
+      - linearmouse
       - monitorcontrol
-      # - mos
       - raspberry-pi-imager
       - rectangle
     install_options: 'appdir=~/Applications'
