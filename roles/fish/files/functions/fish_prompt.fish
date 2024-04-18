@@ -3,9 +3,7 @@ function fish_prompt
 
     _prompt_time
 
-    if test $exit_code -ne 0 -a $exit_code -ne 146
-        echo -n "[$(set_color red)$exit_code$(set_color normal)] "
-    end
+    _prompt_status $exit_code
 
     set --local njobs (count (jobs -p))
     if test "$njobs" -gt 0
