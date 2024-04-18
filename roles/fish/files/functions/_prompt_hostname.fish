@@ -1,0 +1,2 @@
+function _prompt_hostname
+end

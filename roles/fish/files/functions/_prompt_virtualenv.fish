@@ -1,0 +1,2 @@
+function _prompt_virtualenv
+end
