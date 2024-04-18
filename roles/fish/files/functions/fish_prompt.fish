@@ -5,5 +5,5 @@ function fish_prompt
     _prompt_status $exit_code
     _prompt_jobs
     _prompt_pwd
-    echo -n "\$ "
+    _prompt_symbol
 end
