@@ -18,4 +18,6 @@ function transient_execute
     commandline --function execute
 end
 
+bind -M default -m insert \r transient_execute
 bind -M insert \r transient_execute
+bind -M replace -m insert \r transient_execute
