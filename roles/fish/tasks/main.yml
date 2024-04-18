@@ -50,7 +50,7 @@
     executable: "{{ brew_prefix.stdout }}/bin/fish"
 
 - name: Install done
-  shell:
+  ansible.builtin.shell:
     cmd: fisher install franciscolourenco/done
     creates: "~/.config/fish/conf.d/done.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
