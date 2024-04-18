@@ -32,7 +32,7 @@
   become_method: sudo
 
 - name: Install fish-async-prompt
-  shell:
+  ansible.builtin.shell:
     cmd: fisher install acomagu/fish-async-prompt
     creates: "~/.config/fish/conf.d/__async_prompt.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
