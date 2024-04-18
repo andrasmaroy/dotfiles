@@ -35,3 +35,8 @@
   shell:
     cmd: fisher install acomagu/fish-async-prompt
     creates: "~/.config/fish/conf.d/__async_prompt.fish"
+
+- name: Install fzf.fish
+  shell:
+    cmd: fisher install PatrickF1/fzf.fish
+    creates: "~/.config/fish/conf.d/fzf.fish"
