@@ -38,7 +38,7 @@
     executable: "{{ brew_prefix.stdout }}/bin/fish"
 
 - name: Install fzf.fish
-  shell:
+  ansible.builtin.shell:
     cmd: fisher install PatrickF1/fzf.fish
     creates: "~/.config/fish/conf.d/fzf.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
