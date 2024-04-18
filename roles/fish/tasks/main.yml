@@ -40,3 +40,8 @@
   shell:
     cmd: fisher install PatrickF1/fzf.fish
     creates: "~/.config/fish/conf.d/fzf.fish"
+
+- name: Install Puffer Fish
+  shell:
+    cmd: fisher install nickeb96/puffer-fish
+    creates: "~/.config/fish/conf.d/puffer_fish_key_bindings.fish"
