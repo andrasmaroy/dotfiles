@@ -30,3 +30,8 @@
     regexp: "^{{ brew_prefix.stdout }}/bin/fish$"
   become: true
   become_method: sudo
+
+- name: Install fish-async-prompt
+  shell:
+    cmd: fisher install acomagu/fish-async-prompt
+    creates: "~/.config/fish/conf.d/__async_prompt.fish"
