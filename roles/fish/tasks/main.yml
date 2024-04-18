@@ -7,7 +7,7 @@
       - fisher
 
 - name: Link fish dotfiles
-  file:
+  ansible.builtin.file:
     state: link
     src: "../../{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/fish/files/{{ item }}"
     dest: "~/.config/fish/{{ item }}"
