@@ -2,7 +2,9 @@
 
 - name: Install fish
   community.general.homebrew:
-    name: fish
+    name:
+      - fish
+      - fisher
 
 - name: Link fish dotfiles
   file:
