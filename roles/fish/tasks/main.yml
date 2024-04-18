@@ -11,7 +11,7 @@
     state: link
     src: "../../{{ playbook_dir | replace(lookup('env', 'HOME') + '/', '') }}/roles/fish/files/{{ item }}"
     dest: "~/.config/fish/{{ item }}"
-    force: yes
+    force: true
   loop:
     - config.fish
     - functions
