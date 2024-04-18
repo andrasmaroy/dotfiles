@@ -35,6 +35,7 @@
   shell:
     cmd: fisher install acomagu/fish-async-prompt
     creates: "~/.config/fish/conf.d/__async_prompt.fish"
+    executable: "{{ brew_prefix.stdout }}/bin/fish"
 
 - name: Install fzf.fish
   shell:
