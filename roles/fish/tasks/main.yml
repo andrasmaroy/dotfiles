@@ -44,7 +44,7 @@
     executable: "{{ brew_prefix.stdout }}/bin/fish"
 
 - name: Install Puffer Fish
-  shell:
+  ansible.builtin.shell:
     cmd: fisher install nickeb96/puffer-fish
     creates: "~/.config/fish/conf.d/puffer_fish_key_bindings.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
