@@ -4,14 +4,7 @@ function fish_prompt
     _prompt_time
 
     _prompt_status $exit_code
-
-    set --local njobs (count (jobs -p))
-    if test "$njobs" -gt 0
-        set_color --bold white
-        echo -n "[$njobs] "
-        set_color normal
-    end
-
+    _prompt_jobs
     _prompt_pwd
     echo -n "\$ "
 end
