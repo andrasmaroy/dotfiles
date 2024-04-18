@@ -7,6 +7,13 @@ function fish_prompt
         echo -n "[$(set_color red)$exit_code$(set_color normal)] "
     end
 
+    set --local njobs (count (jobs -p))
+    if test "$njobs" -gt 0
+        set_color --bold white
+        echo -n "[$njobs] "
+        set_color normal
+    end
+
     echo "$(set_color --bold white)$_prompt_pwd$(set_color normal)"
     echo -n "\$ "
 end
