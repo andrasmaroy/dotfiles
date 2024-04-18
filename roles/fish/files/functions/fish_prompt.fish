@@ -14,6 +14,6 @@ function fish_prompt
         set_color normal
     end
 
-    echo "$(set_color --bold white)$_prompt_pwd$(set_color normal)"
+    _prompt_pwd
     echo -n "\$ "
 end
