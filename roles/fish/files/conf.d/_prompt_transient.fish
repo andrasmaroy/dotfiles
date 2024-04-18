@@ -8,11 +8,9 @@ end
 function transient_execute
     if commandline --is-valid
         set --global TRANSIENT 1
-        _prompt_time
         commandline --function repaint
     else if test "$(commandline -b)" = "" # fix empty enter
         set --global TRANSIENT 2
-        _prompt_time
         commandline --function repaint
     else
         set --global TRANSIENT 0
