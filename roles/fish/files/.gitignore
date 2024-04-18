@@ -1,0 +1,9 @@
+conf.d/__async_prompt.fish
+conf.d/fzf.fish
+conf.d/puffer_fish_key_bindings.fish
+conf.d/done.fish
+
+functions/_fzf_*.fish
+functions/_puffer_*.fish
+functions/fisher.fish
+functions/fzf_configure_bindings.fish
