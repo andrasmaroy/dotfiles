@@ -18,7 +18,7 @@
     - conf.d
 
 - name: Get Homebrew prefix path
-  shell: brew --prefix
+  ansible.builtin.shell: brew --prefix
   changed_when: false
   register: brew_prefix
   check_mode: false
