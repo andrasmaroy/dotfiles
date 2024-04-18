@@ -24,7 +24,7 @@
   check_mode: false
 
 - name: Add fish to /etc/shells
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/shells
     line: "{{ brew_prefix.stdout }}/bin/fish"
     regexp: "^{{ brew_prefix.stdout }}/bin/fish$"
