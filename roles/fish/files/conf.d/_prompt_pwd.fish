@@ -1,4 +1,4 @@
-function _prompt_pwd --on-variable PWD
+function _prompt_pwd --on-variable PWD --on-event fish_prompt
     set --local git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
 
     if test -n $git_root
