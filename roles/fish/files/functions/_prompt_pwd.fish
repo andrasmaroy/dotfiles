@@ -10,5 +10,5 @@ function _prompt_pwd
             set --function pwd (string replace -- "$git_root_placeholder" "$git_root_shortened" "$pwd")
         end
     end
-    echo -n "$(set_color --bold white)$pwd$(set_color normal) "
+    echo -n "$(set_color --bold white)$pwd$(set_color normal)"
 end
