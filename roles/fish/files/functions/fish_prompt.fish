@@ -1,4 +1,8 @@
 function fish_prompt
+end # In case this file gets loaded non-interactively
+status is-interactive || exit
+
+function fish_prompt
     set --local exit_code $status  # save previous exit code
 
     _prompt_time
