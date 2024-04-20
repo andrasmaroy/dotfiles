@@ -33,7 +33,7 @@
 
 - name: Install fish-async-prompt
   ansible.builtin.shell:
-    cmd: fisher install acomagu/fish-async-prompt
+    cmd: fisher install andrasmaroy/fish-async-prompt
     creates: "~/.config/fish/conf.d/__async_prompt.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
 
