@@ -54,3 +54,19 @@
     cmd: fisher install franciscolourenco/done
     creates: "~/.config/fish/conf.d/done.fish"
     executable: "{{ brew_prefix.stdout }}/bin/fish"
+
+- name: Check if virtualfish is installed
+  ansible.builtin.shell:
+    cmd: vf
+    executable: "{{ brew_prefix.stdout }}/bin/fish"
+  register: vf_result
+  check_mode: false
+  changed_when: false
+  failed_when: result.rc != 0 and result.rc != 127
+
+- name: Install virtualfish
+  ansible.builtin.shell:
+    cmd: vf install
+    creates: "~/.config/fish/conf.d/virtualfish-loader.fish"
+    executable: "{{ brew_prefix.stdout }}/bin/fish"
+  when: vf_result.rc == 0
