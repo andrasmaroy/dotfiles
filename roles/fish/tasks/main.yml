@@ -16,6 +16,7 @@
     - config.fish
     - functions
     - conf.d
+    - themes
 
 - name: Get Homebrew prefix path
   ansible.builtin.shell: brew --prefix
