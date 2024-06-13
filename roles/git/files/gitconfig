@@ -78,3 +78,6 @@
 	path = ~/.dotoverrides/gitconfig
 [pull]
 	rebase = false
+[rerere]
+	enabled = true
+	autoUpdate = true
