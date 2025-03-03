@@ -99,3 +99,5 @@
 	all = true
 [commit]
 	verbose = true
+[rebase]
+	autoStash = true
