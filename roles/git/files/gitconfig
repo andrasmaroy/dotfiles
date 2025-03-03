@@ -41,12 +41,16 @@
 	conflicts = diff --name-only --diff-filter=U
 [push]
 	default = simple
+	autoSetupRemote = true
+	followTags = true
 [diff]
-	algorithm = patience
-	colorMoved = default
+	algorithm = histogram
+	colorMoved = plain
 	compactionHeuristic = true
 	guitool = p4mergetool
 	tool = vimdiff
+	mnemonicPrefix = true
+	renames = true
 [difftool]
 	prompt = false
 [difftool "p4mergetool"]
@@ -74,6 +78,7 @@
 	keepBackup = false
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = main
 [include]
 	path = ~/.dotoverrides/gitconfig
 [pull]
@@ -81,3 +86,16 @@
 [rerere]
 	enabled = true
 	autoUpdate = true
+[column]
+	branch = auto
+	tag = auto
+[branch]
+	sort = -commiterdate
+[tag]
+	sort = version:refname
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[commit]
+	verbose = true
