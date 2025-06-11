@@ -6,4 +6,4 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-ansible-core = "2.15.9"
+ansible-core = "2.17.6"
