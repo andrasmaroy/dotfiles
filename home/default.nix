@@ -13,7 +13,7 @@ let
     owner = "tmux-plugins";
     repo = "tpm";
     rev = "v3.0.0";
-    hash = lib.fakeHash;
+    hash = "sha256-qYBMDLIEkgiTFxjlF8AHn31HZ4nt/ZoeerzX70SSBaM=";
   };
 in
 {
