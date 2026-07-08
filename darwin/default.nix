@@ -2,6 +2,7 @@
 {
   imports = [
     ./homebrew.nix
+    ./defaults.nix
   ];
 
   # Shared system-level configuration applied to every host.
