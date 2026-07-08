@@ -67,10 +67,10 @@
     # packages/dev/linters
     shellcheck
 
-    # packages/dev/python
+    # packages/dev/python  (flake8/isort are not top-level attrs)
     black
-    flake8
-    isort
+    python3Packages.flake8
+    python3Packages.isort
     pipenv
     python3Packages.setuptools # was python-setuptools
     python3Packages.virtualenvwrapper
