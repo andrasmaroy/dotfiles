@@ -50,7 +50,7 @@ home/
   default.nix             # imports; home.packages (CLI); raw-symlink home.file block
   git.nix                 # programs.git  (+ home.file for githelpers, git_template/)
   ssh.nix                 # programs.ssh  (+ home.activation for ~/.ssh dirs & perms)
-  bat.nix                 # programs.bat  (theme + PlainTasks syntax vendored into files/)
+  bat.nix                 # programs.bat  (theme + PlainTasks syntax fetched at build via fetchurl)
   fzf.nix                 # programs.fzf
   # NOTE: no bash.nix / tmux.nix / vim.nix module — those are pure raw symlinks
 files/                    # raw config files, moved out of roles/*/files
@@ -108,9 +108,12 @@ native module** only when it is *fully* expressible there; otherwise it stays a
   `git_template/` stay raw files that `programs.git` references
   (`init.templateDir = ~/.git_template`; aliases keep `. ~/.githelpers`). The
   `~/.dotoverrides/gitconfig` include → `programs.git.includes`.
-- **bat requires vendoring** `Tomorrow-Night-Eighties.tmTheme` and
-  `PlainTasks.sublime-syntax` into `files/bat/` (fetched once, committed)
-  instead of `get_url` at apply time — this is what makes it declarative.
+- **bat theme/syntax are fetched at build** via `pkgs.fetchurl`, pinned by
+  upstream commit + content hash (fixed-output derivations), instead of
+  `get_url` at apply time — declarative *and* nothing from other repos is
+  committed to this (public) repo. `programs.bat` rebuilds the cache. (The
+  PlainTasks syntax is patched in a `runCommand` to add the uppercase `TODO`
+  extension the old `lineinfile` step added.)
 - **ssh:** `programs.ssh` writes `~/.ssh/config`; the directory scaffolding
   (`cm_sockets` 0700, `config.d`, `keys/personal`, `keys/work`) still needs a
   `home.activation` step. Crypto subtraction lists (`Ciphers -3des-cbc,…`) go
@@ -200,8 +203,9 @@ Notes:
   push on the `ansible-to-nix` branch during the migration and keeps validating
   `master` after cutover — no change needed at merge.
 - **Submodules off** is safe: raw configs are out-of-store symlinks (contents
-  not read at build time), and the only in-store files the native modules read
-  (`programs.bat` theme/syntax) are committed in `files/`, not in a submodule.
+  not read at build time), and the only in-store content the native modules
+  pull in (`programs.bat` theme/syntax) is fetched over the network via
+  `fetchurl` (fixed-output), not from a submodule.
   ⚠️ If an in-store file is ever moved under a submodule path, fetch that
   (public) submodule.
 - **CI host attr** is a fixed `darwinConfigurations.<host>` key we choose,

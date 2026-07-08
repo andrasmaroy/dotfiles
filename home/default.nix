@@ -8,6 +8,13 @@ let
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
 in
 {
+  imports = [
+    ./git.nix
+    ./ssh.nix
+    ./bat.nix
+    ./fzf.nix
+  ];
+
   # Per-user environment.
   #
   # home.username and home.homeDirectory are set by the nix-darwin
@@ -58,8 +65,8 @@ in
     # roles/bash
     bash
 
-    # roles/git  (dev/tools installs git-delta too -> same `delta`)
-    git
+    # roles/git  (git itself is installed by programs.git in home/git.nix;
+    # delta stays here since git.nix wires delta by hand, not via delta.enable)
     delta # was git-delta
 
     # roles/ssh
@@ -78,16 +85,14 @@ in
     # packages: install mas (Mac App Store CLI; used by homebrew.masApps)
     mas
 
-    # packages/shell-utilities/bat
-    bat
+    # packages/shell-utilities/bat -> installed by programs.bat (home/bat.nix)
 
     # packages/shell-utilities/completions
     # brew-cask-completion and pip-completion have no nixpkgs package and stay
     # as homebrew.brews (see darwin/homebrew.nix).
     bash-completion # was bash-completion@2
 
-    # packages/shell-utilities/fzf
-    fzf
+    # packages/shell-utilities/fzf -> installed by programs.fzf (home/fzf.nix)
 
     # packages/shell-utilities/misc
     bandwhich
