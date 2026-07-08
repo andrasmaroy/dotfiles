@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./homebrew.nix
@@ -8,8 +8,11 @@
 
   # Shared system-level configuration applied to every host.
 
-  # Enable flakes and the new CLI (also enabled globally by the Determinate
-  # installer, but set here so a plain Nix install works too).
+  # Let nix-darwin manage the Nix installation, using Lix as the Nix
+  # implementation (bootstrap installs Lix; nix-darwin owns it thereafter).
+  nix.package = pkgs.lix;
+
+  # Enable flakes and the new CLI in the managed nix.conf.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # home-manager wiring shared by all users/hosts: reuse the system-wide
