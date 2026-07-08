@@ -1,5 +1,9 @@
 { ... }:
 {
+  imports = [
+    ./homebrew.nix
+  ];
+
   # Shared system-level configuration applied to every host.
 
   # Enable flakes and the new CLI (also enabled globally by the Determinate
