@@ -3,9 +3,6 @@ tmux-*.log
 # Nix build outputs
 result
 result-*
-files/vim/vim/backup
-files/vim/vim/swap
-files/vim/vim/undo
 bin
 !bin/Darwin/linux
 !bin/Darwin/ansible-vault-pass
