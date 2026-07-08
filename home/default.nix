@@ -23,38 +23,36 @@ in
   # Raw dotfiles kept verbatim and symlinked into place (editable in the repo).
   # These are configs that are not fully expressible as home-manager native
   # modules (see the classification table in docs/plans/ansible-to-nix.md).
-  # NOTE: sources point at roles/*/files/* for now; Phase 6 (Ansible removal)
-  # relocates them under files/ and updates these paths.
   home.file = {
-    # roles/bash  (bash stays raw: ~400 lines of Homebrew-coupled functions
-    # that source each other by literal ~/. paths). Login shell + /etc/shells
-    # are handled by nix-darwin, not programs.bash.
-    ".bash_colors".source = link "roles/bash/files/bash_colors";
-    ".bash_profile".source = link "roles/bash/files/bash_profile";
-    ".bash_prompt".source = link "roles/bash/files/bash_prompt";
-    ".inputrc".source = link "roles/bash/files/inputrc";
+    # bash (stays raw: ~400 lines of Homebrew-coupled functions that source
+    # each other by literal ~/. paths). Login shell + /etc/shells are handled
+    # by nix-darwin, not programs.bash.
+    ".bash_colors".source = link "files/bash/bash_colors";
+    ".bash_profile".source = link "files/bash/bash_profile";
+    ".bash_prompt".source = link "files/bash/bash_prompt";
+    ".inputrc".source = link "files/bash/inputrc";
 
     # Opaque helper scripts and the external private overrides submodule.
     ".bin".source = link "bin";
     ".dotoverrides".source = link "dotoverrides";
 
-    # roles/tmux  (version/platform if-shell logic + file sourcing + TPM).
-    ".tmux-linux.conf".source = link "roles/tmux/files/tmux-linux.conf";
-    ".tmux-osx.conf".source = link "roles/tmux/files/tmux-osx.conf";
-    ".tmux.conf".source = link "roles/tmux/files/tmux.conf";
+    # tmux (version/platform if-shell logic + file sourcing + TPM).
+    ".tmux-linux.conf".source = link "files/tmux/tmux-linux.conf";
+    ".tmux-osx.conf".source = link "files/tmux/tmux-osx.conf";
+    ".tmux.conf".source = link "files/tmux/tmux.conf";
 
-    # roles/vim  (submodule plugins + compiled YouCompleteMe + copilot).
-    # YCM compilation stays a separate imperative step (see plan risks).
-    ".ctags".source = link "roles/vim/files/ctags";
-    ".gvimrc".source = link "roles/vim/files/gvimrc";
-    ".vim".source = link "roles/vim/files/vim";
-    ".vimrc".source = link "roles/vim/files/vimrc";
-    ".ycm_global_extra_conf".source = link "roles/vim/files/ycm_global_extra_conf";
+    # vim (submodule plugins + compiled YouCompleteMe + copilot). YCM
+    # compilation stays a separate manual step (see plan risks).
+    ".ctags".source = link "files/vim/ctags";
+    ".gvimrc".source = link "files/vim/gvimrc";
+    ".vim".source = link "files/vim/vim";
+    ".vimrc".source = link "files/vim/vimrc";
+    ".ycm_global_extra_conf".source = link "files/vim/ycm_global_extra_conf";
 
-    # roles/git (hybrid): the executable helper + hook template dir stay raw;
+    # git (hybrid): the executable helper + hook template dir stay raw;
     # gitconfig/ignore/attributes move to programs.git (see home/git.nix).
-    ".githelpers".source = link "roles/git/files/githelpers";
-    ".git_template".source = link "roles/git/files/git_template";
+    ".githelpers".source = link "files/git/githelpers";
+    ".git_template".source = link "files/git/git_template";
   };
 
   # CLI packages, ported 1:1 from the Ansible Homebrew formulae, grouped by the
