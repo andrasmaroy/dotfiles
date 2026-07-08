@@ -60,7 +60,7 @@ let
           vim-python-pep8-indent
           vim-surround
           vim-terraform
-          youcompleteme
+          YouCompleteMe
         ]) ++ [ tomorrowColorscheme taskpaper-vim vim-polyglot ];
         # Loaded on demand via `packadd! vim-airline` in the vimrc.
         opt = with pkgs.vimPlugins; [ vim-airline ];
