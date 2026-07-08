@@ -26,7 +26,14 @@ with `darwin-rebuild switch`.
   the flake8 config, the login shell + `/etc/shells`, `~/Library/Caches/
   org.freedesktop`, `~/.vim/{backup,swap,undo}`, and TPM (via
   `pkgs.tmuxPlugins.tpm`; plugins install on first launch).
-- **YouCompleteMe** compilation stays a manual step.
+- **vim is built by Nix** (`home/vim.nix`), reversing the original
+  "raw symlink" classification: `vimrc` via `vim-full.customize`'s `customRC`,
+  every plugin from `pkgs.vimPlugins` (incl. a nixpkgs-compiled
+  **YouCompleteMe** — no more manual `install.py`), the colorscheme fetched on
+  build, puppet support via the maintained `vim-puppet`. The 19 plugin
+  submodules (and the dead `base16-vim` `.gitmodules` stanza) are removed;
+  `cmake` is dropped from `home.packages`. The niche `vim-mikrotik` plugin is
+  dropped. `gvimrc`/`ctags`/`ycm_global_extra_conf` stay editable symlinks.
 
 ---
 
@@ -74,7 +81,8 @@ home/
   ssh.nix                 # programs.ssh  (+ home.activation for ~/.ssh dirs & perms)
   bat.nix                 # programs.bat  (theme + PlainTasks syntax fetched at build via fetchurl)
   fzf.nix                 # programs.fzf
-  # NOTE: no bash.nix / tmux.nix / vim.nix module — those are pure raw symlinks
+  vim.nix                 # pkgs.vim-full.customize (customRC + pkgs.vimPlugins, incl. YCM)
+  # NOTE: no bash.nix / tmux.nix module — those are pure raw symlinks
 files/                    # raw config files, moved out of roles/*/files
   bash/ tmux/ vim/ git/ bat/ ...
 bin/ dotoverrides/        # unchanged; symlinked via home.file (mkOutOfStoreSymlink)
@@ -118,7 +126,7 @@ native module** only when it is *fully* expressible there; otherwise it stays a
 | **`git_template/`** hooks | **raw symlink** (dir) | executable hook files; only referenced via `init.templateDir` |
 | **`bash_profile`, `bash_prompt`, `bash_colors`, `inputrc`** | **raw symlink** | ~400 lines of functions/`PROMPT_COMMAND`/`_setup_env`; files source each other by literal `~/.` path; only expressible as verbatim `initExtra`/`extraConfig` |
 | **tmux** (`tmux.conf`, `tmux-osx.conf`, `tmux-linux.conf`) | **raw symlink** | version/platform `if-shell` logic + file sourcing + TPM bootstrap |
-| **vim** (`vimrc`, `gvimrc`, `vim/`, `ctags`, `ycm_global_extra_conf`) | **raw symlink** | submodule plugins + compiled YouCompleteMe + copilot |
+| **vim** (`vimrc`, plugins, YouCompleteMe) | **native** — `pkgs.vim-full.customize` (`customRC` + `pkgs.vimPlugins`) | see Deviations: moved off raw symlinks so nixpkgs builds YCM and pins every plugin. `gvimrc`/`ctags`/`ycm_global_extra_conf` remain raw symlinks. |
 | **`bin/`, `dotoverrides`** | **raw symlink** | opaque scripts / external submodule |
 
 ### Consequences
@@ -280,9 +288,10 @@ Phase 4 as 4a/4b, plus the "port missed configs" step noted above).
 - Some casks may differ in nixpkgs/brew naming; `appdir=~/Applications` isn't
   supported by nix-darwin's homebrew module (apps land in `/Applications`) —
   confirm acceptable or script it.
-- **YouCompleteMe compilation** and the **per-keyboard caps-lock remap** are the
-  two genuinely imperative pieces; they survive as activation scripts, not pure
-  declarative config.
+- **YouCompleteMe** is now built by nixpkgs (`pkgs.vimPlugins.youcompleteme`
+  in `home/vim.nix`), so the manual `install.py` compile is gone. The
+  **per-keyboard caps-lock remap** remains the one genuinely imperative piece,
+  surviving as an activation script.
 - home-manager wants to own `~/.ssh/config` and `~/.gitconfig`; the native
   `programs.git`/`programs.ssh` approach embraces that. (`ssh` is the borderline
   native candidate — much of its crypto policy lands in `extraOptions`.)

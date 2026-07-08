@@ -22,6 +22,7 @@ in
     ./ssh.nix
     ./bat.nix
     ./fzf.nix
+    ./vim.nix
   ];
 
   # Per-user environment.
@@ -50,12 +51,10 @@ in
     ".tmux-osx.conf".source = link "files/tmux/tmux-osx.conf";
     ".tmux.conf".source = link "files/tmux/tmux.conf";
 
-    # vim (submodule plugins + compiled YouCompleteMe + copilot). YCM
-    # compilation stays a separate manual step (see plan risks).
+    # vim is built by Nix (see home/vim.nix); the vimrc is baked in via
+    # customRC and the plugin tree comes from nixpkgs. These stay editable.
     ".ctags".source = link "files/vim/ctags";
     ".gvimrc".source = link "files/vim/gvimrc";
-    ".vim".source = link "files/vim/vim";
-    ".vimrc".source = link "files/vim/vimrc";
     ".ycm_global_extra_conf".source = link "files/vim/ycm_global_extra_conf";
 
     # git (hybrid): the executable helper + hook template dir stay raw;
@@ -100,11 +99,10 @@ in
     reattach-to-user-namespace
     tmux
 
-    # roles/vim  (python is shared with dev/python -> single python3)
-    cmake
+    # roles/vim  (vim itself is built by Nix in home/vim.nix; cmake was only
+    # needed to compile YouCompleteMe, which nixpkgs now builds)
     universal-ctags # was ctags
-    python3 # was python
-    vim
+    python3 # was python (shared with dev/python)
 
     # packages: install mas (Mac App Store CLI; used by homebrew.masApps)
     mas
