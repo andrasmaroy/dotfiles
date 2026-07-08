@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# This script links all configuration files in this repository to their intended place, makes sure necessary basic tools are installed. Operation should be idempotent. On MacOS installs tools and programs defined in the Brewfile and Brewfile-work
+# Bootstrap a machine: install prerequisites (Xcode CLT, Rosetta, Homebrew,
+# Nix/Lix), clone this repo, and apply the nix-darwin + home-manager
+# configuration. Operation is idempotent; safe to re-run.
 
 set -euo pipefail
 
@@ -42,10 +44,30 @@ else
   cd "$(git rev-parse --show-toplevel)"
 fi
 
-pip3 install --user pipenv
+# Install Homebrew if missing. nix-darwin's homebrew module manages an
+# existing install (casks + Mac App Store apps); it does not install brew.
+if [ ! -x /opt/homebrew/bin/brew ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-PYTHON_USER_PATH="$(python3 -c 'import site; print(site.USER_BASE)')"
-export PATH="${PYTHON_USER_PATH}/bin:${PATH}"
-pipenv sync
-pipenv run ansible-galaxy install -r requirements.yml
-pipenv run ansible-playbook --connection=local --inventory 127.0.0.1, --ask-become-pass site.yml
+# Install Nix (Lix) if missing. nix-darwin manages Nix from here on, so use the
+# Lix installer rather than the Determinate one (which nix-darwin will not
+# manage). The installer enables flakes + the new CLI.
+if ! command -v nix &> /dev/null; then
+  curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+  # Load Nix into the current shell.
+  # shellcheck disable=SC1091
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+# Apply the configuration for this host (darwinConfigurations.<LocalHostName>).
+HOST="$(scutil --get LocalHostName)"
+readonly HOST
+if ! command -v darwin-rebuild &> /dev/null; then
+  # First run: bring up nix-darwin itself.
+  nix --extra-experimental-features 'nix-command flakes' \
+    run nix-darwin -- switch --flake ".#${HOST}"
+else
+  darwin-rebuild switch --flake ".#${HOST}"
+fi
