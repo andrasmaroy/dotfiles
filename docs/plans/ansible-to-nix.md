@@ -1,10 +1,32 @@
 # Plan: Migrate dotfiles from Ansible → Nix
 
-**Status:** Planned
+**Status:** Complete (on the `ansible-to-nix` branch; not yet merged to
+`master`). Built green in CI at every phase; not yet applied on real hardware
+with `darwin-rebuild switch`.
 **Scope:** Full replacement of the Ansible-based setup with a flake-based
 `nix-darwin` + `home-manager` configuration.
 **Branch:** `ansible-to-nix` — all work for this plan lands on this branch
 (named after the plan file), never directly on `master`.
+
+### Deviations from the original plan (recorded as built)
+
+- **Nix is managed by nix-darwin via Lix** (`nix.package = pkgs.lix`), not the
+  Determinate installer — nix-darwin refuses to manage a Determinate install.
+  `bootstrap.command` installs Nix with the Lix installer.
+- **`bootstrap.command` kept** (not renamed to `bootstrap.sh`); it now also
+  installs Homebrew (nix-darwin's `homebrew` module manages an existing brew).
+- **bat theme/syntax fetched via `fetchurl`** (pinned by commit + hash), not
+  vendored/committed.
+- **Dependabot: skipped** — no config existed, and Dependabot can't track Nix
+  flake inputs; refresh inputs with `nix flake update`.
+- **`flake.lock` not committed yet** — generated on the first bootstrap run
+  (no Nix on the dev machine to pin it beforehand); commit it afterward.
+- **CI drops `magic-nix-cache`** (sunset by Determinate).
+- **A late "port missed configs" step** caught pieces overlooked in Phases 3-4:
+  the flake8 config, the login shell + `/etc/shells`, `~/Library/Caches/
+  org.freedesktop`, `~/.vim/{backup,swap,undo}`, and TPM (via
+  `pkgs.tmuxPlugins.tpm`; plugins install on first launch).
+- **YouCompleteMe** compilation stays a manual step.
 
 ---
 
@@ -228,6 +250,8 @@ from pip to flake inputs (or a `nix flake update` cadence).
 ## Execution phases
 
 Each phase is independently verifiable with `darwin-rebuild build` (and CI).
+**All phases below are complete and green in CI** (Phase 3 landed as 3a/3b,
+Phase 4 as 4a/4b, plus the "port missed configs" step noted above).
 
 1. **Skeleton + CI.** `flake.nix` (inputs + `darwinConfigurations.<host>` +
    `formatter` output) that builds and switches as a no-op, plus
