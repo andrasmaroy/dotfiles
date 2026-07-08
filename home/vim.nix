@@ -12,6 +12,27 @@ let
     cp ${tomorrowNightEightiesVim} $out/colors/Tomorrow-Night-Eighties.vim
   '';
 
+  # Not in nixpkgs' vimPlugins set, so build from source (pinned by rev; no
+  # hash needed with fetchGit).
+  taskpaper-vim = pkgs.vimUtils.buildVimPlugin {
+    pname = "taskpaper-vim";
+    version = "2df291f";
+    src = builtins.fetchGit {
+      url = "https://github.com/davidoc/taskpaper.vim";
+      ref = "master";
+      rev = "2df291f7f40ef049d0a60151c66f11fa21b01e1c";
+    };
+  };
+  vim-polyglot = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-polyglot";
+    version = "f061edd";
+    src = builtins.fetchGit {
+      url = "https://github.com/sheerun/vim-polyglot";
+      ref = "master";
+      rev = "f061eddb7cdcc614c8406847b2bfb53099832a4e";
+    };
+  };
+
   # vim built by Nix with all plugins baked into the packpath. Replaces the raw
   # ~/.vim submodule tree and the manual YouCompleteMe compile: nixpkgs builds
   # YCM (ycm_core/ycmd) and every other plugin, pinned via flake.lock. The old
@@ -28,7 +49,6 @@ let
           copilot-vim
           fzf-vim
           goyo-vim
-          taskpaper-vim
           typescript-vim
           undotree
           vim-airline-themes
@@ -36,13 +56,12 @@ let
           vim-fugitive
           vim-gitgutter
           vim-indexed-search
-          vim-polyglot
           vim-puppet
           vim-python-pep8-indent
           vim-surround
           vim-terraform
           youcompleteme
-        ]) ++ [ tomorrowColorscheme ];
+        ]) ++ [ tomorrowColorscheme taskpaper-vim vim-polyglot ];
         # Loaded on demand via `packadd! vim-airline` in the vimrc.
         opt = with pkgs.vimPlugins; [ vim-airline ];
       };
