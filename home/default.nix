@@ -6,6 +6,15 @@ let
   # in the working tree (not copied into the Nix store).
   dotfilesDir = "${config.home.homeDirectory}/Documents/github/dotfiles";
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
+
+  # tmux plugin manager. Not packaged in nixpkgs' tmuxPlugins set, so fetch it
+  # directly, pinned to the version the Ansible role cloned.
+  tpm = pkgs.fetchFromGitHub {
+    owner = "tmux-plugins";
+    repo = "tpm";
+    rev = "v3.0.0";
+    hash = lib.fakeHash;
+  };
 in
 {
   imports = [
@@ -57,10 +66,10 @@ in
     # flake8 config (was symlinked to ~/.config/flake8 by the python role).
     ".config/flake8".source = link "files/flake8";
 
-    # tmux plugin manager. Symlinked from the nixpkgs package (was a git clone
-    # in the tmux role). The listed plugins (tmux-resurrect, tmux-continuum)
-    # install into ~/.tmux/plugins on first launch via prefix + I.
-    ".tmux/plugins/tpm".source = "${pkgs.tmuxPlugins.tpm}/share/tmux-plugins/tpm";
+    # tmux plugin manager (was a git clone in the tmux role). The listed
+    # plugins (tmux-resurrect, tmux-continuum) install into ~/.tmux/plugins on
+    # first launch via prefix + I.
+    ".tmux/plugins/tpm".source = tpm;
   };
 
   # Runtime directories the raw configs expect (were mkdir tasks in the bash
