@@ -8,6 +8,10 @@
 
   # Shared system-level configuration applied to every host.
 
+  # Allow unfree packages (e.g. the copilot.vim plugin, which is GitHub
+  # Copilot). Tighten to an allowUnfreePredicate if a narrower policy is wanted.
+  nixpkgs.config.allowUnfree = true;
+
   # Let nix-darwin manage the Nix installation, using Lix as the Nix
   # implementation (bootstrap installs Lix; nix-darwin owns it thereafter).
   nix.package = pkgs.lix;
