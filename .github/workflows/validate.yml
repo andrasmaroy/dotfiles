@@ -1,0 +1,35 @@
+name: validate
+
+# No branch filter: validates every push on the ansible-to-nix migration
+# branch now, and keeps validating master after cutover.
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    # Apple Silicon runner -> aarch64-darwin, matches /opt/homebrew and the
+    # host's nixpkgs.hostPlatform.
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        # Submodules are NOT fetched: raw dotfiles use mkOutOfStoreSymlink
+        # (path strings, not read at eval time), and this avoids auth failures
+        # on the private `dotoverrides` submodule.
+        with:
+          submodules: false
+
+      # Installs Nix with flakes enabled.
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: flake check
+        run: nix flake check
+
+      - name: formatting check
+        run: nix fmt -- --check .
+
+      # Build the system closure only (evaluate + build every derivation, no
+      # activation). Homebrew/casks/mas/defaults/firewall logic only runs on
+      # `switch`, so `build` never touches the runner.
+      - name: build system closure (no activation)
+        run: nix build .#darwinConfigurations.MC4XN2F3Y3.system --print-build-logs

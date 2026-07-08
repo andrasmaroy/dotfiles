@@ -1,4 +1,8 @@
 tmux-*.log
+
+# Nix build outputs
+result
+result-*
 roles/vim/files/vim/backup
 roles/vim/files/vim/swap
 roles/vim/files/vim/undo
