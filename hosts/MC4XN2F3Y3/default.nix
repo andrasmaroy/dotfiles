@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 let
   username = "andras.maroy";
 in
@@ -12,7 +12,10 @@ in
 
   # Owner of this machine; drives sudo/user-scoped defaults.
   system.primaryUser = username;
-  users.users.${username}.home = "/Users/${username}";
+  users.users.${username} = {
+    home = "/Users/${username}";
+    shell = pkgs.bash; # login shell (was set by the bash role)
+  };
 
   # Attach this user's home-manager configuration.
   home-manager.users.${username} = import ../../home;

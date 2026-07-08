@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   # Absolute path to this repo's working tree at runtime. bootstrap clones to
   # ~/Documents/github/dotfiles; change here if you clone elsewhere. Raw
@@ -6,6 +6,15 @@ let
   # in the working tree (not copied into the Nix store).
   dotfilesDir = "${config.home.homeDirectory}/Documents/github/dotfiles";
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
+
+  # tmux plugin manager. Not packaged in nixpkgs' tmuxPlugins set, so fetch it
+  # directly, pinned to the version the Ansible role cloned.
+  tpm = pkgs.fetchFromGitHub {
+    owner = "tmux-plugins";
+    repo = "tpm";
+    rev = "v3.0.0";
+    hash = "sha256-qYBMDLIEkgiTFxjlF8AHn31HZ4nt/ZoeerzX70SSBaM=";
+  };
 in
 {
   imports = [
@@ -53,7 +62,24 @@ in
     # gitconfig/ignore/attributes move to programs.git (see home/git.nix).
     ".githelpers".source = link "files/git/githelpers";
     ".git_template".source = link "files/git/git_template";
+
+    # flake8 config (was symlinked to ~/.config/flake8 by the python role).
+    ".config/flake8".source = link "files/flake8";
+
+    # tmux plugin manager (was a git clone in the tmux role). The listed
+    # plugins (tmux-resurrect, tmux-continuum) install into ~/.tmux/plugins on
+    # first launch via prefix + I.
+    ".tmux/plugins/tpm".source = tpm;
   };
+
+  # Runtime directories the raw configs expect (were mkdir tasks in the bash
+  # and vim roles). ~/.vim is a symlink into the repo, so the vim dirs land
+  # there, exactly as before.
+  home.activation.runtimeDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p $VERBOSE_ARG "$HOME/Library/Caches/org.freedesktop"
+    run mkdir -p $VERBOSE_ARG "$HOME/.vim/backup" "$HOME/.vim/swap" "$HOME/.vim/undo"
+    run chmod 700 $VERBOSE_ARG "$HOME/.vim/backup" "$HOME/.vim/swap" "$HOME/.vim/undo"
+  '';
 
   # CLI packages, ported 1:1 from the Ansible Homebrew formulae, grouped by the
   # role/task they came from (see docs/plans/ansible-to-nix.md). Where the

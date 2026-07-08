@@ -20,6 +20,11 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
+  # Register the (nixpkgs) bash as a valid login shell in /etc/shells; the
+  # per-user login shell is set in the host module. Was the /etc/shells +
+  # chsh steps in the bash role (Homebrew bash is no longer installed).
+  environment.shells = [ pkgs.bash ];
+
   # Backwards-compatibility marker; do not bump without reading
   # `darwin-rebuild changelog`.
   system.stateVersion = 5;
