@@ -287,8 +287,8 @@ Phase 4 as 4a/4b, plus the "port missed configs" step noted above).
 
 ## Follow-up: `config/` + `nix/` restructure
 
-**Status:** Planned — pending review before implementation; continues on the
-`ansible-to-nix` branch.
+**Status:** Complete on the `ansible-to-nix` branch (green in CI at each of the
+four phases; not yet applied on hardware).
 
 **Motivation.** After reviewing the result and other setups (notably
 `github.com/ahmedelgabri/dotfiles`), prefer a structure that leans *less* on
