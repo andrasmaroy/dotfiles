@@ -4,9 +4,8 @@
   # nix/home modules).
   home.packages = with pkgs; [
     awscli2 # AWS CLI v2
+    granted
     pnpm
     rbenv
-    # vaulted is not in nixpkgs -> installed as a Homebrew formula (see
-    # default.nix homebrew.brews).
   ];
 }
