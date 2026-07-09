@@ -1,0 +1,3 @@
+# bat configuration (each line is a `bat` command-line flag; see `bat --help`).
+# The theme is also exported as BAT_THEME by the shell — keep them in sync.
+--theme="Tomorrow-Night-Eighties"

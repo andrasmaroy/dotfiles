@@ -26,12 +26,12 @@ let
   '';
 in
 {
+  # programs.bat is kept only for the machinery: vendoring the theme/syntax and
+  # rebuilding the cache. The bat config itself is a raw, editable file under
+  # config/ (programs.bat.config is left unset, so it does not manage
+  # ~/.config/bat/config and there is no collision with the symlink below).
   programs.bat = {
     enable = true;
-
-    config = {
-      theme = "Tomorrow-Night-Eighties";
-    };
 
     themes."Tomorrow-Night-Eighties" = {
       src = themesDir;
@@ -43,4 +43,7 @@ in
       file = "PlainTasks.sublime-syntax";
     };
   };
+
+  # Raw editable bat config (in-store).
+  home.file.".config/bat/config".source = ../../config/bat/config;
 }
