@@ -41,7 +41,7 @@ let
   vim = pkgs.vim-full.customize {
     name = "vim";
     vimrcConfig = {
-      customRC = builtins.readFile ../files/vim/vimrc;
+      customRC = builtins.readFile ../../config/vim/vimrc;
       packages.dotfiles = {
         # Loaded at startup by `packloadall` (was pack/*/start submodules).
         start = (with pkgs.vimPlugins; [
