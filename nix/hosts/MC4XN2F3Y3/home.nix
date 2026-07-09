@@ -6,6 +6,7 @@
     awscli2 # AWS CLI v2
     pnpm
     rbenv
-    vaulted
+    # vaulted is not in nixpkgs -> installed as a Homebrew formula (see
+    # default.nix homebrew.brews).
   ];
 }

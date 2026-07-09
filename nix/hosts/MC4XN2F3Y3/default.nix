@@ -33,4 +33,9 @@ in
     "slack"
     "zoom"
   ];
+
+  # vaulted has no nixpkgs package, so it comes from Homebrew here.
+  homebrew.brews = [
+    "vaulted"
+  ];
 }
