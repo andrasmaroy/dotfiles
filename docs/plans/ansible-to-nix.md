@@ -333,7 +333,7 @@ flake.nix                       # unchanged (root)
 flake.lock
 nix/
   darwin/{default,homebrew,defaults,activation}.nix
-  home/{default,bat,vim}.nix    # default.nix: home.packages + in-store config symlinks + out-of-store bin/dotoverrides
+  home/                         # one module per app: bash, tmux, git, ssh, fzf, bat, vim (each owns its package + config + activation); dev + shell for config-less package groups; default.nix is a thin aggregator (imports + stateVersion + out-of-store bin/dotoverrides)
   hosts/<host>/default.nix
 config/                         # raw, editable app configs (copied in-store when symlinked)
   bash/{bash_colors,bash_profile,bash_prompt,inputrc}
