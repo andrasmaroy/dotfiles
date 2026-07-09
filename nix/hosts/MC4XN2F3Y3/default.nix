@@ -17,6 +17,20 @@ in
     shell = pkgs.bash; # login shell (was set by the bash role)
   };
 
-  # Attach this user's home-manager configuration.
-  home-manager.users.${username} = import ../../home;
+  # Attach the shared home-manager config plus this host's own module. Both are
+  # imported, so their home.packages etc. merge (see home.nix).
+  home-manager.users.${username} = {
+    imports = [
+      ../../home
+      ./home.nix
+    ];
+  };
+
+  # Casks specific to this host (merged with the common set in
+  # darwin/homebrew.nix).
+  homebrew.casks = [
+    "1password"
+    "slack"
+    "zoom"
+  ];
 }
