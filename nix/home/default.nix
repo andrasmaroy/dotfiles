@@ -19,10 +19,7 @@ let
 in
 {
   imports = [
-    ./git.nix
-    ./ssh.nix
     ./bat.nix
-    ./fzf.nix
     ./vim.nix
   ];
 
@@ -60,13 +57,26 @@ in
     ".gvimrc".source = ../../config/vim/gvimrc;
     ".ycm_global_extra_conf".source = ../../config/vim/ycm_global_extra_conf;
 
-    # git: the executable helper + hook template dir (config/git/config and the
-    # ssh config become raw files in later restructure phases).
+    # git: raw config + globals + executable helper + hook template dir.
+    # Identity (name/email/signingkey) comes from the ~/.dotoverrides/gitconfig
+    # include, not the committed config.
+    ".gitconfig".source = ../../config/git/config;
+    ".gitignore_global".source = ../../config/git/gitignore_global;
+    ".gitattributes_global".source = ../../config/git/gitattributes_global;
     ".githelpers".source = ../../config/git/githelpers;
     ".git_template".source = ../../config/git/git_template;
 
+    # ssh config (raw). The ~/.ssh dir scaffolding is created below.
+    ".ssh/config".source = ../../config/ssh/config;
+
     # flake8 config (was symlinked to ~/.config/flake8 by the python role).
     ".config/flake8".source = ../../config/flake8;
+
+    # fzf: completion only (no key bindings), sourced by the raw bash_profile.
+    # bash is not managed by programs.bash, so provide the shim directly.
+    ".fzf.bash".text = ''
+      source ${pkgs.fzf}/share/fzf/completion.bash
+    '';
 
     # tmux plugin manager (was a git clone in the tmux role). The listed
     # plugins (tmux-resurrect, tmux-continuum) install into ~/.tmux/plugins on
@@ -83,6 +93,18 @@ in
     run chmod 700 $VERBOSE_ARG "$HOME/.vim/backup" "$HOME/.vim/swap" "$HOME/.vim/undo"
   '';
 
+  # ssh directory scaffolding (was the "Create ... folder" tasks in roles/ssh;
+  # the raw ~/.ssh/config above only covers the config file). cm_sockets is
+  # locked down to 0700.
+  home.activation.sshDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p $VERBOSE_ARG \
+      "$HOME/.ssh/cm_sockets" \
+      "$HOME/.ssh/config.d" \
+      "$HOME/.ssh/keys/personal" \
+      "$HOME/.ssh/keys/work"
+    run chmod 700 $VERBOSE_ARG "$HOME/.ssh/cm_sockets"
+  '';
+
   # CLI packages, ported 1:1 from the Ansible Homebrew formulae, grouped by the
   # role/task they came from (see docs/plans/ansible-to-nix.md). Where the
   # nixpkgs attribute differs from the Homebrew formula name, the original is
@@ -91,8 +113,8 @@ in
     # roles/bash
     bash
 
-    # roles/git  (git itself is installed by programs.git in home/git.nix;
-    # delta stays here since git.nix wires delta by hand, not via delta.enable)
+    # roles/git  (raw config in config/git; delta is the pager)
+    git
     delta # was git-delta
 
     # roles/ssh
@@ -117,7 +139,8 @@ in
     # as homebrew.brews (see darwin/homebrew.nix).
     bash-completion # was bash-completion@2
 
-    # packages/shell-utilities/fzf -> installed by programs.fzf (home/fzf.nix)
+    # packages/shell-utilities/fzf  (raw ~/.fzf.bash completion shim above)
+    fzf
 
     # packages/shell-utilities/misc
     bandwhich

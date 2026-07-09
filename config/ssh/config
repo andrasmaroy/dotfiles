@@ -1,0 +1,39 @@
+# Include host specific config files from ~/.ssh/config.d
+Include config.d/*
+
+Host github.com
+    Hostname ssh.github.com
+    Port 443
+    User git
+    IdentityFile ~/.ssh/keys/personal/id_github
+
+################################################################################
+# General
+################################################################################
+Host *
+    AddressFamily inet
+    Compression yes
+    HashKnownHosts yes
+    IdentitiesOnly yes
+    PasswordAuthentication no
+    Protocol 2
+
+    # Reuse existing connections
+    ControlMaster auto
+    ControlPath ~/.ssh/cm_sockets/%r@%h:%p
+    ControlPersist 600
+
+    # Pass environment variables for bash prompt
+    SendEnv LC_LOGINHOST
+    SendEnv LC_LOGINSYSN
+    SendEnv LC_LOGINUSER
+
+    # Prevent client bug CVE-2016-0777, CVE-2016-0778
+    UseRoaming no
+
+    # Disable all the weak crypto
+    Ciphers -3des-cbc,aes128-cbc,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se
+    HostKeyAlgorithms -ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com
+    KexAlgorithms -diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group14-sha256,diffie-hellman-group-exchange-sha1,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,curve25519-sha256,sntrup4591761x25519-sha512@tinyssh.org
+    MACs -hmac-sha1,hmac-sha1-96,hmac-md5,hmac-md5-96,umac-64@openssh.com,hmac-sha1-etm@openssh.com,hmac-sha1-96-etm@openssh.com,hmac-md5-etm@openssh.com,hmac-md5-96-etm@openssh.com,umac-64-etm@openssh.com
+    PubkeyAcceptedKeyTypes -ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com
