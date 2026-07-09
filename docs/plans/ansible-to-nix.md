@@ -1,8 +1,10 @@
 # Plan: Migrate dotfiles from Ansible → Nix
 
-**Status:** Complete (on the `ansible-to-nix` branch; not yet merged to
-`master`). Built green in CI at every phase; not yet applied on real hardware
-with `darwin-rebuild switch`.
+**Status:** Migration complete on the `ansible-to-nix` branch (not yet merged
+to `master`; built green in CI at every phase; not yet applied on real
+hardware). **A follow-up `config/` + `nix/` restructure is now planned** (see
+the section at the end) — pending review before implementation, on the same
+branch.
 **Scope:** Full replacement of the Ansible-based setup with a flake-based
 `nix-darwin` + `home-manager` configuration.
 **Branch:** `ansible-to-nix` — all work for this plan lands on this branch
@@ -282,6 +284,98 @@ Phase 4 as 4a/4b, plus the "port missed configs" step noted above).
 6. **Remove Ansible.** Final full rebuild on a clean check.
 
 ---
+
+## Follow-up: `config/` + `nix/` restructure
+
+**Status:** Planned — pending review before implementation; continues on the
+`ansible-to-nix` branch.
+
+**Motivation.** After reviewing the result and other setups (notably
+`github.com/ahmedelgabri/dotfiles`), prefer a structure that leans *less* on
+home-manager's `programs.*` config *generation* and instead keeps app configs
+as raw, directly-editable files under a top-level `config/`, with `nix/`
+holding the flake/system code. Nix still owns packages, Homebrew, macOS
+defaults/activation, the login shell, and the vim build — it just *symlinks*
+the raw configs instead of generating them.
+
+### Decisions
+
+- **Minimal adoption.** Keep the current simple flake — no flake-parts, no
+  `my.*`/feature-list module framework (ahmedelgabri's heavier machinery). Just
+  the layout + raw-config philosophy.
+- **`flake.nix` stays at the repo root** (so `darwin-rebuild --flake .#<host>`
+  is unchanged); all other nix code moves under `nix/`.
+- **Config files are placed in-store** (`home.file."…".source = ../../config/…`,
+  copied into the store) — for reproducibility, rollback, and CI validation.
+  Trade-off: a config change applies only on the next `darwin-rebuild switch`;
+  editing the deployed `~` copy does nothing (read-only store symlink) and is
+  reverted on the next switch. The repo file is the sole source of truth.
+- **Two mandatory out-of-store exceptions** (`mkOutOfStoreSymlink`):
+  - **`dotoverrides`** — a *private* submodule; must never be copied into the
+    world-readable `/nix/store`, and CI builds with submodules off.
+  - **`bin`** — a directory of opaque scripts (not config); kept live-editable.
+- **Drop `programs.git` / `programs.ssh` / `programs.fzf`** in favour of raw
+  config files symlinked in. `git`/`fzf` return to `home.packages` (`openssh`
+  already there); the `~/.fzf.bash` completion shim stays.
+- **Keep `programs.bat`** for the machinery only (theme + PlainTasks syntax
+  fetched on build + automatic `bat cache --build`); leave `programs.bat.config`
+  unset and ship the bat config as a raw `config/bat/config`.
+- **vim stays nix-built** (`pkgs.vim-full.customize`, plugins from
+  `pkgs.vimPlugins`, nixpkgs-compiled YCM); the **vimrc moves to
+  `config/vim/vimrc`**, pulled in via `customRC = builtins.readFile`.
+- **git identity** stays out of the committed config via the existing
+  `[include] path = ~/.dotoverrides/gitconfig`.
+
+### Target layout
+
+```
+flake.nix                       # unchanged (root)
+flake.lock
+nix/
+  darwin/{default,homebrew,defaults,activation}.nix
+  home/{default,bat,vim}.nix    # default.nix: home.packages + in-store config symlinks + out-of-store bin/dotoverrides
+  hosts/<host>/default.nix
+config/                         # raw, editable app configs (copied in-store when symlinked)
+  bash/{bash_colors,bash_profile,bash_prompt,inputrc}
+  tmux/{tmux.conf,tmux-osx.conf,tmux-linux.conf}
+  vim/{vimrc,gvimrc,ctags,ycm_global_extra_conf}
+  git/{config,githelpers,git_template/}
+  ssh/config
+  bat/config
+  flake8
+bin/ dotoverrides/              # out-of-store; unchanged locations
+docs/plans/
+```
+
+### Per-config handling
+
+| Config | Placement | Nix handling |
+|--------|-----------|--------------|
+| bash, tmux | `config/…`, in-store | `home.file` symlink; packages in `home.packages` |
+| git (`config`, `githelpers`, `git_template/`) | `config/git/`, in-store | raw symlinks; `git` back in `home.packages`; identity via dotoverrides include |
+| ssh `config` | `config/ssh/config`, in-store | raw `~/.ssh/config`; dir-scaffolding activation unchanged |
+| bat | `config/bat/config`, in-store | `programs.bat` for theme/syntax/cache; the config itself raw |
+| fzf | — | `fzf` in `home.packages` + `~/.fzf.bash` shim |
+| vim | `config/vim/*`; vimrc via `customRC` | nix-built `vim-full.customize` + `pkgs.vimPlugins` + YCM |
+| flake8 | `config/flake8`, in-store | `~/.config/flake8` symlink |
+| bin, dotoverrides | out-of-store | `mkOutOfStoreSymlink` |
+
+### Execution phases (each green in CI before the next)
+
+1. **Scaffold `nix/` + relocate configs.** Move `darwin/`, `home/`, `hosts/`
+   under `nix/` and fix `flake.nix` module paths; move raw configs from `files/`
+   into `config/`; convert the current out-of-store symlinks to in-store
+   `source =` (except `bin`/`dotoverrides`). *Exit: builds green; layout matches
+   target.*
+2. **Revert native modules to raw.** Replace `programs.git`/`ssh`/`fzf` with raw
+   `config/` files + symlinks; restore `git`/`fzf` to `home.packages`; recreate
+   `config/git/config` and `config/ssh/config` from the current module contents.
+   *Exit: green; git aliases/delta, ssh, fzf still work on a real switch.*
+3. **bat + vim.** Point `programs.bat` at the raw `config/bat/config`; move the
+   vimrc to `config/vim/vimrc`. *Exit: green.*
+4. **Docs.** Update README paths; drop the now-empty `files/` tree.
+
+This deprecates the `files/` directory introduced during Ansible removal.
 
 ## Risks / open items
 
