@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 let
-  # Absolute path to this repo's working tree at runtime. bootstrap clones to
-  # ~/Documents/github/dotfiles; change here if you clone elsewhere. Raw
-  # configs are linked from here with mkOutOfStoreSymlink so they stay editable
-  # in the working tree (not copied into the Nix store).
+  # Out-of-store symlink helper, used only for bin (scripts) and the private
+  # dotoverrides submodule, which must NOT be copied into the world-readable
+  # Nix store. Everything else is placed in-store (see config/ symlinks below).
+  # bootstrap clones this repo to ~/Documents/github/dotfiles; change here if
+  # you clone elsewhere.
   dotfilesDir = "${config.home.homeDirectory}/Documents/github/dotfiles";
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
 
@@ -30,40 +31,42 @@ in
   # home.username and home.homeDirectory are set by the nix-darwin
   # home-manager module from the enclosing user (see hosts/<name>).
 
-  # Raw dotfiles kept verbatim and symlinked into place (editable in the repo).
-  # These are configs that are not fully expressible as home-manager native
-  # modules (see the classification table in docs/plans/ansible-to-nix.md).
+  # Raw config files, kept verbatim under config/ and symlinked into place.
+  # These are placed in-store (source = ../../config/...) so they are pinned in
+  # the closure; edit the repo file and `darwin-rebuild switch` to apply. bin
+  # and dotoverrides are the out-of-store exceptions (see `link` above).
   home.file = {
-    # bash (stays raw: ~400 lines of Homebrew-coupled functions that source
-    # each other by literal ~/. paths). Login shell + /etc/shells are handled
-    # by nix-darwin, not programs.bash.
-    ".bash_colors".source = link "files/bash/bash_colors";
-    ".bash_profile".source = link "files/bash/bash_profile";
-    ".bash_prompt".source = link "files/bash/bash_prompt";
-    ".inputrc".source = link "files/bash/inputrc";
+    # bash (raw: ~400 lines of Homebrew-coupled functions that source each
+    # other by literal ~/. paths). Login shell + /etc/shells are handled by
+    # nix-darwin, not programs.bash.
+    ".bash_colors".source = ../../config/bash/bash_colors;
+    ".bash_profile".source = ../../config/bash/bash_profile;
+    ".bash_prompt".source = ../../config/bash/bash_prompt;
+    ".inputrc".source = ../../config/bash/inputrc;
 
-    # Opaque helper scripts and the external private overrides submodule.
+    # Opaque helper scripts and the external private overrides submodule --
+    # out-of-store (never copied into /nix/store).
     ".bin".source = link "bin";
     ".dotoverrides".source = link "dotoverrides";
 
     # tmux (version/platform if-shell logic + file sourcing + TPM).
-    ".tmux-linux.conf".source = link "files/tmux/tmux-linux.conf";
-    ".tmux-osx.conf".source = link "files/tmux/tmux-osx.conf";
-    ".tmux.conf".source = link "files/tmux/tmux.conf";
+    ".tmux-linux.conf".source = ../../config/tmux/tmux-linux.conf;
+    ".tmux-osx.conf".source = ../../config/tmux/tmux-osx.conf;
+    ".tmux.conf".source = ../../config/tmux/tmux.conf;
 
-    # vim is built by Nix (see home/vim.nix); the vimrc is baked in via
-    # customRC and the plugin tree comes from nixpkgs. These stay editable.
-    ".ctags".source = link "files/vim/ctags";
-    ".gvimrc".source = link "files/vim/gvimrc";
-    ".ycm_global_extra_conf".source = link "files/vim/ycm_global_extra_conf";
+    # vim is built by Nix (see vim.nix); the vimrc lives in config/vim/vimrc and
+    # is pulled in via customRC. These extra bits stay raw.
+    ".ctags".source = ../../config/vim/ctags;
+    ".gvimrc".source = ../../config/vim/gvimrc;
+    ".ycm_global_extra_conf".source = ../../config/vim/ycm_global_extra_conf;
 
-    # git (hybrid): the executable helper + hook template dir stay raw;
-    # gitconfig/ignore/attributes move to programs.git (see home/git.nix).
-    ".githelpers".source = link "files/git/githelpers";
-    ".git_template".source = link "files/git/git_template";
+    # git: the executable helper + hook template dir (config/git/config and the
+    # ssh config become raw files in later restructure phases).
+    ".githelpers".source = ../../config/git/githelpers;
+    ".git_template".source = ../../config/git/git_template;
 
     # flake8 config (was symlinked to ~/.config/flake8 by the python role).
-    ".config/flake8".source = link "files/flake8";
+    ".config/flake8".source = ../../config/flake8;
 
     # tmux plugin manager (was a git clone in the tmux role). The listed
     # plugins (tmux-resurrect, tmux-continuum) install into ~/.tmux/plugins on
