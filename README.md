@@ -22,6 +22,18 @@ darwin-rebuild build --flake ".#$(scutil --get LocalHostName)"
 darwin-rebuild switch --flake ".#$(scutil --get LocalHostName)"
 ```
 
+## Layout
+
+- [flake.nix](flake.nix) — entry point (stays at the repo root).
+- `nix/` — the system configuration: `nix/darwin/` (nix-darwin: packages,
+  Homebrew, macOS defaults, activation), `nix/home/` (home-manager), and
+  `nix/hosts/<hostname>/` (per-machine settings).
+- `config/` — raw, directly-editable app config files (bash, tmux, vim, git,
+  ssh, bat, …). Nix symlinks these into place; most are copied into the store,
+  so edit the file here and re-run `switch` to apply.
+- `bin/`, `dotoverrides/` — scripts and the private overrides submodule,
+  symlinked out-of-store (live, not copied into the store).
+
 Each machine is a `darwinConfigurations.<hostname>` entry in
-[flake.nix](flake.nix); host-specific settings live in `hosts/<hostname>/`.
-Adding a machine means adding that directory and a line in the flake.
+[flake.nix](flake.nix). Adding a machine means adding a `nix/hosts/<hostname>/`
+directory and a line in the flake.
