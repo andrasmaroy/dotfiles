@@ -1,10 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  # GUI apps and Mac App Store apps stay on Homebrew (nixpkgs cask support on
-  # darwin is weak), but nix-darwin owns them declaratively. Ported 1:1 from
-  # the Ansible homebrew_cask / mas / brew tasks. Requires an existing Homebrew
-  # install (set up at bootstrap); nothing here runs until `darwin-rebuild
-  # switch`.
+  # The "applications" layer: GUI apps and Mac App Store apps stay on Homebrew
+  # (nixpkgs cask support on darwin is weak), but nix-darwin owns them
+  # declaratively. Ported 1:1 from the Ansible homebrew_cask / mas / brew tasks.
+  # Requires an existing Homebrew install (set up at bootstrap); nothing here
+  # runs until `darwin-rebuild switch`.
+
+  # The `mas` CLI that drives homebrew.masApps below.
+  environment.systemPackages = [ pkgs.mas ];
+
   homebrew = {
     enable = true;
 
@@ -38,7 +42,7 @@
       "vlc"
     ];
 
-    # Mac App Store apps (needs the `mas` CLI, installed via home.packages).
+    # Mac App Store apps (needs the `mas` CLI, installed above).
     masApps = {
       Bitwarden = 1352778147;
     };

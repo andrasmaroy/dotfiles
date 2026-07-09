@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # Tomorrow-Night-Eighties colorscheme, fetched on build (same upstream repo +
   # commit as the bat theme) and wrapped as a vim runtime dir on the packpath,
@@ -69,7 +69,21 @@ let
   };
 in
 {
-  # gvimrc / ctags / ycm_global_extra_conf remain editable symlinks (see
-  # home/default.nix); the vimrc is baked into the build via customRC.
-  home.packages = [ vim ];
+  home.packages = [
+    vim
+    pkgs.universal-ctags # was ctags
+  ];
+
+  # Editable vim extras (the vimrc itself is compiled into `vim` via customRC).
+  home.file = {
+    ".ctags".source = ../../config/vim/ctags;
+    ".gvimrc".source = ../../config/vim/gvimrc;
+    ".ycm_global_extra_conf".source = ../../config/vim/ycm_global_extra_conf;
+  };
+
+  # backup/swap/undo dirs the vimrc expects (0700).
+  home.activation.vimDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p $VERBOSE_ARG "$HOME/.vim/backup" "$HOME/.vim/swap" "$HOME/.vim/undo"
+    run chmod 700 $VERBOSE_ARG "$HOME/.vim/backup" "$HOME/.vim/swap" "$HOME/.vim/undo"
+  '';
 }
