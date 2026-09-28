@@ -65,9 +65,7 @@ fi
 HOST="$(scutil --get LocalHostName)"
 readonly HOST
 if ! command -v darwin-rebuild &> /dev/null; then
-  # First run: bring up nix-darwin itself.
-  nix --extra-experimental-features 'nix-command flakes' \
-    run nix-darwin -- switch --flake ".#${HOST}"
+  sudo nix run 'nix-darwin/master#darwin-rebuild' -- switch --flake ".#${HOST}"
 else
-  darwin-rebuild switch --flake ".#${HOST}"
+  sudo darwin-rebuild switch --flake ".#${HOST}"
 fi

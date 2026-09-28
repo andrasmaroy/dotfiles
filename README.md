@@ -19,7 +19,7 @@ Afterwards, to apply changes:
 # Dry run (build only, no changes to the system)
 darwin-rebuild build --flake ".#$(scutil --get LocalHostName)"
 # Apply
-darwin-rebuild switch --flake ".#$(scutil --get LocalHostName)"
+sudo darwin-rebuild switch --flake ".#$(scutil --get LocalHostName)"
 ```
 
 ## Layout
