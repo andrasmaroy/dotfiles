@@ -9,18 +9,18 @@ let
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
 in
 {
-  # Per-app modules own their own package(s), config symlinks and activation.
-  imports = [
-    ./bash.nix
-    ./tmux.nix
-    ./git.nix
-    ./ssh.nix
-    ./fzf.nix
-    ./bat.nix
-    ./vim.nix
-    ./dev.nix
-    ./shell.nix
-  ];
+  # # Per-app modules own their own package(s), config symlinks and activation.
+  # imports = [
+  #   ./bash.nix
+  #   ./tmux.nix
+  #   ./git.nix
+  #   ./ssh.nix
+  #   ./fzf.nix
+  #   ./bat.nix
+  #   ./vim.nix
+  #   ./dev.nix
+  #   ./shell.nix
+  # ];
 
   # home.username / home.homeDirectory are set by the nix-darwin home-manager
   # module from the enclosing user (see nix/hosts/<name>).

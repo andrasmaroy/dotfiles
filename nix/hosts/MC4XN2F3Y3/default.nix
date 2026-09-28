@@ -14,7 +14,7 @@ in
   system.primaryUser = username;
   users.users.${username} = {
     home = "/Users/${username}";
-    shell = pkgs.bash; # login shell (was set by the bash role)
+    # shell = pkgs.bash; # login shell (was set by the bash role)
   };
 
   # Attach the shared home-manager config plus this host's own module. Both are
@@ -22,15 +22,15 @@ in
   home-manager.users.${username} = {
     imports = [
       ../../home
-      ./home.nix
+      # ./home.nix
     ];
   };
 
-  # Casks specific to this host (merged with the common set in
-  # darwin/homebrew.nix).
-  homebrew.casks = [
-    "1password"
-    "slack"
-    "zoom"
-  ];
+  # # Casks specific to this host (merged with the common set in
+  # # darwin/homebrew.nix).
+  # homebrew.casks = [
+  #   "1password"
+  #   "slack"
+  #   "zoom"
+  # ];
 }
