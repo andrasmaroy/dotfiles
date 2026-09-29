@@ -27,7 +27,12 @@
   # Register the (nixpkgs) bash as a valid login shell in /etc/shells; the
   # per-user login shell is set in the host module. Was the /etc/shells +
   # chsh steps in the bash role (Homebrew bash is no longer installed).
-  environment.shells = [ pkgs.bash ];
+  environment.shells = [
+    pkgs.bash
+    pkgs.fish
+  ];
+
+  programs.fish.enable = true;
 
   # Backwards-compatibility marker; do not bump without reading
   # `darwin-rebuild changelog`.
