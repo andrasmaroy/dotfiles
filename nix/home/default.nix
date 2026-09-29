@@ -11,14 +11,14 @@ in
 {
   # Per-app modules own their own package(s), config symlinks and activation.
   imports = [
-  #   ./bash.nix
-  #   ./tmux.nix
-  #   ./git.nix
-  #   ./ssh.nix
-  #   ./fzf.nix
-  #   ./bat.nix
-  #   ./vim.nix
-  #   ./dev.nix
+    #   ./bash.nix
+    #   ./tmux.nix
+    #   ./git.nix
+    #   ./ssh.nix
+    #   ./fzf.nix
+    #   ./bat.nix
+    #   ./vim.nix
+    #   ./dev.nix
     ./fish.nix
     ./shell.nix
   ];
