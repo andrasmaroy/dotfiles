@@ -10,7 +10,7 @@ jobs:
   build:
     # Apple Silicon runner -> aarch64-darwin, matches /opt/homebrew and the
     # host's nixpkgs.hostPlatform.
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
         # Submodules are NOT fetched: raw dotfiles use mkOutOfStoreSymlink
