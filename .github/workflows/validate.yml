@@ -20,7 +20,7 @@ jobs:
           submodules: false
 
       # Installs Nix with flakes enabled.
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: canidae-solutions/lix-quick-install-action@v4
 
       - name: flake check
         run: nix flake check
