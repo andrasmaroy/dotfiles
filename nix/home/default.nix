@@ -1,12 +1,12 @@
-{ config, ... }:
+{ config, dotfilesDir, ... }:
 let
   # Out-of-store symlink helper, used only for bin (scripts) and the private
   # dotoverrides submodule, which must NOT be copied into the world-readable
   # Nix store. Everything else is placed in-store by the per-app modules below.
-  # bootstrap clones this repo to ~/Documents/github/dotfiles; change here if
-  # you clone elsewhere.
-  dotfilesDir = "${config.home.homeDirectory}/Documents/github/dotfiles";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${path}";
+  # dotfilesDir (the checkout path, relative to $HOME) comes from the host's
+  # home-manager.extraSpecialArgs.
+  link = path:
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDir}/${path}";
 in
 {
   # Per-app modules own their own package(s), config symlinks and activation.

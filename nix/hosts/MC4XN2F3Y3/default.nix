@@ -17,6 +17,12 @@ in
     # shell = pkgs.bash; # login shell (was set by the bash role)
   };
 
+  # Path to this repo's checkout, relative to the user's home ($HOME is
+  # prefixed in nix/home/default.nix). Set per host; change if cloned elsewhere.
+  home-manager.extraSpecialArgs = {
+    dotfilesDir = "Documents/github/dotfiles";
+  };
+
   # Attach the shared home-manager config plus this host's own module. Both are
   # imported, so their home.packages etc. merge (see home.nix).
   home-manager.users.${username} = {
