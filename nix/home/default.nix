@@ -5,8 +5,8 @@ let
   # Nix store. Everything else is placed in-store by the per-app modules below.
   # dotfilesDir (the checkout path, relative to $HOME) comes from the host's
   # home-manager.extraSpecialArgs.
-  link = path:
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDir}/${path}";
+  link =
+    path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDir}/${path}";
 in
 {
   # Per-app modules own their own package(s), config symlinks and activation.

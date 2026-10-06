@@ -17,7 +17,10 @@
   nix.package = pkgs.lix;
 
   # Enable flakes and the new CLI in the managed nix.conf.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # home-manager wiring shared by all users/hosts: reuse the system-wide
   # nixpkgs and install user packages into the user profile.

@@ -15,12 +15,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+    }:
     let
       # Build one nix-darwin system from the shared modules plus a per-host
       # module. Adding a machine = drop a nix/hosts/<name> dir and add a line to
       # darwinConfigurations below.
-      mkHost = hostModule:
+      mkHost =
+        hostModule:
         nix-darwin.lib.darwinSystem {
           modules = [
             ./nix/darwin
@@ -35,7 +42,8 @@
       };
 
       # `nix fmt` / CI formatting gate.
-      formatter = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" ]
-        (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
+      formatter = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" ] (
+        system: nixpkgs.legacyPackages.${system}.nixfmt
+      );
     };
 }

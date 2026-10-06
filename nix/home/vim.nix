@@ -44,24 +44,30 @@ let
       customRC = builtins.readFile ../../config/vim/vimrc;
       packages.dotfiles = {
         # Loaded at startup by `packloadall` (was pack/*/start submodules).
-        start = (with pkgs.vimPlugins; [
-          ale
-          copilot-vim
-          fzf-vim
-          goyo-vim
-          typescript-vim
-          undotree
-          vim-airline-themes
-          vim-commentary
-          vim-fugitive
-          vim-gitgutter
-          vim-indexed-search
-          vim-puppet
-          vim-python-pep8-indent
-          vim-surround
-          vim-terraform
-          YouCompleteMe
-        ]) ++ [ tomorrowColorscheme taskpaper-vim vim-polyglot ];
+        start =
+          (with pkgs.vimPlugins; [
+            ale
+            copilot-vim
+            fzf-vim
+            goyo-vim
+            typescript-vim
+            undotree
+            vim-airline-themes
+            vim-commentary
+            vim-fugitive
+            vim-gitgutter
+            vim-indexed-search
+            vim-puppet
+            vim-python-pep8-indent
+            vim-surround
+            vim-terraform
+            YouCompleteMe
+          ])
+          ++ [
+            tomorrowColorscheme
+            taskpaper-vim
+            vim-polyglot
+          ];
         # Loaded on demand via `packadd! vim-airline` in the vimrc.
         opt = with pkgs.vimPlugins; [ vim-airline ];
       };
