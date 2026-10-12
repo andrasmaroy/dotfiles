@@ -16,4 +16,8 @@ in
   home-manager.extraSpecialArgs = {
     dotfilesDir = "Documents/github/dotfiles";
   };
+
+  imports = [
+    ./peerflix-server.nix
+  ];
 }
