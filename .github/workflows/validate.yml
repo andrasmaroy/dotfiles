@@ -1,0 +1,25 @@
+---
+name: nix validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: false
+
+      - uses: canidae-solutions/lix-quick-install-action@v4
+
+      - name: flake check
+        run: nix flake check
+
+      - name: formatting check
+        run: nix fmt -- --ci .
+
+      - name: build system closure (no activation)
+        run: nix build .#darwinConfigurations.MC4XN2F3Y3.system --print-build-logs
