@@ -13,8 +13,15 @@ in
     home = "/Users/${username}";
   };
 
-  home-manager.extraSpecialArgs = {
-    dotfilesDir = "Documents/github/dotfiles";
+  home-manager = {
+    extraSpecialArgs = {
+      dotfilesDir = "Documents/github/dotfiles";
+    };
+    users.${username} = {
+      imports = [
+        ../../home
+      ];
+    };
   };
 
   imports = [

@@ -9,8 +9,10 @@
     "flakes"
   ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 
   system.stateVersion = 7;
 
