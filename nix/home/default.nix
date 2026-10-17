@@ -14,5 +14,6 @@ in
     ./shell.nix
     ./fish.nix
     ./ghostty.nix
+    ./atuin.nix
   ];
 }
