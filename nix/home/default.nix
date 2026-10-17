@@ -16,5 +16,7 @@ in
     ./ghostty.nix
     ./atuin.nix
     ./zoxide.nix
+    ./mise.nix
+    ./fzf.nix
   ];
 }
