@@ -21,5 +21,8 @@ jobs:
       - name: formatting check
         run: nix fmt -- --ci .
 
-      - name: build system closure (no activation)
+      - name: build system closure (MC4XN2F3Y3, no activation)
         run: nix build .#darwinConfigurations.MC4XN2F3Y3.system --print-build-logs
+
+      - name: build system closure (Andrass-MacBook-Pro, no activation)
+        run: nix build .#darwinConfigurations.Andrass-MacBook-Pro.system --print-build-logs

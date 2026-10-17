@@ -11,6 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +24,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      treefmt-nix,
     }:
     let
       mkHost =
@@ -30,6 +36,15 @@
             hostModule
           ];
         };
+
+      eachSystem = nixpkgs.lib.genAttrs [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+
+      treefmtEval = eachSystem (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
     in
     {
       darwinConfigurations = {
@@ -37,8 +52,10 @@
         MC4XN2F3Y3 = mkHost ./nix/hosts/MC4XN2F3Y3;
       };
 
-      formatter = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" ] (
-        system: nixpkgs.legacyPackages.${system}.nixfmt-tree
-      );
+      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+
+      checks = eachSystem (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
     };
 }
