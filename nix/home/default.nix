@@ -12,5 +12,6 @@ in
 
   imports = [
     ./fish.nix
+    ./ghostty.nix
   ];
 }
