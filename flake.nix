@@ -11,6 +11,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
   outputs =
@@ -19,6 +21,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      nix-homebrew,
     }:
     let
       mkHost =
