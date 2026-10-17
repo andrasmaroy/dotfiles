@@ -6,11 +6,12 @@ in
   home.stateVersion = "26.11";
 
   home.file = {
-    ".bin".source = link "bin";
     ".dotoverrides".source = link "dotoverrides";
+    ".local/bin".source = link "bin";
   };
 
   imports = [
+    ./shell.nix
     ./fish.nix
     ./ghostty.nix
   ];
