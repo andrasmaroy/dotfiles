@@ -15,5 +15,6 @@ in
     ./fish.nix
     ./ghostty.nix
     ./atuin.nix
+    ./zoxide.nix
   ];
 }
