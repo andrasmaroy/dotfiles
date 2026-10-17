@@ -1,7 +1,6 @@
 { config, dotfilesDir, ... }:
 let
-  link =
-    path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotfilesDir}/${path}";
+  inherit (import ./lib.nix { inherit config dotfilesDir; }) link;
 in
 {
   home.stateVersion = "26.11";
