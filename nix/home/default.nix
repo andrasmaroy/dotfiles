@@ -9,4 +9,8 @@ in
     ".bin".source = link "bin";
     ".dotoverrides".source = link "dotoverrides";
   };
+
+  imports = [
+    ./fish.nix
+  ];
 }
