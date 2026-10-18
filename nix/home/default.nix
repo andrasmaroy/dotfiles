@@ -18,5 +18,6 @@ in
     ./zoxide.nix
     ./mise.nix
     ./fzf.nix
+    ./bat.nix
   ];
 }
