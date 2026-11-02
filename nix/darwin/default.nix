@@ -23,6 +23,8 @@
 
   programs.fish.enable = true;
 
+  fonts.packages = [ (import ../pkgs { inherit pkgs; }).menlo-nerd-font ];
+
   imports = [
     ./settings.nix
     ./homebrew.nix
