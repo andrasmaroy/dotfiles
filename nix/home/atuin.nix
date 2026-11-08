@@ -6,8 +6,8 @@ _: {
       "--disable-up-arrow"
     ];
     settings = {
-      inline_height = 14;
       enter_accept = true;
+      inline_height = 14;
       workspaces = true;
       search.filters = [
         "workspace"
@@ -16,6 +16,29 @@ _: {
         "host"
         "global"
       ];
+      theme.name = "Tomorrow-Night-Eighties";
+    };
+    themes = {
+      Tomorrow-Night-Eighties = {
+        theme.name = "Tomorrow-Night-Eighties";
+        colors = {
+          AlertInfo = "#6699cc";
+          AlertWarn = "#ffcc66";
+          AlertError = "#f2777a";
+          Annotation = "#999999";
+          Base = "#cccccc";
+          Guidance = "#99cc99";
+          Important = "#f99157";
+          Title = "#cc99cc";
+          Muted = "#999999";
+          SyntaxCommand = "#6699cc";
+          SyntaxFlag = "#cc99cc";
+          SyntaxString = "#99cc99";
+          SyntaxVariable = "#f2777a";
+          SyntaxOperator = "#66cccc";
+          SyntaxComment = "#999999";
+        };
+      };
     };
   };
 }
