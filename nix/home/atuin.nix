@@ -8,7 +8,8 @@ _: {
     settings = {
       inline_height = 14;
       enter_accept = true;
-      filters = [
+      workspaces = true;
+      search.filters = [
         "workspace"
         "directory"
         "session"
