@@ -8,6 +8,7 @@ _: {
     settings = {
       enter_accept = true;
       inline_height = 14;
+      style = "compact";
       workspaces = true;
       search.filters = [
         "workspace"
