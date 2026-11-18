@@ -1,5 +1,14 @@
-{ pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  home.shellAliases = lib.mkIf config.programs.bat.enable {
+    cat = "bat";
+  };
+
   programs.bat = {
     enable = true;
     config = {
