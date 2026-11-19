@@ -21,6 +21,11 @@ in
       imports = [
         ../../home
       ];
+
+      programs.granted = {
+        enable = true;
+        enableFishIntegration = true;
+      };
     };
   };
 }
