@@ -69,6 +69,7 @@
 
     shellAliases = {
       ll = "eza -lahF";
+      mkdir = "mkdir -pv";
     };
 
     functions = {
@@ -204,16 +205,6 @@
         description = "Show directory tree in folder";
         body = ''
           eza --tree --only-dirs --color=always --short-nix --show-symlinks $argv | less -EFRSX
-        '';
-      };
-      mkdir = {
-        wraps = "mkdir";
-        body = ''
-          if command -q gmkdir
-              command gmkdir -pv $argv
-          else
-              command mkdir -pv $argv
-          end
         '';
       };
     }
