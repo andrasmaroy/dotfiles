@@ -19,5 +19,6 @@ in
     ./mise.nix
     ./fzf.nix
     ./bat.nix
+    ./ssh.nix
   ];
 }
