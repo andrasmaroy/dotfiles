@@ -21,5 +21,6 @@ in
     ./bat.nix
     ./ssh.nix
     ./git.nix
+    ./jq.nix
   ];
 }
