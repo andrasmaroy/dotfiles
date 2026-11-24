@@ -23,5 +23,6 @@ in
     ./git.nix
     ./jq.nix
     ./eza.nix
+    ./tealdeer.nix
   ];
 }
