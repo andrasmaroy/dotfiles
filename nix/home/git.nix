@@ -145,7 +145,7 @@ in
         diff = "delta";
         log = "delta";
         reflog = "delta";
-        show = "delta --side-by-side=150";
+        show = "delta --side-by-side";
       };
       delta = {
         "hunk-header-decoration-style" = "";
