@@ -20,5 +20,6 @@ in
     ./fzf.nix
     ./bat.nix
     ./ssh.nix
+    ./git.nix
   ];
 }

@@ -1,0 +1,2 @@
+#!/bin/sh
+"$XDG_CONFIG_HOME/git/ctags" >/dev/null 2>&1 &
