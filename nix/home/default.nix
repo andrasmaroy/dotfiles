@@ -22,5 +22,6 @@ in
     ./ssh.nix
     ./git.nix
     ./jq.nix
+    ./eza.nix
   ];
 }
