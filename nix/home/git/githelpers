@@ -77,12 +77,13 @@ pretty_git_log() {
     less --QUIT-AT-EOF --quit-if-one-screen --RAW-CONTROL-CHARS --chop-long-lines --no-init
 }
 
-# Local history plus 3 commits of context: anchored directly on
-# @{u}~3 (or origin/<branch>~3 if there's no upstream configured), so this
-# is just ref resolution and a few parent hops, never a --not-based graph
-# walk over the repo's full history.
+# Local and upstream-ahead commits (both directions of divergence) plus 3
+# commits of context before the point they diverged from: anchored on
+# merge-base(HEAD, upstream)~3 (or origin/<branch> as upstream if there's no
+# upstream configured). merge-base is a bounded common-ancestor search, not
+# a --not-based walk over the repo's full history, so this stays cheap.
 pretty_local_log() {
-  local branch='' upstream_ref='' base=''
+  local branch='' upstream_ref='' merge_base='' base=''
 
   if git rev-parse --quiet --verify '@{u}' > /dev/null 2>&1; then
     upstream_ref='@{u}'
@@ -94,23 +95,30 @@ pretty_local_log() {
   fi
 
   if [ -n "${upstream_ref}" ]; then
-    # Fall back from ~3 to ~2/~1 if there isn't that much history behind it
-    # yet; if even ~1 doesn't exist, upstream_ref is the root commit itself,
-    # so there's nothing left to exclude at all (handled below).
+    merge_base="$(git merge-base HEAD "${upstream_ref}" 2>/dev/null || true)"
+  fi
+
+  if [ -n "${merge_base}" ]; then
+    # Fall back from ~3 to ~2/~1 if there isn't that much history behind the
+    # divergence point yet; if even ~1 doesn't exist, merge_base is the repo
+    # root itself, so there's nothing left to exclude at all (handled below).
     base="$(
-      git rev-parse --quiet --verify "${upstream_ref}~3" 2>/dev/null ||
-      git rev-parse --quiet --verify "${upstream_ref}~2" 2>/dev/null ||
-      git rev-parse --quiet --verify "${upstream_ref}~1" 2>/dev/null ||
+      git rev-parse --quiet --verify "${merge_base}~3" 2>/dev/null ||
+      git rev-parse --quiet --verify "${merge_base}~2" 2>/dev/null ||
+      git rev-parse --quiet --verify "${merge_base}~1" 2>/dev/null ||
       true
     )"
   fi
 
   if [ -n "${base}" ]; then
-    pretty_git_log HEAD --not "${base}" $*
+    # Both HEAD and upstream_ref as positive endpoints: shows commits unique
+    # to either side (HEAD ahead of upstream, or upstream ahead of HEAD).
+    pretty_git_log HEAD "${upstream_ref}" --not "${base}" $*
   elif [ -n "${upstream_ref}" ]; then
-    # upstream_ref itself is (at or near) the repo root: show everything
-    # reachable from HEAD rather than excluding upstream_ref and hiding it.
-    pretty_git_log HEAD $*
+    # Either merge_base is (at or near) the repo root, or HEAD and
+    # upstream_ref share no history at all: show everything reachable from
+    # either rather than excluding anything and hiding real context.
+    pretty_git_log HEAD "${upstream_ref}" $*
   else
     # No upstream and no same-named branch on origin either: nothing to
     # anchor on, just show the most recent history.
