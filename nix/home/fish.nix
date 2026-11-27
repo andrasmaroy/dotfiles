@@ -210,7 +210,7 @@
         '';
       };
     }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       f = {
         description = "Open Finder in the specified folder";
         body = ''
