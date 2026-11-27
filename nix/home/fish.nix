@@ -31,6 +31,8 @@
     ];
 
     interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+
       # Used by the fzf.fish plugin when previewing changed files
       set -g fzf_diff_highlighter delta --paging=never --width=20
 
