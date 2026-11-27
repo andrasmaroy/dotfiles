@@ -14,6 +14,7 @@ let
     "keepingyouawake"
     "linearmouse"
     "logseq"
+    "maccy"
     "monitorcontrol"
     "orbstack"
     "p4v"

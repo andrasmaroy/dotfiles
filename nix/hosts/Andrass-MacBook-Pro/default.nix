@@ -27,7 +27,10 @@ in
   homebrew.casks = [
     "balenaetcher"
     "beeper"
+    "dropbox"
+    "owncloud"
     "raspberry-pi-imager"
+    "steam"
     "vlc"
   ];
 
