@@ -69,6 +69,13 @@
       set -g fish_cursor_visual block
     '';
 
+    binds = {
+      "^" = {
+        mode = "insert";
+        command = "_expand_quick_substitution";
+      };
+    };
+
     shellAliases = {
       ll = "eza -lahF";
       mkdir = "mkdir -pv";
@@ -106,6 +113,30 @@
             _fzf_search_directory
         else
             commandline --insert '*'
+        end
+      '';
+
+      # Bash-style quick substitution: '^old^new' replaces 'old' with 'new' in the previous command
+      # Based on https://github.com/nickeb96/puffer-fish/pull/20
+      _expand_quick_substitution = ''
+        if commandline --search-field >/dev/null
+            commandline --search-field --insert '^'
+        else
+            set -l current_token (commandline --current-token)
+            if string match --quiet --regex -- '^\^([^^]+)\^([^^]*)$' "$current_token"
+                set -l matches (string match --regex -- '^\^([^^]+)\^([^^]*)$' "$current_token")
+                set -l old $matches[2]
+                set -l new $matches[3]
+                set -l prev_cmd $history[1]
+                if string match --quiet -- "*$old*" "$prev_cmd"
+                    set -l expanded (string replace -- "$old" "$new" "$prev_cmd")
+                    commandline --current-token -- $expanded
+                else
+                    commandline --insert '^'
+                end
+            else
+                commandline --insert '^'
+            end
         end
       '';
 
