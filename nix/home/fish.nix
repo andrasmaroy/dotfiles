@@ -77,7 +77,7 @@
     };
 
     shellAliases = {
-      ll = "eza -lahF";
+      ll = "eza --long --all --header --classify=auto";
       mkdir = "mkdir -pv";
     };
 
