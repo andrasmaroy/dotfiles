@@ -74,6 +74,27 @@
         mode = "insert";
         command = "_expand_quick_substitution";
       };
+
+      up-insert = {
+        name = "up";
+        mode = "insert";
+        command = "history-prefix-search-backward";
+      };
+      down-insert = {
+        name = "down";
+        mode = "insert";
+        command = "history-prefix-search-forward";
+      };
+      up-default = {
+        name = "up";
+        mode = "default";
+        command = "history-prefix-search-backward";
+      };
+      down-default = {
+        name = "down";
+        mode = "default";
+        command = "history-prefix-search-forward";
+      };
     };
 
     shellAliases = {
