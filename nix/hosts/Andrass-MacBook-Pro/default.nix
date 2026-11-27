@@ -24,6 +24,13 @@ in
     };
   };
 
+  homebrew.casks = [
+    "balenaetcher"
+    "beeper"
+    "raspberry-pi-imager"
+    "vlc"
+  ];
+
   imports = [
     ./peerflix-server.nix
   ];

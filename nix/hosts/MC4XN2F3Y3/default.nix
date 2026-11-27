@@ -29,4 +29,15 @@ in
       };
     };
   };
+
+  homebrew.casks = [
+    "1password"
+    "appgate-sdp-client"
+    "claude"
+    "claude-code"
+    "google-chrome"
+    "slack"
+    "tableplus"
+    "zoom"
+  ];
 }
