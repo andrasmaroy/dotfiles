@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  imports = [ ./fish-prompt.nix ];
+  imports = [ ./fish-tide-prompt.nix ];
 
   programs.fish = {
     enable = true;
